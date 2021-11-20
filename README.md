@@ -148,3 +148,231 @@
 
 **3.**       **数据库设计优化**
 
+
+
+# 接口表
+
+## 页面：
+
+1. 登录
+
+   `url:api/login/`
+
+   参数：
+
+   * `userName`
+   * `userPassword`
+
+   返回值：
+
+   * `userID`
+
+     * `success`
+
+     * `message`
+
+       
+
+2. 注册
+
+3. 主页面-个人信息
+
+   * 个人信息查询
+
+     `url:api/getInformation/`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * `userName`
+     * `userAddress`
+     * `userTel`
+     * `userOrder(list)`
+     * `userLikes(list)`
+
+   * 我的当前订单
+
+     `url:api/getInformation/`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * `userName`
+     * `userAddress`
+     * `userTel`
+     * `userOrder(list)`
+     * `userLikes(list)`
+
+   * 我的历史订单
+
+     `url:api/getInformation/`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * `userName`
+     * `userAddress`
+     * `userTel`
+     * `userOrder(list)`
+     * `userLikes(list)`
+
+   * 个人收藏夹
+
+     `url:api/getInformation/`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * `userName`
+     * `userAddress`
+     * `userTel`
+     * `userOrder(list)`
+     * `userLikes(list)`
+
+   * 修改信息
+
+     `url:api/changeInformation/`
+
+     参数：
+
+     * `userID`
+     * `userName`
+     * `userTel`
+     * `userAddress`
+     * `userPassword`
+
+     返回值：
+
+     * `userName`
+     * `userAddress`
+     * `userTel`
+     * `userOrder(list)`
+     * `userLikes(list)`
+
+   * 注销用户
+
+     `url:api/logout?/`//这里不确定后端用的是哪个函数
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * `success`
+     * `message`
+
+   * 登出用户
+
+     `url:api/logout?/`//这里不确定后端用的是哪个函数
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * `success`
+     * `message`
+
+4. 主页面-商铺
+
+   * 学一到五食堂
+
+     `url:api/getShopinfomation`
+
+     参数：
+
+     * `null`//这里直接返回后端数据库中所有食堂信息
+
+     返回值：
+
+     * ` shopList(list)`
+
+5. 主页面-评价
+
+   * 菜
+
+     `url:api/getComments`
+
+     参数：
+
+     * `null`//这里直接返回后端数据库中所有食堂信息
+
+     返回值：
+
+     * ` foodCommentsList(list)`
+
+   * 快递员
+
+     * `url:api/getComments`
+
+       参数：
+
+       * `null`//这里直接返回后端数据库中所有食堂信息
+
+       返回值：
+
+       * ` posterCommentsList(list)`
+
+   * 我发表的评价
+
+     `url:api/getMyComments`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * ` myCommentsList(list)`
+
+6. 主页面-我接的单
+
+   * 我当前接的单
+
+     `url:api/getMyorderandcomments`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * ` myCommentsListNow(list)`//数据库查询中查找当前状态为未完成的
+
+   * 我历史接的单
+
+     `url:api/getMyorderandcomments`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * ` myOrderListHistory(list)`//数据库查询中查找当前状态为已完成的
+
+   * 对我的评价
+
+     `url:api/getMyorderandcomments`
+
+     参数：
+
+     * `userID`
+
+     返回值：
+
+     * ` myCommentsListNow(list)`
