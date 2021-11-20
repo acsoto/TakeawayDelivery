@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login/', myapp.views.login),
     path('api/register/', myapp.views.register),
+    path('api/getInformation/', myapp.views.getInformation),
     url(r'^', TemplateView.as_view(template_name="index.html")),
 ]
