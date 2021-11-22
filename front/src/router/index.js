@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    redirect: "/login",
+    redirect: "/test",
     //输入前面的ip地址+端口号立刻会跳转到/login,可以理解为初始界面
   },
   {

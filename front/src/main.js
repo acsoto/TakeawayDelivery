@@ -7,10 +7,9 @@ import './assets/css/icon.css'
 import installAxios from './plugins/axios'
 import ElementUI from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
-// import {DatePicker} from 'ant-design-vue/lib/date-picker'
 import Antd from 'ant-design-vue'
-// import 'ant-design-vue/lib/date-picker/style/css'
 import 'ant-design-vue/dist/antd.css'
+import 'ant-design-vue/lib'
 import * as echarts from 'echarts'
 const app = createApp(App)
 installElementPlus(app)
