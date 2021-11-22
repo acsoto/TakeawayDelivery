@@ -1,169 +1,31 @@
 <template>
   <div>
-    <div
-      class="home-body"
-      onload="dis()"
-    >
+    <a-layout id="components-layout-demo-side" style="min-height: 100vh">
 
-      <nav class="shell">
-        <ul class="buttons">
-          <li class="li">
-            <span id="userInfoz">个人信息</span>
-            <ul>
-              <li
-                @click="test()"
-                id="idtest"
-              >个人信息</li>
-              <li
-                @click="test1()"
-                id="id_order_now"
-              >当前订单</li>
-              <li
-                @click="test2()"
-                id="id_order_history"
-              >历史订单</li>
-              <li
-                @click="test3()"
-                id="likes"
-              >个人收藏夹</li>
-              <li
-                @click="test4()"
-                id="userInfo"
-              >修改登录用户密码</li>
-              <li
-                @click="test5()"
-                id="logoff"
-              >注销用户</li>
-              <li
-                @click="test6()"
-                id="logff"
-              >登出当前用户</li>
-            </ul>
-          </li>
+    <my-menu/>
 
-          <li class="li">
-            商铺速览
-            <ul>
-              <li>学一食堂</li>
-              <li>学二食堂</li>
-              <li>学三食堂</li>
-              <li>学四食堂</li>
-              <li>学五食堂</li>
-            </ul>
-          </li>
-
-          <li class="li">
-            评价列表
-            <ul>
-              <li id="sssss">菜品评价</li>
-              <li>速递员评价</li>
-              <li>我的评价</li>
-            </ul>
-          </li>
-
-          <li class="li">
-            我接的单
-            <ul>
-              <li>当前订单</li>
-              <li>历史订单</li>
-              <li>收到的评价</li>
-            </ul>
-          </li>
-        </ul>
-
-      </nav>
-
-      <table
-        id="table"
-        class="hovertable"
-        border="1"
-      >
-        <tr>
-          <th>ID</th>
-          <th>NAME</th>
-          <th>TEL</th>
-          <th>ADDRESS</th>
-        </tr>
-        <tr
-          onmouseover="this.style.backgroundColor='#ffff66';"
-          onmouseout="this.style.backgroundColor='#d4e3e5';"
-        >
-          <td id="tr1">ID</td>
-          <td id="tr2">NAME</td>
-          <td id="tr3">TEL</td>
-          <td id="tr4">ADDRESS</td>
-        </tr>
-        <!--    <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">-->
-        <!--        <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>-->
-        <!--    </tr>-->
-        <!--    <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">-->
-        <!--        <td>Item 3A</td><td>Item 3B</td><td>Item 3C</td>-->
-        <!--    </tr>-->
-        <!--    <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">-->
-        <!--        <td>Item 4A</td><td>Item 4B</td><td>Item 4C</td>-->
-        <!--    </tr>-->
-        <!--    <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">-->
-        <!--        <td>Item 5A</td><td>Item 5B</td><td>Item 5C</td>-->
-        <!--    </tr>-->
-      </table>
-
-      <table
-        id="table1"
-        class="hovertable"
-        border="1"
-      >
-        <tr>
-          <th>ORDER_NOW</th>
-        </tr>
-        <tr
-          onmouseover="this.style.backgroundColor='#ffff66';"
-          onmouseout="this.style.backgroundColor='#d4e3e5';"
-        >
-          <td id="tr1_1">ID</td>
-        </tr>
-
-      </table>
-      <table
-        id="table2"
-        class="hovertable"
-        border="1"
-      >
-        <tr>
-          <th>ORDER_HISTORY</th>
-        </tr>
-        <tr
-          onmouseover="this.style.backgroundColor='#ffff66';"
-          onmouseout="this.style.backgroundColor='#d4e3e5';"
-        >
-          <td id="tr1_2">ID</td>
-        </tr>
-
-      </table>
-      <table
-        id="table3"
-        class="hovertable"
-        border="1"
-      >
-        <tr>
-          <th>LIKES</th>
-        </tr>
-        <tr
-          onmouseover="this.style.backgroundColor='#ffff66';"
-          onmouseout="this.style.backgroundColor='#d4e3e5';"
-        >
-          <td id="tr1_3">ID</td>
-        </tr>
-
-      </table>
-    </div>
+      <a-layout>
+    <router-view v-slot="{ Component }">
+      <transition name="move" mode="out-in">
+        <keep-alive >
+          <component :is="Component" />
+        </keep-alive>
+      </transition>
+    </router-view>
+      </a-layout>
+    </a-layout>
   </div>
 </template>
 
 <script>
+import MyMenu from '../components/Menu'
 export default {
+  components:{
+    MyMenu,
+  },
   data() {
     return {
-
+      collapsed: true,
     };
   },
   created() {

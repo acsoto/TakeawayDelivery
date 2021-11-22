@@ -33,15 +33,34 @@ const routes = [
         /* webpackChunkName: "login" */
         "../views/Home.vue"
       ),
+    children: [
+        {
+          path: "test",
+          name: "test",
+          meta: {
+            title: '个人中心',
+            keepAlive: true
+          },
+          component: () => import("../views/test")
+        },
+      {
+        path: "userinfo",
+        name: "userinfo",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/UserInfo")
+      },
+      ],
   },
-  {
-    path: "/test",
-    name: "Test",
-    component: () =>
-        import(
-            "../views/test"
-            ),
-  },
+  // {
+  //   path: "/test",
+  //   name: "Test",
+  //   component: () =>
+  //       import(
+  //           "../views/test"
+  //           ),
+  // },
   {
     path: "/zoumadeng",
     name: "Zoumadeng",
@@ -49,7 +68,27 @@ const routes = [
         import(
             "../views/zoumadeng"
             ),
-  }
+  },
+  // {
+  //   path: "/test",
+  //   name: "test",
+  //   component: () =>
+  //       import(
+  //           "../views/test"
+  //           ),
+  //   children: [
+  //     {
+  //       path: "/zoumadeng",
+  //       name: "zoumadeng",
+  //       meta: {
+  //         title: '个人中心',
+  //         requireAuth: true,
+  //         keepAlive: true
+  //       },
+  //       component: () => import("../views/zoumadeng")
+  //     },
+  //   ],
+  // }
   //一个父子组件的案例
   // {
   //   path: "/",
