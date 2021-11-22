@@ -5,7 +5,7 @@
       <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
         <a-sub-menu key="sub1">
           <template v-slot:title>
-            <a-icon type="pie-chart" />
+            <a-icon type="pie-chart" ></a-icon>
             <span>个人中心</span>
           </template>
           <a-menu-item key="1">
