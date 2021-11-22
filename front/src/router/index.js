@@ -34,6 +34,22 @@ const routes = [
         "../views/Home.vue"
       ),
   },
+  {
+    path: "/test",
+    name: "Test",
+    component: () =>
+        import(
+            "../views/test"
+            ),
+  },
+  {
+    path: "/zoumadeng",
+    name: "Zoumadeng",
+    component: () =>
+        import(
+            "../views/zoumadeng"
+            ),
+  }
   //一个父子组件的案例
   // {
   //   path: "/",

@@ -5,6 +5,12 @@ import store from './store'
 import installElementPlus from './plugins/element'
 import './assets/css/icon.css'
 import installAxios from './plugins/axios'
+import ElementUI from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
+// import {DatePicker} from 'ant-design-vue/lib/date-picker'
+import Antd from 'ant-design-vue'
+// import 'ant-design-vue/lib/date-picker/style/css'
+import 'ant-design-vue/dist/antd.css'
 import * as echarts from 'echarts'
 const app = createApp(App)
 installElementPlus(app)
@@ -13,7 +19,9 @@ app.config.globalProperties.$echarts = echarts
 app
     .use(store)
     .use(router)
-    .mount('#app')
+    .use(ElementUI)
+    .use(Antd)
+    .mount('#app');
 
 router.beforeEach((to, from, next) => {
     if(to.matched.some(res => res.meta.requireAuth)){
@@ -22,9 +30,9 @@ router.beforeEach((to, from, next) => {
         }
         else{
             next({path: '/login',
-            query: {redirect: to.fullPath} 
+            query: {redirect: to.fullPath}
         });
-           
+
         }
     }
     else{

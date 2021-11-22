@@ -21,6 +21,15 @@
         "vuex": "~4.0.0",
         "vuex-persistedstate": "^4.0.0-beta.3"
     },
+    "dependencies": {
+        "react-dom": "latest",
+        "react": "latest",
+        "moment": "latest",
+        "antd": "latest"
+    },
+    "keywords": [],
+    "name": "antd-reproduction-template",
+    "description": "",
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.11",
         "@vue/cli-plugin-eslint": "~4.5.11",
