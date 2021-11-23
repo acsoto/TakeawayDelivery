@@ -52,17 +52,51 @@ def register(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
+def getOrders(user):
+    orders = Order.objects.filter(order_user_id=user.user_id)
+    return orders
+
+
+def getStarFood(user):
+    stars = Star.objects.filter(user_id=user.user_id)
+    star_food = []
+    for star in stars:
+        star_food.append(StarFood.objects.filter(star_id=star.star_id))
+    return star_food
+
+
 def getInformation(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         user = User.objects.filter(user_id=user_id)[0]
-        orders = Order.objects.filter(order_user_id=user_id)
-        stars = Star.objects.filter(user_id=user_id)
-        star_food = []
-        for star in stars:
-            star_food.append(StarFood.objects.filter(star_id=star.star_id))
+        orders = getOrders(user)
+        star_food = getStarFood(user)
         return JsonResponse({'userName': user.user_name,
+                             'userNickName': user.user_nickname,
+                             'userAddress': user.user_address,
+                             'userTel': user.user_tel,
+                             'userOrder': orders,
+                             'userLikes': star_food
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def changeInformation(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user = User.objects.filter(user_id=user_id)[0]
+        user.user_nickname = data_json.get('userNickName')
+        user.user_password = data_json.get('userPassword')
+        user.user_tel = data_json.get('userTel')
+        user.user_address = data_json.get('userAddress')
+        user.save()
+        orders = getOrders(user)
+        star_food = getStarFood(user)
+        return JsonResponse({'userName': user.user_name,
+                             'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
                              'userOrder': orders,
