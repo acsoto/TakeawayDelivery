@@ -7,7 +7,7 @@
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>订单查询</a-breadcrumb-item>
       </a-breadcrumb>
-      <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
+      <div :style="{ padding: '24px', background: '#fff', minHeight: '500px' }">
         <a-table :columns="columns" :data-source="data">
           <template #headerCell="{ column }">
             <template v-if="column.key === 'name'">

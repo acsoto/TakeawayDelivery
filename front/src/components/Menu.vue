@@ -9,19 +9,19 @@
           <span v-if="collapsed">个人中心</span>
         </template>
         <a-menu-item key="1">
-          <!--          <i class="el-icon-delete"></i>-->
           <router-link to="/home/userinfo">
             个人信息
           </router-link>
         </a-menu-item>
         <a-menu-item key="2">
-
           <router-link to="/home/orderquery">
             订单查询
           </router-link>
         </a-menu-item>
         <a-menu-item key="3">
-          我的最爱
+          <router-link to="/home/userstar">
+            我的最爱
+          </router-link>
         </a-menu-item>
         <a-menu-item key="4">
           修改信息

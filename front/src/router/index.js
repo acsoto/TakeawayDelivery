@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    redirect: "/test",
+    redirect: "/home",
     //输入前面的ip地址+端口号立刻会跳转到/login,可以理解为初始界面
   },
   {
@@ -58,6 +58,14 @@ const routes = [
           keepAlive: true
         },
         component: () => import("../views/OrderQuery")
+      },
+      {
+        path: "userstar",
+        name: "userstar",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/UserStar")
       },
       ],
   },

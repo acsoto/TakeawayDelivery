@@ -6,11 +6,9 @@
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>个人信息</a-breadcrumb-item>
-        <!--          <a-breadcrumb-item>User</a-breadcrumb-item>-->
-        <!--          <a-breadcrumb-item>Bill</a-breadcrumb-item>-->
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-
+<!--        TODO-->
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">

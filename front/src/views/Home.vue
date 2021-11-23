@@ -1,9 +1,7 @@
 <template>
   <div>
     <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-
     <my-menu/>
-
       <a-layout>
     <router-view v-slot="{ Component }">
       <transition name="move" mode="out-in">
