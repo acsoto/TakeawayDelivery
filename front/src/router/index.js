@@ -51,6 +51,14 @@ const routes = [
         },
         component: () => import("../views/UserInfo")
       },
+      {
+        path: "orderquery",
+        name: "orderquery",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/OrderQuery")
+      },
       ],
   },
   // {

@@ -17,7 +17,7 @@
         </a-menu-item>
         <a-menu-item key="2">
 
-          <router-link to="/home/test">
+          <router-link to="/home/orderquery">
             订单查询
           </router-link>
         </a-menu-item>

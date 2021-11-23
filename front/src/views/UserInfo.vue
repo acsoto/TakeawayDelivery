@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style>
-#components-layout-demo-side .logo {
+#components-layout-demo-side {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
@@ -41,13 +41,5 @@ export default {
   opacity: 0.75;
   line-height: 200px;
   margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n+1) {
-  background-color: #d3dce6;
 }
 </style>
