@@ -34,8 +34,8 @@ class FoodEvaluate(models.Model):
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     order_completed = models.IntegerField()
-    order_user = models.ForeignKey('User', models.DO_NOTHING)
-    delivery_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+    order_user = models.ForeignKey('User', models.DO_NOTHING, related_name='order_user_1')
+    delivery_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True, related_name='order_user_2')
 
     class Meta:
         managed = False
