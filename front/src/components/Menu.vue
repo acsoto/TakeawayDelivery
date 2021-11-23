@@ -33,7 +33,9 @@
           用户注销
         </a-menu-item>
         <a-menu-item key="7">
-          用户登出
+          <router-link to="/login">
+            用户登出
+          </router-link>
         </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
@@ -43,19 +45,29 @@
           <span v-if="collapsed">商铺</span>
         </template>
         <a-menu-item key="8">
-          学一食堂
+          <router-link to="/home/restaurant1">
+            学一食堂
+          </router-link>
         </a-menu-item>
         <a-menu-item key="9">
-          学二食堂
+          <router-link to="/home/restaurant2">
+            学二食堂
+          </router-link>
         </a-menu-item>
         <a-menu-item key="10">
-          学三食堂
+          <router-link to="/home/restaurant3">
+            学三食堂
+          </router-link>
         </a-menu-item>
         <a-menu-item key="11">
-          学四食堂
+          <router-link to="/home/restaurant4">
+            学四食堂
+          </router-link>
         </a-menu-item>
         <a-menu-item key="12">
-          学五食堂
+          <router-link to="/home/restaurant5">
+            学五食堂
+          </router-link>
         </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub3">
@@ -85,7 +97,16 @@
           历史订单
         </a-menu-item>
       </a-sub-menu>
-      <a-menu-item key="18">
+      <a-sub-menu key="sub5">
+        <template v-slot:title><a-icon type="team" />
+          <SettingOutlined />
+          <span v-if="collapsed">系统设置</span>
+        </template>
+        <a-menu-item key="18">
+          开发团队
+        </a-menu-item>
+      </a-sub-menu>
+      <a-menu-item key="19">
         <CoffeeOutlined />
         <span>暂未想好写什么的一栏</span>
       </a-menu-item>
@@ -99,7 +120,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { UserOutlined, ShoppingCartOutlined, CommentOutlined, CarOutlined, CoffeeOutlined } from '@ant-design/icons-vue';
+import { UserOutlined, ShoppingCartOutlined, CommentOutlined, CarOutlined, CoffeeOutlined, SettingOutlined } from '@ant-design/icons-vue';
 export default defineComponent({
   name: "Menu",
   data() {
@@ -119,6 +140,7 @@ export default defineComponent({
     CommentOutlined,
     CarOutlined,
     CoffeeOutlined,
+    SettingOutlined,
   },
 });
 </script>
