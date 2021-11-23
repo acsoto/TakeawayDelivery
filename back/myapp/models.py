@@ -12,6 +12,7 @@ class Food(models.Model):
     food_id = models.AutoField(primary_key=True)
     food_name = models.CharField(max_length=100, blank=True, null=True)
     food_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    food_url = models.CharField(max_length=200, blank=True, null=True)
     store = models.ForeignKey('Store', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
@@ -32,9 +33,9 @@ class FoodEvaluate(models.Model):
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
+    order_completed = models.IntegerField()
     order_user = models.ForeignKey('User', models.DO_NOTHING)
     delivery_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    order_completed = models.IntegerField()
 
     class Meta:
         managed = False
