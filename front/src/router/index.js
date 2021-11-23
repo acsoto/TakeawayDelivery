@@ -107,6 +107,14 @@ const routes = [
         },
         component: () => import("../views/Restaurant5")
       },
+      {
+        path: "discussion",
+        name: "discussion",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/Discussion")
+      }
       ],
   },
   {

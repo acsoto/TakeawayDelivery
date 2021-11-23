@@ -76,7 +76,9 @@
           <span v-if="collapsed">讨论区</span>
         </template>
         <a-menu-item key="13">
-          菜品贴
+          <router-link to="/home/discussion">
+            菜品贴
+          </router-link>
         </a-menu-item>
         <a-menu-item key="14">
           与我有关的

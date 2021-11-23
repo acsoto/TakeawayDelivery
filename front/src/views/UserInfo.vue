@@ -13,7 +13,7 @@
     </a-layout-content>
     <a-layout-footer style="text-align: center">
       <!--        Ant Design ©2018 Created by Ant UED-->
-      ©2021 Powered by zzh company
+      ©For the King of Alxa
     </a-layout-footer>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style>
-#components-layout-demo-side {
+#components-layout-demo-side .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
