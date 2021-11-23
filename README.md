@@ -188,6 +188,7 @@
      返回值：
 
      * `userName`
+     * `userNickName`
      * `userAddress`
      * `userTel`
      * `userOrder(list)`
@@ -204,6 +205,7 @@
      返回值：
 
      * `userName`
+     * `userNickName`
      * `userAddress`
      * `userTel`
      * `userOrder(list)`
@@ -220,6 +222,7 @@
      返回值：
 
      * `userName`
+     * `userNickName`
      * `userAddress`
      * `userTel`
      * `userOrder(list)`
@@ -236,6 +239,7 @@
      返回值：
 
      * `userName`
+     * `userNickName`
      * `userAddress`
      * `userTel`
      * `userOrder(list)`
@@ -248,7 +252,7 @@
      参数：
 
      * `userID`
-     * `userName`
+     * `userNickName`
      * `userTel`
      * `userAddress`
      * `userPassword`
@@ -256,6 +260,7 @@
      返回值：
 
      * `userName`
+     * `userNickName`
      * `userAddress`
      * `userTel`
      * `userOrder(list)`
