@@ -61,14 +61,6 @@ const routes = [
       },
       ],
   },
-  // {
-  //   path: "/test",
-  //   name: "Test",
-  //   component: () =>
-  //       import(
-  //           "../views/test"
-  //           ),
-  // },
   {
     path: "/zoumadeng",
     name: "Zoumadeng",

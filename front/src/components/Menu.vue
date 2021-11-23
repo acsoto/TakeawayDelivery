@@ -5,8 +5,7 @@
     <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
       <a-sub-menu key="sub1">
         <template v-slot:title>
-          <i class="el-icon-user"   />
-          <!--            <icon type="pie-chart" />-->
+          <UserOutlined />
           <span v-if="collapsed">个人中心</span>
         </template>
         <a-menu-item key="1">
@@ -40,7 +39,7 @@
       <a-sub-menu key="sub2">
         <template v-slot:title>
           <a-icon type="desktop" />
-          <i class="el-icon-shopping-cart-full"  />
+          <ShoppingCartOutlined />
           <span v-if="collapsed">商铺</span>
         </template>
         <a-menu-item key="8">
@@ -61,7 +60,7 @@
       </a-sub-menu>
       <a-sub-menu key="sub3">
         <template v-slot:title><a-icon type="user" />
-          <i class="el-icon-chat-line-round"  />
+          <CommentOutlined />
           <span v-if="collapsed">讨论区</span>
         </template>
         <a-menu-item key="13">
@@ -76,7 +75,7 @@
       </a-sub-menu>
       <a-sub-menu key="sub4">
         <template v-slot:title><a-icon type="team" />
-          <i class="el-icon-bicycle"  />
+          <CarOutlined />
           <span v-if="collapsed">我接的单</span>
         </template>
         <a-menu-item key="16">
@@ -87,7 +86,7 @@
         </a-menu-item>
       </a-sub-menu>
       <a-menu-item key="18">
-        <a-icon type="file" />
+        <CoffeeOutlined />
         <span>暂未想好写什么的一栏</span>
       </a-menu-item>
     </a-menu>
@@ -99,7 +98,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+import { UserOutlined, ShoppingCartOutlined, CommentOutlined, CarOutlined, CoffeeOutlined } from '@ant-design/icons-vue';
+export default defineComponent({
   name: "Menu",
   data() {
     return {
@@ -111,10 +112,20 @@ export default {
       console.log(collapsed);
       this.collapsed = !this.collapsed;
     },
-  }
-}
+  },
+  components: {
+    UserOutlined,
+    ShoppingCartOutlined,
+    CommentOutlined,
+    CarOutlined,
+    CoffeeOutlined,
+  },
+});
 </script>
 
 <style scoped>
-
+.icons-list :deep(.anticon) {
+  margin-right: 6px;
+  font-size: 24px;
+}
 </style>
