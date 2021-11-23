@@ -35,7 +35,8 @@
 | 1        | food_id    | foodID           | Int          | 10       | 是           | 是           | 菜品ID   |
 | 2        | food_name  | foodName         | Varchar      | 100      | 是           | 否           | 菜品名称 |
 | 3        | food_price | foodPrice        | Int          | 10       | 是           | 否           | 菜品价格 |
-| 4        | store_id   | storeID          | Int          | 10       | 是           | 否           | 窗口ID   |
+| 4        | food_url   | foodUrl          | Varchar      | 200      | 否           | 否           | 菜品图片 |
+| 5        | store_id   | storeID          | Int          | 10       | 是           | 否           | 窗口ID   |
 
 ### **3.窗口**
 
@@ -48,11 +49,12 @@
 
 ### **4.订单表**
 
-| **序号** | **名称**         | **前端参数名称** | **数据类型** | **大小** | **是否必填** | **是否主键** | **功能**       |
-| :------- | :--------------- | :--------------- | :----------- | :------- | :----------- | :----------- | :------------- |
-| 1        | order_id         | orderID          | Int          | 10       | 是           | 是           | 订单ID         |
-| 2        | order_user_id    | orderUserID      | Int          | 10       | 是           | 否           | 下单用户ID<br> |
-| 3        | delivery_user_id | deliveryUserID   | Int          | 10       | 否           | 否           | 配送员ID<br>   |
+| **序号** | **名称**         | **前端参数名称** | **数据类型** | **大小** | **是否必填** | **是否主键** | **功能**     |
+| :------- | :--------------- | :--------------- | :----------- | :------- | :----------- | :----------- | :----------- |
+| 1        | order_id         | orderID          | Int          | 10       | 是           | 是           | 订单ID       |
+| 2        | order_completed  | orderCompleted   | Boolean      | 1        | 是           | 否           | 订单是否完成 |
+| 3        | order_user_id    | orderUserID      | Int          | 10       | 是           | 否           | 下单用户ID   |
+| 4        | delivery_user_id | deliveryUserID   | Int          | 10       | 否           | 否           | 配送员ID     |
 
 ### **5.收藏夹表**
 
