@@ -12,7 +12,7 @@ class Food(models.Model):
     food_id = models.AutoField(primary_key=True)
     food_name = models.CharField(max_length=100, blank=True, null=True)
     food_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    store = models.ForeignKey('Store', models.CASCADE, blank=True, null=True)
+    store = models.ForeignKey('Store', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -23,7 +23,7 @@ class FoodEvaluate(models.Model):
     food_evaluate_id = models.AutoField(primary_key=True)
     food_evaluate_text = models.CharField(max_length=100, blank=True, null=True)
     food_evaluate_score = models.IntegerField(blank=True, null=True)
-    food = models.ForeignKey(Food, models.CASCADE, blank=True, null=True)
+    food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -32,8 +32,9 @@ class FoodEvaluate(models.Model):
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
-    order_user = models.ForeignKey('User', models.CASCADE, related_name='order_user_1')
-    delivery_user = models.ForeignKey('User', models.CASCADE, blank=True, null=True, related_name='order_user_2')
+    order_user = models.ForeignKey('User', models.DO_NOTHING)
+    delivery_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+    order_completed = models.IntegerField()
 
     class Meta:
         managed = False
@@ -41,8 +42,8 @@ class Order(models.Model):
 
 
 class OrderFood(models.Model):
-    order = models.ForeignKey(Order, models.CASCADE, blank=True, null=True)
-    food = models.ForeignKey(Food, models.CASCADE, blank=True, null=True)
+    order = models.ForeignKey(Order, models.DO_NOTHING, blank=True, null=True)
+    food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
     food_num = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -52,7 +53,7 @@ class OrderFood(models.Model):
 
 class Star(models.Model):
     star_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('User', models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -60,8 +61,8 @@ class Star(models.Model):
 
 
 class StarFood(models.Model):
-    star = models.ForeignKey(Star, models.CASCADE, blank=True, null=True)
-    food = models.ForeignKey(Food, models.CASCADE, blank=True, null=True)
+    star = models.ForeignKey(Star, models.DO_NOTHING, blank=True, null=True)
+    food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -96,7 +97,7 @@ class UserEvaluate(models.Model):
     user_evaluate_id = models.AutoField(primary_key=True)
     user_evaluate_text = models.CharField(max_length=100, blank=True, null=True)
     user_evaluate_score = models.IntegerField(blank=True, null=True)
-    user = models.ForeignKey(User, models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
