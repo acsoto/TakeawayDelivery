@@ -43,6 +43,7 @@ class Order(models.Model):
 
 
 class OrderFood(models.Model):
+    order_food_id = models.AutoField(primary_key=True)
     order = models.ForeignKey(Order, models.DO_NOTHING, blank=True, null=True)
     food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
     food_num = models.IntegerField(blank=True, null=True)
