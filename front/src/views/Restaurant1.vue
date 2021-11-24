@@ -101,20 +101,23 @@
       <!--      </div>-->
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
         <!--        TODO-->
-        <div v-for="food in data" :key="food" style="display:flex;">
+        <div v-for="(food,index) in data" :key="food" style="display:inline-block;">
+          <div style="height:200px;width:100px;">
+            <a-card hoverable style="width:20%;">
+              <template #cover>
+                <img
+                    style="height:100px;width:100px"
+                    alt="example"
+                    :src="food.foodUrl"
+                />
+              </template>
+              <a-card-meta :title="food.foodName">
+                <template #description>{{ food.foodPrice }}</template>
+              </a-card-meta>
+            </a-card>
 
-          <a-card hoverable style="height:100px;width:100px;">
-            <template #cover>
-              <img
-                  style="height:100px;width:100px"
-                  alt="example"
-                  :src="food.foodUrl"
-              />
-            </template>
-            <a-card-meta :title="food.foodName">
-              <template #description>{{ food.foodPrice }}</template>
-            </a-card-meta>
-          </a-card>
+            <br v-if="index % 4 == 0"/>
+          </div>
         </div>
       </div>
 
