@@ -63,6 +63,7 @@ class Star(models.Model):
 
 
 class StarFood(models.Model):
+    star_food_id = models.AutoField(primary_key=True)
     star = models.ForeignKey(Star, models.DO_NOTHING, blank=True, null=True)
     food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
 
