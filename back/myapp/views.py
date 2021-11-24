@@ -131,3 +131,25 @@ def changeInformation(request):
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def getStoreInformation(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        store_id = data_json.get('storeID')
+        store = Store.objects.get(store_id=store_id)
+        food_json = []
+        foods = Food.objects.filter(store_id=store_id)
+        for food in foods:
+            food_json.append({
+                "foodName": food.food_name,
+                "foodPrice": food.food_price,
+                "foodUrl": food.food_url
+            })
+        return JsonResponse({'storeName': store.store_name,
+                             'storeAddress': store.store_address,
+                             'storeTel': store.store_tel,
+                             'food': food_json
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
