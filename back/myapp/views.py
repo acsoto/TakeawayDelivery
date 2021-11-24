@@ -124,17 +124,19 @@ def changeInformation(request):
         user.user_tel = data_json.get('userTel')
         user.user_address = data_json.get('userAddress')
         user.save()
-        orders = getOrders(user)
-        stars = getStars(user)
-        return JsonResponse({'success': True,
-                             'message': '修改成功',
-                             'userName': user.user_name,
-                             'userNickName': user.user_nickname,
-                             'userAddress': user.user_address,
-                             'userTel': user.user_tel,
-                             'userOrders': orders,
-                             'userStars': stars
-                             })
+        return JsonResponse({'success': True, 'message': '修改成功'})
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def changePassword(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user = User.objects.get(user_id=user_id)
+        user.user_password = data_json.get('userPassword')
+        user.save()
+        return JsonResponse({'success': True, 'message': '修改成功'})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 
