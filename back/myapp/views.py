@@ -76,12 +76,20 @@ def getOrders(user):
     return orders_json
 
 
-def getStarFood(user):
+def getStars(user):
     stars = Star.objects.filter(user_id=user.user_id)
-    star_food = []
+    stars_json = []
     for star in stars:
-        star_food.append(StarFood.objects.filter(star_id=star.star_id))
-    return star_food
+        star_foods = StarFood.objects.filter(star_id=star.star_id)
+        for star_food in star_foods:
+            food = star_food.food
+            food_json = {
+                "foodName": food.food_name,
+                "foodPrice": food.food_price,
+                "foodUrl": food.food_url
+            }
+            stars_json.append(food_json)
+    return stars_json
 
 
 def getInformation(request):
@@ -90,13 +98,13 @@ def getInformation(request):
         user_id = data_json.get('userID')
         user = User.objects.get(user_id=user_id)
         orders = getOrders(user)
-        # star_food = getStarFood(user)
+        stars = getStars(user)
         return JsonResponse({'userName': user.user_name,
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
-                             'userOrder': orders
-                             # 'userLikes': list(star_food)
+                             'userOrders': orders,
+                             'userStars': stars
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
@@ -113,13 +121,13 @@ def changeInformation(request):
         user.user_address = data_json.get('userAddress')
         user.save()
         orders = getOrders(user)
-        star_food = getStarFood(user)
+        stars = getStars(user)
         return JsonResponse({'userName': user.user_name,
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
-                             'userOrder': orders,
-                             'userLikes': star_food
+                             'userOrders': orders,
+                             'userStars': stars
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
