@@ -99,7 +99,9 @@ def getInformation(request):
         user = User.objects.get(user_id=user_id)
         orders = getOrders(user)
         stars = getStars(user)
-        return JsonResponse({'userName': user.user_name,
+        return JsonResponse({'success': True,
+                             'message': '查询成功',
+                             'userName': user.user_name,
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
@@ -114,15 +116,16 @@ def changeInformation(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
-        user = User.objects.filter(user_id=user_id)[0]
+        user = User.objects.get(user_id=user_id)
         user.user_nickname = data_json.get('userNickName')
-        user.user_password = data_json.get('userPassword')
         user.user_tel = data_json.get('userTel')
         user.user_address = data_json.get('userAddress')
         user.save()
         orders = getOrders(user)
         stars = getStars(user)
-        return JsonResponse({'userName': user.user_name,
+        return JsonResponse({'success': True,
+                             'message': '修改成功',
+                             'userName': user.user_name,
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
@@ -146,7 +149,9 @@ def getStoreInformation(request):
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url
             })
-        return JsonResponse({'storeName': store.store_name,
+        return JsonResponse({'success': True,
+                             'message': '查询成功',
+                             'storeName': store.store_name,
                              'storeAddress': store.store_address,
                              'storeTel': store.store_tel,
                              'food': food_json
