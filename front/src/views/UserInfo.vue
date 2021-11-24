@@ -95,7 +95,7 @@ export default {
     async getData()
     {
       const { data: res } = await this.$http.post("api/getInformation/", {userID:this.userID});
-      //console.log(res)
+      console.log(res)
       // if (res.success == false) {
       //   this.$message.error(res.message);
       // }
@@ -106,33 +106,27 @@ export default {
       //   this.$message.success(res.message);
       //   this.$router.push({ path: "/home" });
       // }
-      this.data.Name=res.userName
-      this.data.Age=res.userNickname
-      this.data.Address=res.userAddress
-      this.data.Tags=res.userNickname
-      this.data.Action=res.userNickname
+      this.data=[res]
+      console.log(this.data)
     },
     setColumns()
     {
       this.columns=[{
-        name: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: '用户名',
+        dataIndex: 'userName',
+        key: 'userName',
       }, {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: '用户昵称',
+        dataIndex: 'userNickName',
+        key: 'userNickName',
       }, {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
+        title: '地址',
+        dataIndex: 'userAddress',
+        key: 'userAddress',
       }, {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-      }, {
-        title: 'Action',
-        key: 'action',
+        title: '电话',
+        key: 'userTel',
+        dataIndex: 'userTel',
       }]
     }
 
