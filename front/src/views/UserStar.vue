@@ -1,55 +1,27 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0" >
+    <a-layout-header style="background: #fff; padding: 0">
     </a-layout-header>
-    <a-layout-content style="margin: 0 16px">
+    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-        <a-row type="flex" justify="space-around">
-          <a-col span="5">
-            <a-card hoverable>
-              <template #cover>
-                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />
-              </template>
-              <a-card-meta title="Europe Street beat">
-                <template #description>www.instagram.com</template>
-              </a-card-meta>
-            </a-card>
-          </a-col>
-          <a-col span="5">
-            <a-card hoverable>
-              <template #cover>
-                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />
-              </template>
-              <a-card-meta title="Europe Street beat">
-                <template #description>www.instagram.com</template>
-              </a-card-meta>
-            </a-card>
-          </a-col>
-          <a-col span="5">
-            <a-card hoverable>
-              <template #cover>
-                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />
-              </template>
-              <a-card-meta title="Europe Street beat">
-                <template #description>www.instagram.com</template>
-              </a-card-meta>
-            </a-card>
-          </a-col>
-          <a-col span="5">
-            <a-card hoverable>
-              <template #cover>
-                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />
-              </template>
-              <a-card-meta title="Europe Street beat">
-                <template #description>www.instagram.com</template>
-              </a-card-meta>
-            </a-card>
-          </a-col>
-        </a-row>
+<div v-for="food in data" :key="food">
+
+        <a-card hoverable>
+          <template #cover>
+            <img
+              alt="example"
+              :src="food.foodUrl"
+            />
+          </template>
+          <a-card-meta :title="food.foodName">
+            <template #description>{{food.foodPrice}}</template>
+          </a-card-meta>
+        </a-card>
+</div>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -63,7 +35,33 @@ export default {
   data() {
     return {
       collapsed: true,
+      data:[],
+      columns:[],
+      userID:this.$store.state.userID,
     };
+  },
+created() {
+    this.getData();
+  },
+  methods:{
+    async getData()
+    {
+      const { data: res } = await this.$http.post("api/getInformation/", {userID:this.userID});
+      console.log(res)
+      // if (res.success == false) {
+      //   this.$message.error(res.message);
+      // }
+      // else {
+      //   this.$store.commit("login", { userName: this.param.userName, userID: res.userID });//注意一下，store貌似只能传一个参数，建议传个对象过去。
+      //   //获取存入的userID的方式：this.$store.state.userID   (注意是this.$store.state.XXX，千万别落什么东西)
+      //   //console.log(this.$store.state)
+      //   this.$message.success(res.message);
+      //   this.$router.push({ path: "/home" });
+      // }
+      this.data=res.userStars
+      console.log(this.data)
+    },
+  
   },
 };
 </script>
@@ -86,7 +84,7 @@ export default {
   background-color: #99a9bf;
 }
 
-.el-carousel__item:nth-child(2n+1) {
+.el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
 </style>
