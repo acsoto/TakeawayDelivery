@@ -61,9 +61,11 @@ def getOrders(user):
                       }
         foods_json = []
         order_foods = OrderFood.objects.filter(order_id=order.order_id)
+        count = 0
         for order_food in order_foods:
             food = order_food.food
             food_num = order_food.food_num
+            count += food.food_price * food_num
             food_json = {
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
@@ -72,6 +74,7 @@ def getOrders(user):
             }
             foods_json.append(food_json)
         order_json["food"] = foods_json
+        order_json['totalPrice'] = count
         orders_json.append(order_json)
     return orders_json
 
