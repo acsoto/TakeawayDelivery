@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0" >
+    <a-layout-header style="background: #fff; padding: 0">
     </a-layout-header>
     <a-layout-content style="margin: 0 16px">
       <a-breadcrumb style="margin: 16px 0">
@@ -8,13 +8,16 @@
         <a-breadcrumb-item>订单查询</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '500px' }">
-        <a-table :columns="columns" :data-source="data">
+        <a-table
+          :columns="columns"
+          :data-source="data"
+        >
           <template #headerCell="{ column }">
             <template v-if="column.key === 'name'">
-        <span>
-          <smile-outlined />
-          Name
-        </span>
+              <span>
+                <smile-outlined />
+                Name
+              </span>
             </template>
           </template>
 
@@ -25,27 +28,32 @@
               </a>
             </template>
             <template v-else-if="column.key === 'tags'">
-        <span>
-          <a-tag
-              v-for="tag in record.tags"
-              :key="tag"
-              :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-          >
-            {{ tag.toUpperCase() }}
-          </a-tag>
-        </span>
+              <span>
+                <a-tag
+                  v-for="tag in record.tags"
+                  :key="tag"
+                  :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
+                >
+                  {{ tag.toUpperCase() }}
+                </a-tag>
+              </span>
             </template>
             <template v-else-if="column.key === 'action'">
-        <span>
-          <a>Invite 一 {{ record.name }}</a>
-          <a-divider type="vertical" />
-          <a>Delete</a>
-          <a-divider type="vertical" />
-          <a class="ant-dropdown-link">
-            More actions
-            <down-outlined />
-          </a>
-        </span>
+              <span>
+                <a>Invite 一 {{ record.name }}</a>
+                <a-divider type="vertical" />
+                <a>Delete</a>
+                <a-divider type="vertical" />
+                <a class="ant-dropdown-link">
+                  More actions
+                  <down-outlined />
+                </a>
+              </span>
+            </template>
+            <template v-else-if="column.key === 'orderCompleted'">
+              <span >
+                <a>{{ record.orderCompleted=='0'?'未送达':'已送达' }}</a>
+              </span>
             </template>
           </template>
         </a-table>
@@ -59,61 +67,53 @@
 </template>
 <script>
 import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue';
-const columns = [{
-  name: 'Name',
-  dataIndex: 'name',
-  key: 'name',
-}, {
-  title: 'Age',
-  dataIndex: 'age',
-  key: 'age',
-}, {
-  title: 'Address',
-  dataIndex: 'address',
-  key: 'address',
-}, {
-  title: 'Tags',
-  key: 'tags',
-  dataIndex: 'tags',
-}, {
-  title: 'Action',
-  key: 'action',
-}];
-const data = [{
-  key: '1',
-  name: 'John Brown',
-  age: 32,
-  address: 'New York No. 1 Lake Park',
-  tags: ['nice', 'developer'],
-}, {
-  key: '2',
-  name: 'Jim Green',
-  age: 42,
-  address: 'London No. 1 Lake Park',
-  tags: ['loser'],
-}, {
-  key: '3',
-  name: 'Joe Black',
-  age: 32,
-  address: 'Sidney No. 1 Lake Park',
-  tags: ['cool', 'teacher'],
-}];
+
 export default {
   data() {
     return {
       collapsed: true,
+      data: [],
+      columns: [],
+      userID: this.$store.state.userID,
     };
   },
   components: {
     SmileOutlined,
     DownOutlined,
   },
+  created() {
+    this.setColumns();
+    this.getData();
+  },
+  methods: {
+    async getData() {
+      const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });
+      console.log(res)
+      // if (res.success == false) {
+      //   this.$message.error(res.message);
+      // }
+      // else {
+      //   this.$store.commit("login", { userName: this.param.userName, userID: res.userID });//注意一下，store貌似只能传一个参数，建议传个对象过去。
+      //   //获取存入的userID的方式：this.$store.state.userID   (注意是this.$store.state.XXX，千万别落什么东西)
+      //   //console.log(this.$store.state)
+      //   this.$message.success(res.message);
+      //   this.$router.push({ path: "/home" });
+      // }
+      this.data = res.userOrders
+      console.log(this.data)
+    },
+    setColumns() {
+      this.columns = [{
+        title: '订单状态',
+        dataIndex: 'orderCompleted',
+        key: 'orderCompleted',
+      }, {
+        title: '派送人',
+        dataIndex: 'deliveryUserName',
+        key: 'deliveryUserName',
+      }]
+    }
 
-  setup() {
-    return {
-      data,
-      columns,
-    };
   },
 };
 </script>
@@ -136,7 +136,7 @@ export default {
   background-color: #99a9bf;
 }
 
-.el-carousel__item:nth-child(2n+1) {
+.el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
 </style>
