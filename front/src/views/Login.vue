@@ -31,7 +31,6 @@
 
             <input
               class="login-submit"
-              type="submit"
               readonly
               @click="submitForm()"
               value="登录"
