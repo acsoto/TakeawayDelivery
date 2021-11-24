@@ -8,20 +8,36 @@
         <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-<div v-for="food in data" :key="food">
-
-        <a-card hoverable>
-          <template #cover>
-            <img
-              alt="example"
-              :src="food.foodUrl"
-            />
-          </template>
-          <a-card-meta :title="food.foodName">
-            <template #description>{{food.foodPrice}}</template>
-          </a-card-meta>
-        </a-card>
-</div>
+        <div style="width:100%;display:inline-block;">
+          <a-row
+            type="flex"
+            justify="space-around"
+          >
+            <div
+              v-for="food in data"
+              :key="food"
+              style="width:154px;margin:0px;"
+            >
+              <a-card
+                hoverable
+                style="width:154px;height:250px;margin:10px;text-align:center;align:center"
+              >
+                <template
+                  #cover
+                  style="width:150px;height:150px;"
+                >
+                  <img
+                    alt="example"
+                    :src="food.foodUrl"
+                  />
+                </template>
+                <a-card-meta :title="food.foodName">
+                  <template #description>{{food.foodPrice}}</template>
+                </a-card-meta>
+              </a-card>
+            </div>
+          </a-row>
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -35,33 +51,22 @@ export default {
   data() {
     return {
       collapsed: true,
-      data:[],
-      columns:[],
-      userID:this.$store.state.userID,
+      data: [],
+      columns: [],
+      userID: this.$store.state.userID,
     };
   },
-created() {
+  created() {
     this.getData();
   },
-  methods:{
-    async getData()
-    {
-      const { data: res } = await this.$http.post("api/getInformation/", {userID:this.userID});
-      console.log(res)
-      // if (res.success == false) {
-      //   this.$message.error(res.message);
-      // }
-      // else {
-      //   this.$store.commit("login", { userName: this.param.userName, userID: res.userID });//注意一下，store貌似只能传一个参数，建议传个对象过去。
-      //   //获取存入的userID的方式：this.$store.state.userID   (注意是this.$store.state.XXX，千万别落什么东西)
-      //   //console.log(this.$store.state)
-      //   this.$message.success(res.message);
-      //   this.$router.push({ path: "/home" });
-      // }
-      this.data=res.userStars
-      console.log(this.data)
+  methods: {
+    async getData() {
+      const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });
+      
+      this.data = res.userStars
+
     },
-  
+
   },
 };
 </script>
