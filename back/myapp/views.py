@@ -61,9 +61,11 @@ def getOrders(user):
                       }
         foods_json = []
         order_foods = OrderFood.objects.filter(order_id=order.order_id)
+        count = 0
         for order_food in order_foods:
             food = order_food.food
             food_num = order_food.food_num
+            count += food.food_price * food_num
             food_json = {
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
@@ -72,6 +74,7 @@ def getOrders(user):
             }
             foods_json.append(food_json)
         order_json["food"] = foods_json
+        order_json['totalPrice'] = count
         orders_json.append(order_json)
     return orders_json
 
@@ -99,7 +102,9 @@ def getInformation(request):
         user = User.objects.get(user_id=user_id)
         orders = getOrders(user)
         stars = getStars(user)
-        return JsonResponse({'userName': user.user_name,
+        return JsonResponse({'success': True,
+                             'message': '查询成功',
+                             'userName': user.user_name,
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
@@ -114,21 +119,24 @@ def changeInformation(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
-        user = User.objects.filter(user_id=user_id)[0]
+        user = User.objects.get(user_id=user_id)
         user.user_nickname = data_json.get('userNickName')
-        user.user_password = data_json.get('userPassword')
         user.user_tel = data_json.get('userTel')
         user.user_address = data_json.get('userAddress')
         user.save()
-        orders = getOrders(user)
-        stars = getStars(user)
-        return JsonResponse({'userName': user.user_name,
-                             'userNickName': user.user_nickname,
-                             'userAddress': user.user_address,
-                             'userTel': user.user_tel,
-                             'userOrders': orders,
-                             'userStars': stars
-                             })
+        return JsonResponse({'success': True, 'message': '修改成功'})
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def changePassword(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user = User.objects.get(user_id=user_id)
+        user.user_password = data_json.get('userPassword')
+        user.save()
+        return JsonResponse({'success': True, 'message': '修改成功'})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 
@@ -146,7 +154,9 @@ def getStoreInformation(request):
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url
             })
-        return JsonResponse({'storeName': store.store_name,
+        return JsonResponse({'success': True,
+                             'message': '查询成功',
+                             'storeName': store.store_name,
                              'storeAddress': store.store_address,
                              'storeTel': store.store_tel,
                              'food': food_json
