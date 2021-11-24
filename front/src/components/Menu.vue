@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider v-model="collapsed" collapsible @collapse="handleCollapse">
+  <a-layout-sider v-model="collapsed" collapsible @collapse="handleCollapse" :style="{ overflow: 'auto', height: '100vh', left: 0 }">
 
     <div class="logo" />
     <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">

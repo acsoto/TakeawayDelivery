@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-layout id="components-layout-demo-side" style="min-height: 100vh">
+    <a-layout id="components-layout-demo-side" style="min-height: 100vh;overflow:auto;">
     <my-menu/>
       <a-layout>
     <router-view v-slot="{ Component }">
