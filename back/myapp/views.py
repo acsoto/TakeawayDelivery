@@ -54,7 +54,26 @@ def register(request):
 
 def getOrders(user):
     orders = Order.objects.filter(order_user_id=user.user_id)
-    return orders
+    orders_json = []
+    for order in orders:
+        order_json = {"orderCompleted": order.order_completed,
+                      "deliveryUserName": order.delivery_user.user_name
+                      }
+        foods_json = []
+        order_foods = OrderFood.objects.filter(order_id=order.order_id)
+        for order_food in order_foods:
+            food = order_food.food
+            food_num = order_food.food_num
+            food_json = {
+                "foodName": food.food_name,
+                "foodPrice": food.food_price,
+                "foodUrl": food.food_url,
+                "foodNum": food_num
+            }
+            foods_json.append(food_json)
+        order_json["food"] = foods_json
+        orders_json.append(order_json)
+    return orders_json
 
 
 def getStarFood(user):
@@ -69,15 +88,15 @@ def getInformation(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
-        user = User.objects.filter(user_id=user_id)[0]
+        user = User.objects.get(user_id=user_id)
         orders = getOrders(user)
-        star_food = getStarFood(user)
+        # star_food = getStarFood(user)
         return JsonResponse({'userName': user.user_name,
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
-                             'userOrder': list(orders),
-                             'userLikes': list(star_food)
+                             'userOrder': orders
+                             # 'userLikes': list(star_food)
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
