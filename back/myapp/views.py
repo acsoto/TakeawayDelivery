@@ -175,7 +175,7 @@ def deleteUser(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getEvaluateAboutFood(request):
+def getEvaluateFood(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         food_id = data_json.get('foodID')
@@ -192,7 +192,7 @@ def getEvaluateAboutFood(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getEvaluateAboutUser(request):
+def getEvaluateUser(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
