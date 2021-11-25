@@ -163,3 +163,13 @@ def getStoreInformation(request):
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def userDelete(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        User.objects.get(user_id=user_id).delete()
+        return JsonResponse({'success': True, 'message': '注销成功'})
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
