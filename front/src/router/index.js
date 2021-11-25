@@ -114,7 +114,15 @@ const routes = [
           keepAlive: true
         },
         component: () => import("../views/Discussion")
-      }
+      },
+      {
+        path: "ordernow",
+        name: "ordernow",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/OrderNow")
+      },
       ],
   },
   {
