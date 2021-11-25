@@ -27,5 +27,8 @@ urlpatterns = [
     path('api/changeInformation/', myapp.views.changeInformation),
     path('api/changePassword/', myapp.views.changePassword),
     path('api/getStoreInformation/', myapp.views.getStoreInformation),
+    path('api/deleteUser/', myapp.views.deleteUser),
+    path('api/getEvaluateFood/', myapp.views.getEvaluateFood),
+    path('api/getEvaluateUser/', myapp.views.getEvaluateUser),
     url(r'^', TemplateView.as_view(template_name="index.html")),
 ]

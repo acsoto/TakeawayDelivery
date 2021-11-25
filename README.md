@@ -154,6 +154,18 @@
 
 # 接口表
 
+```python
+path('api/login/', myapp.views.login),
+path('api/register/', myapp.views.register),
+path('api/getInformation/', myapp.views.getInformation),
+path('api/changeInformation/', myapp.views.changeInformation),
+path('api/changePassword/', myapp.views.changePassword),
+path('api/getStoreInformation/', myapp.views.getStoreInformation),
+path('api/deleteUser/', myapp.views.deleteUser),
+path('api/getEvaluateFood/', myapp.views.getEvaluateFood),
+path('api/getEvaluateUser/', myapp.views.getEvaluateUser),
+```
+
 ## 页面：
 
 1. 登录
@@ -176,6 +188,23 @@
        
 
 2. 注册
+
+   `url:api/register/`
+
+   参数：
+
+   * `userName`
+   * `userPassword`
+   * `userNickname`
+   * `userTel`
+   * `userAddress`
+
+   返回值：
+
+   * `userID`
+     * `success`
+
+     * `message`
 
 3. 主页面-个人信息
 
@@ -383,4 +412,3 @@
      返回值：
 
      * ` myCommentsListNow(list)`
-
