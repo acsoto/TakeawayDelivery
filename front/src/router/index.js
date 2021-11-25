@@ -114,7 +114,39 @@ const routes = [
           keepAlive: true
         },
         component: () => import("../views/Discussion")
-      }
+      },
+      {
+        path: "ordernow",
+        name: "ordernow",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/OrderNow")
+      },
+      {
+        path: "developmentteam",
+        name: "developmentteam",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/DevelopmentTeam")
+      },
+      {
+        path: "template",
+        name: "template",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/template")
+      },
+      // {
+      //   path: "",
+      //   name: "",
+      //   meta: {
+      //     keepAlive: true
+      //   },
+      //   component: () => import("")
+      // },
       ],
   },
   {
