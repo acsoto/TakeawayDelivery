@@ -123,6 +123,30 @@ const routes = [
         },
         component: () => import("../views/OrderNow")
       },
+      {
+        path: "developmentteam",
+        name: "developmentteam",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/DevelopmentTeam")
+      },
+      {
+        path: "template",
+        name: "template",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/template")
+      },
+      // {
+      //   path: "",
+      //   name: "",
+      //   meta: {
+      //     keepAlive: true
+      //   },
+      //   component: () => import("")
+      // },
       ],
   },
   {

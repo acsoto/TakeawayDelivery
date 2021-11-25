@@ -107,7 +107,9 @@
           <span v-if="collapsed">系统设置</span>
         </template>
         <a-menu-item key="18">
-          开发团队
+          <router-link to="developmentteam">
+            开发团队
+          </router-link>
         </a-menu-item>
       </a-sub-menu>
       <a-menu-item key="19">
