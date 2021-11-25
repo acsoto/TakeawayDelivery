@@ -7,104 +7,36 @@ Restaurant1.vue<template>
         <a-breadcrumb-item>商铺</a-breadcrumb-item>
         <a-breadcrumb-item>学二食堂</a-breadcrumb-item>
       </a-breadcrumb>
-      <div :style="{ padding: '24px', background: '#fff', minHeight: '580px' }">
-<!--        <a-row type="flex" justify="space-around">-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--        </a-row>-->
-<!--        <a-row type="flex" style="margin-top: 25px" justify="space-around">-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--          <a-col span="5">-->
-<!--            <a-card hoverable>-->
-<!--              <template #cover>-->
-<!--                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />-->
-<!--              </template>-->
-<!--              <a-card-meta title="Europe Street beat">-->
-<!--                <template #description>www.instagram.com</template>-->
-<!--              </a-card-meta>-->
-<!--            </a-card>-->
-<!--          </a-col>-->
-<!--        </a-row>-->
-        <div v-for="food in data" :key="food">
-
-          <a-card hoverable style="height:100px;width:100px;margin:100px;">
-            <template #cover>
-              <img
-                  alt="example"
-                  :src="food.foodUrl"
-              />
-            </template>
-            <a-card-meta :title="food.foodName">
-              <template #description>{{ food.foodPrice }}</template>
-            </a-card-meta>
-          </a-card>
+      <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
+        <div style="width:100%;display:inline-block;">
+          <a-row
+            type="flex"
+            justify="space-around"
+          >
+            <div
+              v-for="food in data"
+              :key="food"
+              style="width:154px;margin:0px;"
+            >
+              <a-card
+                hoverable
+                style="width:154px;height:250px;margin:10px;text-align:center;align:center"
+              >
+                <template
+                  #cover
+                  style="width:150px;height:150px;"
+                >
+                  <img
+                    alt="example"
+                    :src="food.foodUrl"
+                  />
+                </template>
+                <a-card-meta :title="food.foodName">
+                  <template #description>{{food.foodPrice}}</template>
+                </a-card-meta>
+              </a-card>
+            </div>
+          </a-row>
         </div>
       </div>
     </a-layout-content>

@@ -7,117 +7,37 @@
         <a-breadcrumb-item>商铺</a-breadcrumb-item>
         <a-breadcrumb-item>学一食堂</a-breadcrumb-item>
       </a-breadcrumb>
-      <!--      <div :style="{ padding: '24px', background: '#fff', minHeight: '580px' }">-->
-      <!--&lt;!&ndash;        <a-row type="flex" justify="space-around">&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>&ndash;&gt;-->
-      <!--&lt;!&ndash;                  <a @click="showDrawer">&ndash;&gt;-->
-      <!--&lt;!&ndash;                    www.instagram.com&ndash;&gt;-->
-      <!--&lt;!&ndash;                  </a>&ndash;&gt;-->
-      <!--&lt;!&ndash;                </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;        </a-row>&ndash;&gt;-->
-      <!--&lt;!&ndash;        <a-row type="flex" style="margin-top: 25px" justify="space-around">&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;          <a-col span="5">&ndash;&gt;-->
-      <!--&lt;!&ndash;            <a-card hoverable>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <template #cover>&ndash;&gt;-->
-      <!--&lt;!&ndash;                <img alt="example" src="https://p0.meituan.net/iphoenix/5feab57263af405b10bb0d44a9d399851354587.jpg@732w_412h_80Q_1e_1c" />&ndash;&gt;-->
-      <!--&lt;!&ndash;              </template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <a-card-meta title="Europe Street beat">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <template #description>www.instagram.com</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </a-card-meta>&ndash;&gt;-->
-      <!--&lt;!&ndash;            </a-card>&ndash;&gt;-->
-      <!--&lt;!&ndash;          </a-col>&ndash;&gt;-->
-      <!--&lt;!&ndash;        </a-row>&ndash;&gt;-->
 
-
-      <!--      </div>-->
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-        <!--        TODO-->
-        <div v-for="(food,index) in data" :key="food" style="display:inline-block;">
-          <div style="height:200px;width:100px;">
-            <a-card hoverable style="width:20%;">
-              <template #cover>
-                <img
-                    style="height:100px;width:100px"
+        <div style="width:100%;display:inline-block;">
+          <a-row
+            type="flex"
+            justify="space-around"
+          >
+            <div
+              v-for="food in data"
+              :key="food"
+              style="width:154px;margin:0px;"
+            >
+              <a-card
+                hoverable
+                style="width:154px;height:250px;margin:10px;text-align:center;align:center"
+              >
+                <template
+                  #cover
+                  style="width:150px;height:150px;"
+                >
+                  <img
                     alt="example"
                     :src="food.foodUrl"
-                />
-              </template>
-              <a-card-meta :title="food.foodName">
-                <template #description>{{ food.foodPrice }}</template>
-              </a-card-meta>
-            </a-card>
-
-            <br v-if="index % 4 == 0"/>
-          </div>
+                  />
+                </template>
+                <a-card-meta :title="food.foodName">
+                  <template #description>{{food.foodPrice}}</template>
+                </a-card-meta>
+              </a-card>
+            </div>
+          </a-row>
         </div>
       </div>
 
