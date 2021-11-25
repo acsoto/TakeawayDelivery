@@ -165,11 +165,45 @@ def getStoreInformation(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def userDelete(request):
+def deleteUser(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         User.objects.get(user_id=user_id).delete()
         return JsonResponse({'success': True, 'message': '注销成功'})
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def getEvaluateAboutFood(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        food_id = data_json.get('foodID')
+        food_evaluate_json = []
+        food_evaluates = FoodEvaluate.objects.filter(food_id=food_id)
+        for evaluate in food_evaluates:
+            food_evaluate_json.append({
+                'evaluateText': evaluate.food_evaluate_text,
+                'evaluateScore': evaluate.food_evaluate_score
+            })
+        return JsonResponse({'success': True, 'message': '注销成功',
+                             'foodEvaluate': food_evaluate_json})
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def getEvaluateAboutUser(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user_evaluate_json = []
+        user_evaluates = UserEvaluate.objects.filter(user_id=user_id)
+        for evaluate in user_evaluates:
+            user_evaluate_json.append({
+                'evaluateText': evaluate.food_evaluate_text,
+                'evaluateScore': evaluate.food_evaluate_score
+            })
+        return JsonResponse({'success': True, 'message': '注销成功',
+                             'userEvaluate': user_evaluate_json})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
