@@ -8,23 +8,34 @@
         <a-breadcrumb-item>开发团队</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-        <!--        TODO-->
-        <div>
-          <a-carousel arrows dots-class="slick-dots slick-thumb">
+          <a-carousel arrows dots-class="slick-dots slick-thumb" autoplay="true">
             <template #customPaging="props">
               <a>
-                <img :src="getImgUrl(props.i)" />
+<!--                //有bug的函数-->
+                <img :src="getImgUrl(props.i)"/>
               </a>
             </template>
+<!--            <div v-for="item in 4" :key="item">-->
+<!--              <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
+<!--            </div>-->
             <div v-for="item in 4" :key="item">
-              <img :src="baseUrl + 'abstract0' + item + '.jpg'" />
+              <img src="../assets/img/1.jpg">
+<!--              <img src="'../assets/img/' + item + '.jpg'">-->
             </div>
           </a-carousel>
-        </div>
+<!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->
+<!--          <template #customPaging="props">-->
+<!--            <a>-->
+<!--              <img :src="getImgUrl(props.i)" />-->
+<!--            </a>-->
+<!--          </template>-->
+<!--          <div v-for="item in 4" :key="item">-->
+<!--            <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
+<!--          </div>-->
+<!--        </a-carousel>-->
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
       ©For the King of Alxa
     </a-layout-footer>
   </div>
@@ -42,7 +53,8 @@ export default defineComponent({
   },
   setup() {
     const getImgUrl = i => {
-      return `${baseUrl}abstract0${i + 1}.jpg`;
+      return `../assets/img/${i + 1}.jpg`
+      // return `${baseUrl}abstract0${i + 1}.jpg`;
     };
     return {
       baseUrl,
@@ -52,7 +64,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 #components-layout-demo-side .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
@@ -64,5 +76,33 @@ export default defineComponent({
   opacity: 0.75;
   line-height: 200px;
   margin: 0;
+}
+.ant-carousel :deep(.slick-dots) {
+  position: relative;
+  height: auto;
+}
+.ant-carousel :deep(.slick-slide img) {
+  border: 5px solid #fff;
+  display: block;
+  margin: auto;
+  max-width: 80%;
+}
+.ant-carousel :deep(.slick-arrow) {
+  display: none !important;
+}
+.ant-carousel :deep(.slick-thumb) {
+  bottom: 0px;
+}
+.ant-carousel :deep(.slick-thumb li) {
+  width: 60px;
+  height: 45px;
+}
+.ant-carousel :deep(.slick-thumb li img) {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%);
+}
+.ant-carousel :deep .slick-thumb li.slick-active img {
+  filter: grayscale(0%);
 }
 </style>
