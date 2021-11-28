@@ -1,6 +1,12 @@
 <template>
   <div>
     <a-layout-header style="background: #fff; padding: 0" >
+      <PlusCircleTwoTone style="font-size: xxx-large" @click="increase"/>
+      <MinusCircleTwoTone style="font-size: xxx-large" @click="decline"/>
+      <ShoppingTwoTone style="font-size: xxx-large" @click="testOnclick" />
+      <a-badge :count="count" show-zero>
+        <a href="#" class="head-example" />
+      </a-badge>
     </a-layout-header>
     <a-layout-content style="margin: 0 16px">
       <a-breadcrumb style="margin: 16px 0">
@@ -34,9 +40,10 @@
 //   },
 // };
 
+import {ShoppingTwoTone, PlusCircleTwoTone, MinusCircleTwoTone} from '@ant-design/icons-vue';
+import {defineComponent, ref} from "vue";
 
-
-export default {
+export default defineComponent({
   data() {
     return {
       collapsed: true,
@@ -46,12 +53,38 @@ export default {
     };
   },
   components: {
+    ShoppingTwoTone,
+    PlusCircleTwoTone,
+    MinusCircleTwoTone,
+  },
+  setup() {
+    const count = ref(0);
+
+    const decline = () => {
+      if (count.value >= 1) {
+        count.value--;
+      }
+    };
+
+    const increase = () => {
+      count.value++;
+    };
+
+    return {
+      count,
+      show: ref(true),
+      decline,
+      increase,
+    };
   },
   created() {
     this.setColumns();
     this.getData();
   },
   methods:{
+    testOnclick(){
+      window.alert("You Clicked Me!!!");
+    },
     async getData()
     {
       const { data: res } = await this.$http.post("api/getInformation/", {userID:this.userID});
@@ -91,7 +124,7 @@ export default {
     }
 
   },
-};
+});
 </script>
 
 <style>

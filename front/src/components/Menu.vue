@@ -3,6 +3,20 @@
 
     <div class="logo" />
     <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
+<!--      <a-menu-item>-->
+<!--        <a-card hoverable style="width: 240px">-->
+<!--          <template #cover>-->
+<!--            <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />-->
+<!--          </template>-->
+<!--          <a-card-meta title="Europe Street beat">-->
+<!--            <template #description>www.instagram.com</template>-->
+<!--          </a-card-meta>-->
+<!--        </a-card>-->
+<!--        <a-avatar :size="{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }"-->
+<!--                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"-->
+<!--                  >-->
+<!--        </a-avatar>-->
+<!--      </a-menu-item>-->
       <a-sub-menu key="sub1">
         <template v-slot:title>
           <UserOutlined />

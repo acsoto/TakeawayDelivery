@@ -1,6 +1,7 @@
 Restaurant1.vue<template>
   <div>
     <a-layout-header style="background: #fff; padding: 0" >
+      <ShoppingTwoTone style="margin-left: 1250px; font-size: xxx-large" @click="testOnclick" />
     </a-layout-header>
     <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
       <a-breadcrumb style="margin: 16px 0">
@@ -47,6 +48,7 @@ Restaurant1.vue<template>
   </div>
 </template>
 <script>
+import {ShoppingTwoTone} from '@ant-design/icons-vue';
 export default {
   data() {
     return {
@@ -60,6 +62,9 @@ export default {
     this.getData();
   },
   methods: {
+    testOnclick(){
+      window.alert("You Clicked Me!!!");
+    },
     async getData() {
       const {data: res} = await this.$http.post("api/getStoreInformation/", {storeID: this.storeID});
       console.log(res)
@@ -76,7 +81,9 @@ export default {
       this.data = res.food
       console.log(this.data)
     },
-
+  },
+  components: {
+    ShoppingTwoTone,
   },
 };
 </script>

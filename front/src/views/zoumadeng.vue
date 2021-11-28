@@ -1,30 +1,25 @@
-<!--测试文件，无用-->
 <template>
-  <div class="icons-list">
-    <HomeOutlined />
-    <SettingFilled />
-    <SmileOutlined />
-    <SyncOutlined spin />
-    <SmileOutlined :rotate="180" />
-    <LoadingOutlined />
+  <div style="padding: 50px">
+    <a-badge count="5">
+      <a href="#" class="head-example" />
+    </a-badge>
+    <a-badge count="0" show-zero>
+      <a href="#" class="head-example" />
+    </a-badge>
+    <a-badge>
+      <template #count>
+        <clock-circle-outlined style="color: #f5222d" />
+      </template>
+      <a href="#" class="head-example"></a>
+    </a-badge>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
-import { HomeOutlined, SettingFilled, SmileOutlined, SyncOutlined, LoadingOutlined } from '@ant-design/icons-vue';
+import { ClockCircleOutlined } from '@ant-design/icons-vue';
 export default defineComponent({
   components: {
-    HomeOutlined,
-    SettingFilled,
-    SmileOutlined,
-    SyncOutlined,
-    LoadingOutlined,
+    ClockCircleOutlined,
   },
 });
 </script>
-<style scoped>
-.icons-list :deep(.anticon) {
-  margin-right: 6px;
-  font-size: 24px;
-}
-</style>
