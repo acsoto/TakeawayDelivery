@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <a-layout-header style="background: #fff; padding: 0" >
+    </a-layout-header>
+    <a-layout-content style="margin: 0 16px">
+      <a-breadcrumb style="margin: 16px 0">
+        <a-breadcrumb-item>讨论区</a-breadcrumb-item>
+        <a-breadcrumb-item>与我有关的</a-breadcrumb-item>
+      </a-breadcrumb>
+      <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
+        <a-list
+            class="comment-list"
+            :header="`${data.length} replies`"
+            item-layout="horizontal"
+            :data-source="data"
+        >
+          <template #renderItem="{ item }">
+            <a-list-item>
+              <a-comment :author="item.author" :avatar="item.avatar">
+                <template #actions>
+                  <span v-for="(action, index) in item.actions" :key="index">{{ action }}</span>
+                </template>
+                <template #content>
+                  <p>
+                    {{ item.content }}
+                  </p>
+                </template>
+                <template #datetime>
+                  <a-tooltip :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">
+                    <span>{{ item.datetime.fromNow() }}</span>
+                  </a-tooltip>
+                </template>
+              </a-comment>
+            </a-list-item>
+          </template>
+        </a-list>
+      </div>
+    </a-layout-content>
+    <a-layout-footer style="text-align: center">
+      <!--        Ant Design ©2018 Created by Ant UED-->
+      ©For the King of Alxa
+    </a-layout-footer>
+  </div>
+</template>
+<script>
+import dayjs from 'dayjs';
+import { defineComponent } from 'vue';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+export default defineComponent({
+  data() {
+    return {
+      collapsed: true,
+    };
+  },
+  methods:{
+  },
+  setup() {
+    return {
+      data: [{
+        actions: ['Reply to'],
+        author: 'Han Solo',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+        content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+        datetime: dayjs().subtract(1, 'days'),
+      }, {
+        actions: ['Reply to'],
+        author: 'Han Solo',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+        content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+        datetime: dayjs().subtract(2, 'days'),
+      },{
+        actions: ['Reply to'],
+        author: 'Han Solo',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+        content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+        datetime: dayjs().subtract(2, 'days'),
+      }
+      ],
+      dayjs,
+    };
+  },
+});
+</script>
+
+<style>
+#components-layout-demo-side .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+</style>

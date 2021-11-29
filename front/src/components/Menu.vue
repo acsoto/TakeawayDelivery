@@ -95,7 +95,9 @@
           </router-link>
         </a-menu-item>
         <a-menu-item key="14">
-          与我有关的
+          <router-link to="/home/discussionme">
+            与我有关的
+          </router-link>
         </a-menu-item>
         <a-menu-item key="15">
           我发布的

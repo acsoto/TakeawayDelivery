@@ -139,6 +139,14 @@ const routes = [
         },
         component: () => import("../views/template")
       },
+      {
+        path: "discussionme",
+        name: "discussionme",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/DiscussionMe")
+      },
       // {
       //   path: "",
       //   name: "",
