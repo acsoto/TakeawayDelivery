@@ -147,6 +147,14 @@ const routes = [
         },
         component: () => import("../views/DiscussionMe")
       },
+      {
+        path: "mydiscussion",
+        name: "mydiscussion",
+        meta: {
+          keepAlive: true
+        },
+        component: () => import("../views/MyDiscussion")
+      },
       // {
       //   path: "",
       //   name: "",

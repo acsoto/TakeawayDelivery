@@ -100,7 +100,9 @@
           </router-link>
         </a-menu-item>
         <a-menu-item key="15">
-          我发布的
+          <router-link to="mydiscussion">
+            我发布的
+          </router-link>
         </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub4">

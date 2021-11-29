@@ -12,7 +12,7 @@
             <template #customPaging="props">
               <a>
 <!--                //有bug的函数-->
-                <img :src="getImgUrl(props.i)"/>
+                <img v-bind:src="`../assets/img/` + props.i + `.jpg`"/>
               </a>
             </template>
 <!--            <div v-for="item in 4" :key="item">-->
@@ -53,7 +53,7 @@ export default defineComponent({
   },
   setup() {
     const getImgUrl = i => {
-      return `../assets/img/${i + 1}.jpg`
+      return `../assets/img/1.jpg`;
       // return `${baseUrl}abstract0${i + 1}.jpg`;
     };
     return {
