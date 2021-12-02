@@ -8,20 +8,37 @@
         <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-<div v-for="food in data" :key="food">
-
-        <a-card hoverable>
-          <template #cover>
-            <img
-              alt="example"
-              :src="food.foodUrl"
-            />
-          </template>
-          <a-card-meta :title="food.foodName">
-            <template #description>{{food.foodPrice}}</template>
-          </a-card-meta>
-        </a-card>
-</div>
+        <div style="width:100%;display:inline-block;">
+          <a-row
+            type="flex"
+            justify="space-around"
+          >
+            <div
+              v-for="food in data"
+              :key="food"
+              style="width:154px;margin:0px;"
+            >
+              <a-card
+                hoverable
+                style="width:154px;height:250px;margin:10px;text-align:center;align:center"
+              >
+                <template
+                  #cover
+                  style="width:150px;height:150px;"
+                >
+                  <img
+                    alt="example"
+                    :src="food.foodUrl"
+                    style="width:154px;height:150px;margin:0px;"
+                  />
+                </template>
+                <a-card-meta :title="food.foodName">
+                  <template #description>{{food.foodPrice}}</template>
+                </a-card-meta>
+              </a-card>
+            </div>
+          </a-row>
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">

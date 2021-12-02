@@ -30,6 +30,7 @@
                   <img
                     alt="example"
                     :src="food.foodUrl"
+                    style="width:154px;height:150px;margin:0px;"
                   />
                 </template>
                 <a-card-meta :title="food.foodName">
