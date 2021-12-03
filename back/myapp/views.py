@@ -109,7 +109,8 @@ def getInformation(request):
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
                              'userOrders': orders,
-                             'userStars': stars
+                             'userStars': stars,
+                             'userIconUrl':user.user_icon_url,
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})

@@ -46,7 +46,7 @@
         <a-menu-item key="6">
           用户注销
         </a-menu-item>
-        <a-menu-item key="7">
+        <a-menu-item key="7" @click="$store.commit('logout')">
           <router-link to="/login">
             用户登出
           </router-link>

@@ -1,160 +1,175 @@
-import { createRouter, createWebHistory } from "vue-router";
-
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: "/",
-    redirect: "/login",
+    path: '/',
+    redirect: '/login'
     //输入前面的ip地址+端口号立刻会跳转到/login,可以理解为初始界面
   },
   {
-    path: "/login",
-    name: "Login", //注意，path和name都是绝对不准重复的
+    path: '/login',
+    name: 'Login', //注意，path和name都是绝对不准重复的
     component: () =>
       import(
         /* webpackChunkName: "login" */
-        "../views/Login.vue"
-      ),
+        '../views/Login.vue'
+      )
   },
   {
-    path: "/register",
-    name: "Register",
+    path: '/register',
+    name: 'Register',
     component: () =>
       import(
         /* webpackChunkName: "login" */
-        "../views/Register.vue"
-      ),
+        '../views/Register.vue'
+      )
   },
   {
-    path: "/home",
-    name: "Home",
+    path: '/home',
+    name: 'Home',
+    redirect: '/home/userinfo',
     component: () =>
       import(
         /* webpackChunkName: "login" */
-        "../views/Home.vue"
+        '../views/Home.vue'
       ),
     children: [
-        {
-          path: "test",
-          name: "test",
-          meta: {
-            title: '个人中心',
-            keepAlive: true
-          },
-          component: () => import("../views/test")
-        },
       {
-        path: "userinfo",
-        name: "userinfo",
+        path: 'test',
+        name: 'test',
         meta: {
-          keepAlive: true
+          title: '个人中心',
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/UserInfo")
+        component: () => import('../views/test')
       },
       {
-        path: "orderquery",
-        name: "orderquery",
+        path: 'userinfo',
+        name: 'userinfo',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/OrderQuery")
+        component: () => import('../views/UserInfo')
       },
       {
-        path: "userstar",
-        name: "userstar",
+        path: 'orderquery',
+        name: 'orderquery',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/UserStar")
+        component: () => import('../views/OrderQuery')
       },
       {
-        path: "restaurant1",
-        name: "restaurant1",
+        path: 'userstar',
+        name: 'userstar',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/Restaurant1")
+        component: () => import('../views/UserStar')
       },
       {
-        path: "restaurant2",
-        name: "restaurant2",
+        path: 'restaurant1',
+        name: 'restaurant1',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/Restaurant2")
+        component: () => import('../views/Restaurant1')
       },
       {
-        path: "restaurant3",
-        name: "restaurant3",
+        path: 'restaurant2',
+        name: 'restaurant2',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/Restaurant3")
+        component: () => import('../views/Restaurant2')
       },
       {
-        path: "restaurant4",
-        name: "restaurant4",
+        path: 'restaurant3',
+        name: 'restaurant3',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/Restaurant4")
+        component: () => import('../views/Restaurant3')
       },
       {
-        path: "restaurant5",
-        name: "restaurant5",
+        path: 'restaurant4',
+        name: 'restaurant4',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/Restaurant5")
+        component: () => import('../views/Restaurant4')
       },
       {
-        path: "discussion",
-        name: "discussion",
+        path: 'restaurant5',
+        name: 'restaurant5',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/Discussion")
+        component: () => import('../views/Restaurant5')
       },
       {
-        path: "ordernow",
-        name: "ordernow",
+        path: 'discussion',
+        name: 'discussion',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/OrderNow")
+        component: () => import('../views/Discussion')
       },
       {
-        path: "developmentteam",
-        name: "developmentteam",
+        path: 'ordernow',
+        name: 'ordernow',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/DevelopmentTeam")
+        component: () => import('../views/OrderNow')
       },
       {
-        path: "template",
-        name: "template",
+        path: 'developmentteam',
+        name: 'developmentteam',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/template")
+        component: () => import('../views/DevelopmentTeam')
       },
       {
-        path: "discussionme",
-        name: "discussionme",
+        path: 'template',
+        name: 'template',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/DiscussionMe")
+        component: () => import('../views/template')
       },
       {
-        path: "mydiscussion",
-        name: "mydiscussion",
+        path: 'discussionme',
+        name: 'discussionme',
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          requireAuth: true
         },
-        component: () => import("../views/MyDiscussion")
+        component: () => import('../views/DiscussionMe')
       },
+      {
+        path: 'mydiscussion',
+        name: 'mydiscussion',
+        meta: {
+          keepAlive: true,
+          requireAuth: true
+        },
+        component: () => import('../views/MyDiscussion')
+      }
       // {
       //   path: "",
       //   name: "",
@@ -163,16 +178,13 @@ const routes = [
       //   },
       //   component: () => import("")
       // },
-      ],
+    ]
   },
   {
-    path: "/zoumadeng",
-    name: "Zoumadeng",
-    component: () =>
-        import(
-            "../views/zoumadeng"
-            ),
-  },
+    path: '/zoumadeng',
+    name: 'Zoumadeng',
+    component: () => import('../views/zoumadeng')
+  }
   // {
   //   path: "/test",
   //   name: "test",
@@ -215,11 +227,11 @@ const routes = [
   //     // },
   //   ],
   // },
-];
+]
 
 const router = createRouter({
-  history: createWebHistory("/"),
-  routes,
-});
+  history: createWebHistory('/'),
+  routes
+})
 
-export default router;
+export default router
