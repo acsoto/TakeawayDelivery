@@ -1,11 +1,26 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0" >
-      <PlusCircleTwoTone style="font-size: xxx-large" @click="increase"/>
-      <MinusCircleTwoTone style="font-size: xxx-large" @click="decline"/>
-      <ShoppingTwoTone style="font-size: xxx-large" @click="testOnclick" />
-      <a-badge :count="count" show-zero>
-        <a href="#" class="head-example" />
+    <a-layout-header style="background: #fff; padding: 0">
+      <PlusCircleTwoTone
+        style="font-size: xxx-large"
+        @click="increase"
+      />
+      <MinusCircleTwoTone
+        style="font-size: xxx-large"
+        @click="decline"
+      />
+      <ShoppingTwoTone
+        style="font-size: xxx-large"
+        @click="testOnclick"
+      />
+      <a-badge
+        :count="count"
+        show-zero
+      >
+        <a
+          href="#"
+          class="head-example"
+        />
       </a-badge>
     </a-layout-header>
     <a-layout-content style="margin: 0 16px">
@@ -15,12 +30,14 @@
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
         <!--        TODO-->
-
-        <a-table :columns="columns" :data-source="data">
-
-        </a-table>
-
-
+        <a-row :gutter="[16,16]" align="center" justify="center">
+          <a-col :span="12">
+            <my-avatar :user="user" />
+          </a-col>
+          <a-col :span="12">
+            <my-info :user="user" />
+          </a-col>
+        </a-row>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -30,32 +47,26 @@
   </div>
 </template>
 <script>
-// import {DownOutlined, SmileOutlined} from "_@ant-design_icons-vue@6.0.1@@ant-design/icons-vue";
-
-// export default {
-//   data() {
-//     return {
-//       collapsed: true,
-//     };
-//   },
-// };
-
-import {ShoppingTwoTone, PlusCircleTwoTone, MinusCircleTwoTone} from '@ant-design/icons-vue';
-import {defineComponent, ref} from "vue";
-
+import { ShoppingTwoTone, PlusCircleTwoTone, MinusCircleTwoTone } from '@ant-design/icons-vue';
+import { defineComponent, ref } from "vue";
+import MyAvatar from '@/components/userinfo/MyAvatar'
+import MyInfo from '@/components/userinfo/MyInfo'
 export default defineComponent({
   data() {
     return {
       collapsed: true,
-      data:[],
-      columns:[],
-      userID:this.$store.state.userID,
+      user: { userOrders: [], userStars: [], userIconUrl: "", },
+      columns: [],
+      userID: this.$store.state.userID,
+
     };
   },
   components: {
     ShoppingTwoTone,
     PlusCircleTwoTone,
     MinusCircleTwoTone,
+    MyAvatar,
+    MyInfo,
   },
   setup() {
     const count = ref(0);
@@ -78,16 +89,14 @@ export default defineComponent({
     };
   },
   created() {
-    this.setColumns();
-    this.getData();
+    this.getUserInfo();
   },
-  methods:{
-    testOnclick(){
+  methods: {
+    testOnclick() {
       window.alert("You Clicked Me!!!");
     },
-    async getData()
-    {
-      const { data: res } = await this.$http.post("api/getInformation/", {userID:this.userID});
+    async getUserInfo() {
+      const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });
       console.log(res)
       // if (res.success == false) {
       //   this.$message.error(res.message);
@@ -99,29 +108,10 @@ export default defineComponent({
       //   this.$message.success(res.message);
       //   this.$router.push({ path: "/home" });
       // }
-      this.data=[res]
-      console.log(this.data)
+      this.user = res
+      this.$forceUpdate()
+      console.log(this.user)
     },
-    setColumns()
-    {
-      this.columns=[{
-        title: '用户名',
-        dataIndex: 'userName',
-        key: 'userName',
-      }, {
-        title: '用户昵称',
-        dataIndex: 'userNickName',
-        key: 'userNickName',
-      }, {
-        title: '地址',
-        dataIndex: 'userAddress',
-        key: 'userAddress',
-      }, {
-        title: '电话',
-        key: 'userTel',
-        dataIndex: 'userTel',
-      }]
-    }
 
   },
 });

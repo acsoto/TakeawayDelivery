@@ -57,7 +57,8 @@ def getOrders(user):
     orders_json = []
     for order in orders:
         order_json = {"orderCompleted": order.order_completed,
-                      "deliveryUserName": order.delivery_user.user_name
+                      "deliveryUserName": order.delivery_user.user_name,
+                      "deliveryUserIcon": order.delivery_user.user_icon_url,
                       }
         foods_json = []
         order_foods = OrderFood.objects.filter(order_id=order.order_id)
@@ -110,7 +111,7 @@ def getInformation(request):
                              'userTel': user.user_tel,
                              'userOrders': orders,
                              'userStars': stars,
-                             'userIconUrl':user.user_icon_url,
+                             'userIconUrl': user.user_icon_url,
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
@@ -124,6 +125,7 @@ def changeInformation(request):
         user.user_nickname = data_json.get('userNickName')
         user.user_tel = data_json.get('userTel')
         user.user_address = data_json.get('userAddress')
+        user.user_icon_url = data_json.get('userIconUrl')
         user.save()
         return JsonResponse({'success': True, 'message': '修改成功'})
     else:
@@ -135,6 +137,8 @@ def changePassword(request):
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         user = User.objects.get(user_id=user_id)
+        if user.user_password != data_json.get('userOldPassword'):
+            return JsonResponse({'success': False, 'message': '原密码错误'})
         user.user_password = data_json.get('userPassword')
         user.save()
         return JsonResponse({'success': True, 'message': '修改成功'})
