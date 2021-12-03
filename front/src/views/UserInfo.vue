@@ -30,14 +30,24 @@
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
         <!--        TODO-->
-        <a-row :gutter="[16,16]" align="center" justify="center">
-          <a-col :span="12">
-            <my-avatar :user="user" />
-          </a-col>
-          <a-col :span="12">
-            <my-info :user="user" />
-          </a-col>
-        </a-row>
+        
+          <a-row
+            type="flex"
+            justify="center"
+          >
+            <a-col
+              justify="center"
+              :span="10"
+            >
+              <my-avatar :user="user" />
+            </a-col>
+            <a-col
+              justify="center"
+              :span="10"
+            >
+              <my-info :user="user" />
+            </a-col>
+          </a-row>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
