@@ -29,7 +29,7 @@
         </a-menu-item>
         <a-menu-item key="2">
           <router-link to="/home/orderquery">
-            订单查询
+            我的订单
           </router-link>
         </a-menu-item>
         <a-menu-item key="3">
@@ -108,15 +108,15 @@
       <a-sub-menu key="sub4">
         <template v-slot:title><a-icon type="team" />
           <CarOutlined />
-          <span v-if="collapsed">我接的单</span>
+          <span v-if="collapsed">订单查询</span>
         </template>
         <a-menu-item key="16">
           <router-link to="ordernow">
-            当前订单
+            我接的单
           </router-link>
         </a-menu-item>
         <a-menu-item key="17">
-          历史订单
+          全部订单
         </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub5">
