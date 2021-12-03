@@ -8,7 +8,7 @@ import axios from "axios"
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 let config = {
-  baseURL: "http://127.0.0.1:8000/",
+  baseURL: "http://42.192.60.125:80/",
   timeout: 60 * 1000, // Timeout
   withCredentials: true, // Check cross-site Access-Control
 };
