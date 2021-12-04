@@ -30,24 +30,24 @@
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
         <!--        TODO-->
-        
-          <a-row
-            type="flex"
+
+        <a-row
+          type="flex"
+          justify="center"
+        >
+          <a-col
             justify="center"
+            :span="10"
           >
-            <a-col
-              justify="center"
-              :span="10"
-            >
-              <my-avatar :user="user" />
-            </a-col>
-            <a-col
-              justify="center"
-              :span="10"
-            >
-              <my-info :user="user" />
-            </a-col>
-          </a-row>
+            <my-avatar :user="user" />
+          </a-col>
+          <a-col
+            justify="center"
+            :span="10"
+          >
+            <my-info :user="user" />
+          </a-col>
+        </a-row>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -106,23 +106,19 @@ export default defineComponent({
       window.alert("You Clicked Me!!!");
     },
     async getUserInfo() {
-      const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });
-      console.log(res)
-      // if (res.success == false) {
-      //   this.$message.error(res.message);
-      // }
-      // else {
-      //   this.$store.commit("login", { userName: this.param.userName, userID: res.userID });//注意一下，store貌似只能传一个参数，建议传个对象过去。
-      //   //获取存入的userID的方式：this.$store.state.userID   (注意是this.$store.state.XXX，千万别落什么东西)
-      //   //console.log(this.$store.state)
-      //   this.$message.success(res.message);
-      //   this.$router.push({ path: "/home" });
-      // }
-      this.user = res
-      this.$forceUpdate()
-      console.log(this.user)
+      try {
+        const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });
+        if (res.success == false) {
+          this.$message.error(res.message);
+        }
+        else {
+          this.user = res
+          this.$forceUpdate()
+        }
+      } catch (error) {
+        this.$message.error("网络异常");
+      }
     },
-
   },
 });
 </script>
