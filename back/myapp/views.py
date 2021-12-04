@@ -211,13 +211,15 @@ def getStoreInformation(request):
             if(food_count!=0):
                 food_score = food_score/food_count
             food_json.append({
+                "foodID":food.food_id,
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url,
                 "foodScore":food_score,
                 "foodCount":food_count,
+                "foodCount": food_count,
             })
-            
+
         if (count != 0):
             score = score / count
         return JsonResponse({'success': True,

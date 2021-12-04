@@ -2,7 +2,7 @@
   <div class="background">
     <div class="restaurant-card">
       <div>
-        <div style="margin:10px;display: flex;  justify-content: space-between;  align-items: center;">
+        <div style="margin:10px;display:flex;justify-content:space-between;align-items: center;">
           <div>
             <span class="name">{{thisRestaurant.storeName}}</span> <br />
             <strong>{{thisRestaurant.storeAddress}}</strong><br />

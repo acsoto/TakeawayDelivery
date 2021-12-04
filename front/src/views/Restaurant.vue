@@ -14,7 +14,18 @@
       </a-breadcrumb>
 
       <restaurant-info :restaurant="store" />
-
+      <div
+        v-for="food in store.food"
+        :key="food"
+      >
+        <food-buy :food="food" @getTotal="getTotal" />
+      </div>
+      <div
+        v-if="total>0"
+        class="total"
+      >
+        {{total}}
+      </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
       <!--        Ant Design ©2018 Created by Ant UED-->
@@ -25,14 +36,21 @@
 
 <script>
 import RestaurantInfo from '@/components/restaurant/RestaurantInfo'
+import FoodBuy from '@/components/restaurant/FoodBuy'
 export default {
   components: {
     RestaurantInfo,
+    FoodBuy,
   },
   data() {
     return {
       store: {},
+      total: 0,
     };
+  },
+  computed: {
+
+
   },
   created() {
     this.getStoreInfo();
@@ -51,6 +69,14 @@ export default {
       } catch (error) {
         this.$message.error("网络异常");
       }
+    },
+    getTotal() {
+      var total = 0;
+      for (var i=0;i<this.store.food.length;i++  ) {
+       if(this.store.food[i].foodNum) total += this.store.food[i].foodNum * this.store.food[i].foodPrice;
+        console.log(total)
+      }
+      this.total = total;
     }
   },
   watch: {
@@ -59,4 +85,25 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (min-width: 1201px) {
+  .total {
+    margin: 20px auto;
+    background: rgb(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .total {
+    margin: 20px auto;
+    background: rgb(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+  }
+}
 </style>

@@ -69,7 +69,6 @@ export default {
   margin: 20px auto;
   background: rgb(255, 255, 255, 0.9);
   box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
-  border-radius: 10px;
   width: 100%;
 }
 </style>
