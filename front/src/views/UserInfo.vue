@@ -23,7 +23,7 @@
         />
       </a-badge>
     </a-layout-header>
-    <a-layout-content style="margin: 0 16px">
+    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>个人信息</a-breadcrumb-item>
