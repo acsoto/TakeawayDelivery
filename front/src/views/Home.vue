@@ -6,30 +6,12 @@
     >
       <my-menu />
       <a-layout>
-        <router-view
-          v-if="$route.meta.keepAlive"
-          v-slot="{ Component }"
-        >
+        <router-view v-slot="{ Component }">
           <transition
             name="move"
             mode="out-in"
           >
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </transition>
-        </router-view>
-        <router-view
-          v-else
-          v-slot="{ Component }"
-        >
-          <transition
-            name="move"
-            mode="out-in"
-          >
-
             <component :is="Component" />
-
           </transition>
         </router-view>
       </a-layout>

@@ -66,7 +66,7 @@ const routes = [
         path: 'userstar',
         name: 'userstar',
         meta: {
-          keepAlive: false,
+          keepAlive: true,
           requireAuth: true
         },
         component: () => import('../views/UserStar')
@@ -84,7 +84,7 @@ const routes = [
         path: 'restaurant',
         name: 'restaurant',
         meta: {
-          keepAlive: false,
+          keepAlive: true,
           requireAuth: true
         },
         component: () => import('../views/Restaurant')

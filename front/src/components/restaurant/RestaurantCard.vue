@@ -43,7 +43,7 @@
 
         <img
           :src="thisRestaurant.storeUrl"
-          style="width:300px;height:300px;border-radius:10px;margin-right:20px;"
+          style="width:300px;height:300px;border-radius:10px;"
         />
         <div class="obstacle">
           <div class="text">
@@ -101,6 +101,7 @@ export default {
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
+padding: 20px;
     width: 80%;
   }
 }
@@ -111,6 +112,7 @@ export default {
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
+padding: 20px;
     width: 100%;
   }
 }

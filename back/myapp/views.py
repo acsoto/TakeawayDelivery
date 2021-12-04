@@ -82,6 +82,7 @@ def getOrders(user, is_delivery):
             food_num = order_food.food_num
             count += food.food_price * food_num
             food_json = {
+                "foodID": food.food_id,
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url,
@@ -122,6 +123,7 @@ def getStars(user):
         for star_food in star_foods:
             food = star_food.food
             food_json = {
+                "foodID": food.food_id,
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url
@@ -195,6 +197,7 @@ def getStores(request):
             three_foods = Food.objects.filter(store_id=store.store_id)[:3]
             for food in three_foods:
                 food_json.append({
+                    "foodID": food.food_id,
                     "foodName": food.food_name,
                     "foodPrice": food.food_price,
                     "foodUrl": food.food_url

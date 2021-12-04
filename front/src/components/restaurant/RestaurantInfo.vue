@@ -65,10 +65,26 @@ export default {
 .value {
   font-size: 20px;
 }
-.background {
-  margin: 20px auto;
-  background: rgb(255, 255, 255, 0.9);
-  box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
-  width: 100%;
+
+@media screen and (min-width: 1201px) {
+  .background {
+    margin: 20px auto;
+    background: rgb(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .background {
+    margin: 20px auto;
+    background: rgb(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+  }
 }
 </style>
