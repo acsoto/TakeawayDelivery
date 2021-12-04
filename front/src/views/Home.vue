@@ -1,15 +1,19 @@
 <template>
   <div>
-    <a-layout id="components-layout-demo-side" style="min-height: 100vh;overflow:auto;">
-    <my-menu/>
+    <a-layout
+      id="components-layout-demo-side"
+      style="min-height: 100vh;overflow:auto;"
+    >
+      <my-menu />
       <a-layout>
-    <router-view v-slot="{ Component }">
-      <transition name="move" mode="out-in">
-        <keep-alive >
-          <component :is="Component" />
-        </keep-alive>
-      </transition>
-    </router-view>
+        <router-view v-slot="{ Component }">
+          <transition
+            name="move"
+            mode="out-in"
+          >
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </a-layout>
     </a-layout>
   </div>
@@ -18,7 +22,7 @@
 <script>
 import MyMenu from '../components/Menu'
 export default {
-  components:{
+  components: {
     MyMenu,
   },
   data() {
@@ -70,13 +74,13 @@ export default {
       // alert("test3");
     },
     test4() {
-       this.$router.push({ path: "/userinfo" });
+      this.$router.push({ path: "/userinfo" });
     },
     test5() {
-       this.$router.push({ path: "/logout" });
+      this.$router.push({ path: "/logout" });
     },
     test6() {
-       this.$router.push({ path: "/login" });
+      this.$router.push({ path: "/login" });
     },
   },
 }
@@ -109,12 +113,12 @@ export default {
 }
 .li {
   letter-spacing: 2px;
-  font: 600 17px "";
+  font: 600 17px '';
   padding: 16px 52px;
   transition: 1s;
 }
 .li::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 20px;
   margin-top: -22px;

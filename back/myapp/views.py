@@ -1,6 +1,7 @@
 import json
 from django.http import JsonResponse, FileResponse, StreamingHttpResponse, HttpResponse
 from myapp.models import *
+import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
@@ -59,12 +60,20 @@ def getOrders(user, is_delivery):
         orders = Order.objects.filter(order_user_id=user.user_id)
     orders_json = []
     for order in orders:
-        order_json = {"orderDate": order.order_date,
-                      "orderCompleted": order.order_completed,
-                      "deliveryUserName": order.delivery_user.user_name,
-                      "deliveryUserTel": order.delivery_user.user_tel,
-                      "deliveryUserIcon": order.delivery_user.user_icon_url,
-                      }
+        if order.delivery_user:
+            order_json = {"orderDate": order.order_date,
+                          "orderCompleted": order.order_completed,
+                          "deliveryUserName": order.delivery_user.user_name,
+                          "deliveryUserTel": order.delivery_user.user_tel,
+                          "deliveryUserIcon": order.delivery_user.user_icon_url,
+                          }
+        else:
+            order_json = {"orderDate": order.order_date,
+                          "orderCompleted": order.order_completed,
+                          "deliveryUserName": "",
+                          "deliveryUserTel": "",
+                          "deliveryUserIcon": "",
+                          }
         foods_json = []
         order_foods = OrderFood.objects.filter(order_id=order.order_id)
         count = 0
@@ -90,13 +99,16 @@ def setOrders(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
-        user = User.objects.get(user_id=user_id)
-        food_list =data_json.get('foodList')
-        stars = getStars(user)
-        order = Order(order_completed=0,order_user_id=user_id)
+        food_list = data_json.get('foodList')
+        order = Order(order_completed=0,order_user_id=user_id,order_date=datetime.datetime.now())
+        order.save()
+
+        for food in food_list:
+            if food.get('foodNum') and food.get('foodNum')>0:
+                food_order = OrderFood(food_id=food.get('foodID'),order_id=order.order_id,food_num=food.get('foodNum'))
+                food_order.save()
         return JsonResponse({'success': True,
-                             'message': '查询成功',
-                             'userName': user.user_name,
+                             'message': '下单成功',
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})

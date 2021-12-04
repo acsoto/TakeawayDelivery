@@ -26,12 +26,12 @@
       <div
         v-if="total>0"
         class="total"
-        style="margin: 0 16px;height:80vh;overflow:auto;"
+        style="display:flex;justify-content:space-between;align-items: center;"
       >
         <div>总计：{{total}}元</div>
-        <div>
-          <a-button @click="setOrder">下单</a-button>
-        </div>
+
+        <a-button @click="setOrder">下单</a-button>
+
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -59,7 +59,7 @@ export default {
 
 
   },
-  created() {
+  mounted() {
     this.getStoreInfo();
   },
   methods: {
@@ -81,19 +81,19 @@ export default {
       var total = 0;
       for (var i = 0; i < this.store.food.length; i++) {
         if (this.store.food[i].foodNum) total += this.store.food[i].foodNum * this.store.food[i].foodPrice;
-        console.log(total)
       }
       this.total = total;
     },
     async setOrder() {
       try {
-        const { data: res } = await this.$http.post("api/setOrders/", { userID: this.$route.query.storeID,foodList:this.store.food });
+        const { data: res } = await this.$http.post("api/setOrders/", { userID: this.$store.state.userID, foodList: this.store.food });
         console.log(res)
         if (res.success == false) {
           this.$message.error(res.message);
         }
         else {
-          this.store = res;
+          this.$message.success(res.message);
+          this.$router.push({ path: "/home/restaurants" });
         }
       } catch (error) {
         this.$message.error("网络异常");

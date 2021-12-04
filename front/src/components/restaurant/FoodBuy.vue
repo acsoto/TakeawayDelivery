@@ -40,7 +40,7 @@ export default {
     };
   },
   created() {
-
+    this.thisFood.foodNum = 0;
   },
   methods: {},
   watch: {
