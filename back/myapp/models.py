@@ -25,6 +25,7 @@ class FoodEvaluate(models.Model):
     food_evaluate_text = models.CharField(max_length=100, blank=True, null=True)
     food_evaluate_score = models.IntegerField(blank=True, null=True)
     food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
+    post_user = models.ForeignKey('User', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -36,6 +37,7 @@ class Order(models.Model):
     order_completed = models.IntegerField()
     order_user = models.ForeignKey('User', models.DO_NOTHING, related_name='order_user_1')
     delivery_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True, related_name='order_user_2')
+    order_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -102,7 +104,8 @@ class UserEvaluate(models.Model):
     user_evaluate_id = models.AutoField(primary_key=True)
     user_evaluate_text = models.CharField(max_length=100, blank=True, null=True)
     user_evaluate_score = models.IntegerField(blank=True, null=True)
-    user = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True, related_name='user_evaluate_1')
+    post_user = models.ForeignKey('User', models.DO_NOTHING, related_name='user_evaluate_2')
 
     class Meta:
         managed = False
