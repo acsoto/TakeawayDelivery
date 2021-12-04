@@ -107,7 +107,8 @@ def getInformation(request):
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         user = User.objects.get(user_id=user_id)
-        orders = getOrders(user)
+        orders1 = getOrders(user, False)
+        orders2 = getOrders(user, True)
         stars = getStars(user)
         return JsonResponse({'success': True,
                              'message': '查询成功',
@@ -115,7 +116,8 @@ def getInformation(request):
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
-                             'userOrders': orders,
+                             'userOrders': orders1,
+                             'userDeliveryOrders': orders2,
                              'userStars': stars,
                              'userIconUrl': user.user_icon_url,
                              })
