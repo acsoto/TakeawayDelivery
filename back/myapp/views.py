@@ -52,12 +52,17 @@ def register(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getOrders(user):
-    orders = Order.objects.filter(order_user_id=user.user_id)
+def getOrders(user, is_delivery):
+    if is_delivery:
+        orders = Order.objects.filter(delivery_user_id=user.user_id)
+    else:
+        orders = Order.objects.filter(order_user_id=user.user_id)
     orders_json = []
     for order in orders:
-        order_json = {"orderCompleted": order.order_completed,
+        order_json = {"orderDate": order.order_date,
+                      "orderCompleted": order.order_completed,
                       "deliveryUserName": order.delivery_user.user_name,
+                      "deliveryUserTel": order.delivery_user.user_tel,
                       "deliveryUserIcon": order.delivery_user.user_icon_url,
                       }
         foods_json = []
@@ -74,6 +79,7 @@ def getOrders(user):
                 "foodNum": food_num
             }
             foods_json.append(food_json)
+            order_json["storeName"] = food.store.store_name
         order_json["food"] = foods_json
         order_json['totalPrice'] = count
         orders_json.append(order_json)
@@ -101,7 +107,8 @@ def getInformation(request):
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         user = User.objects.get(user_id=user_id)
-        orders = getOrders(user)
+        orders1 = getOrders(user, False)
+        orders2 = getOrders(user, True)
         stars = getStars(user)
         return JsonResponse({'success': True,
                              'message': '查询成功',
@@ -109,7 +116,8 @@ def getInformation(request):
                              'userNickName': user.user_nickname,
                              'userAddress': user.user_address,
                              'userTel': user.user_tel,
-                             'userOrders': orders,
+                             'userOrders': orders1,
+                             'userDeliveryOrders': orders2,
                              'userStars': stars,
                              'userIconUrl': user.user_icon_url,
                              })
@@ -145,6 +153,7 @@ def changePassword(request):
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 
+
 def getStores(request):
     if request.method == 'POST':
 
@@ -168,18 +177,18 @@ def getStores(request):
                     count += 1
                     score += evaluate.food_evaluate_score
 
-            if(count!=0):
-                score=score/count
+            if (count != 0):
+                score = score / count
             store_json.append({
-                "storeID":store.store_id,
+                "storeID": store.store_id,
                 "storeName": store.store_name,
                 "storeAddress": store.store_address,
                 "storeTel": store.store_tel,
-                "storeUrl":store.store_url,
+                "storeUrl": store.store_url,
                 "score": score,
                 "count": count,
-                "food":food_json,
-                "foodSize":three_foods.count(),
+                "food": food_json,
+                "foodSize": three_foods.count(),
             })
         return JsonResponse({'success': True,
                              'message': '查询成功',
@@ -187,6 +196,7 @@ def getStores(request):
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
+
 
 def getStoreInformation(request):
     if request.method == 'POST':
@@ -208,15 +218,14 @@ def getStoreInformation(request):
                 food_score += evaluate.food_evaluate_score
                 score += evaluate.food_evaluate_score
 
-            if(food_count!=0):
-                food_score = food_score/food_count
+            if (food_count != 0):
+                food_score = food_score / food_count
             food_json.append({
                 "foodID":food.food_id,
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url,
-                "foodScore":food_score,
-                "foodCount":food_count,
+                "foodScore": food_score,
                 "foodCount": food_count,
             })
 
@@ -278,3 +287,14 @@ def getEvaluateUser(request):
                              'userEvaluate': user_evaluate_json})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
+
+
+# Android
+def androidGetOrders(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user = User.objects.get(user_id=user_id)
+        orders = getOrders(user, False)
+        return JsonResponse({'success': True, 'message': '请求成功',
+                             'orders': orders})
