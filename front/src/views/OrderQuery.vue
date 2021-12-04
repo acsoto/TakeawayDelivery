@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import OrderCard from '@/components/order/OrderCard'
+import OrderCard from '@/components/myorder/OrderCard'
 export default {
   data() {
     return {
