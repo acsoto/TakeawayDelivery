@@ -194,19 +194,41 @@ def getStoreInformation(request):
         store_id = data_json.get('storeID')
         store = Store.objects.get(store_id=store_id)
         food_json = []
+        score = 0
+        count = 0
         foods = Food.objects.filter(store_id=store_id)
         for food in foods:
+            food_count = 0
+            food_score = 0
+
+            evaluates = FoodEvaluate.objects.filter(food__food_id=food.food_id)
+            for evaluate in evaluates:
+                count += 1
+                food_count += 1
+                food_score += evaluate.food_evaluate_score
+                score += evaluate.food_evaluate_score
+
+            if(food_count!=0):
+                food_score = food_score/food_count
             food_json.append({
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
-                "foodUrl": food.food_url
+                "foodUrl": food.food_url,
+                "foodScore":food_score,
+                "foodCount":food_count,
             })
+            
+        if (count != 0):
+            score = score / count
         return JsonResponse({'success': True,
                              'message': '查询成功',
                              'storeName': store.store_name,
                              'storeAddress': store.store_address,
                              'storeTel': store.store_tel,
-                             'food': food_json
+                             "storeUrl": store.store_url,
+                             'food': food_json,
+                             "score": score,
+                             "count": count,
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})

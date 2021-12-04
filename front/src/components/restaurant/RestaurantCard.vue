@@ -5,7 +5,6 @@
         <div style="margin:10px;display: flex;  justify-content: space-between;  align-items: center;">
           <div>
             <span class="name">{{thisRestaurant.storeName}}</span> <br />
-
             <strong>{{thisRestaurant.storeAddress}}</strong><br />
             <strong>{{thisRestaurant.storeTel}}</strong><br />
             <strong>
@@ -36,6 +35,10 @@
       <div
         class="image"
         style="margin:20px;position:relative;"
+        @click="$router.push({ path: '/home/restaurant',
+            query: {
+              storeID: thisRestaurant.storeID,
+            },});"
       >
 
         <img
