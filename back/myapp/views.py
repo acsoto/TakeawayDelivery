@@ -225,7 +225,7 @@ def getStoreInformation(request):
                 "foodScore":food_score,
                 "foodCount":food_count,
             })
-            
+
         if (count != 0):
             score = score / count
         return JsonResponse({'success': True,
@@ -284,3 +284,14 @@ def getEvaluateUser(request):
                              'userEvaluate': user_evaluate_json})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
+
+
+# Android
+def androidGetOrders(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user = User.objects.get(user_id=user_id)
+        orders = getOrders(user, False)
+        return JsonResponse({'success': True, 'message': '请求成功',
+                             'orders': orders})
