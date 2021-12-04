@@ -153,6 +153,7 @@ def changePassword(request):
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 
+
 def getStores(request):
     if request.method == 'POST':
 
@@ -176,18 +177,18 @@ def getStores(request):
                     count += 1
                     score += evaluate.food_evaluate_score
 
-            if(count!=0):
-                score=score/count
+            if (count != 0):
+                score = score / count
             store_json.append({
-                "storeID":store.store_id,
+                "storeID": store.store_id,
                 "storeName": store.store_name,
                 "storeAddress": store.store_address,
                 "storeTel": store.store_tel,
-                "storeUrl":store.store_url,
+                "storeUrl": store.store_url,
                 "score": score,
                 "count": count,
-                "food":food_json,
-                "foodSize":three_foods.count(),
+                "food": food_json,
+                "foodSize": three_foods.count(),
             })
         return JsonResponse({'success': True,
                              'message': '查询成功',
@@ -195,6 +196,7 @@ def getStores(request):
                              })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
+
 
 def getStoreInformation(request):
     if request.method == 'POST':
@@ -216,14 +218,14 @@ def getStoreInformation(request):
                 food_score += evaluate.food_evaluate_score
                 score += evaluate.food_evaluate_score
 
-            if(food_count!=0):
-                food_score = food_score/food_count
+            if (food_count != 0):
+                food_score = food_score / food_count
             food_json.append({
                 "foodName": food.food_name,
                 "foodPrice": food.food_price,
                 "foodUrl": food.food_url,
-                "foodScore":food_score,
-                "foodCount":food_count,
+                "foodScore": food_score,
+                "foodCount": food_count,
             })
 
         if (count != 0):
