@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0" >
+    <a-layout-header style="background: #fff; padding: 0">
     </a-layout-header>
     <a-layout-content style="margin: 0 16px">
       <a-breadcrumb style="margin: 16px 0">
@@ -8,31 +8,77 @@
         <a-breadcrumb-item>开发团队</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-          <a-carousel arrows dots-class="slick-dots slick-thumb" autoplay="true">
-            <template #customPaging="props">
-              <a>
-<!--                //有bug的函数-->
-                <img v-bind:src="`../assets/img/` + props.i + `.jpg`"/>
-              </a>
-            </template>
-<!--            <div v-for="item in 4" :key="item">-->
-<!--              <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
-<!--            </div>-->
-            <div v-for="item in 4" :key="item">
-              <img src="../assets/img/1.jpg">
-<!--              <img src="'../assets/img/' + item + '.jpg'">-->
-            </div>
-          </a-carousel>
-<!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->
-<!--          <template #customPaging="props">-->
-<!--            <a>-->
-<!--              <img :src="getImgUrl(props.i)" />-->
-<!--            </a>-->
-<!--          </template>-->
-<!--          <div v-for="item in 4" :key="item">-->
-<!--            <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
-<!--          </div>-->
-<!--        </a-carousel>-->
+        <a-carousel
+          arrows
+          dots-class="slick-dots slick-thumb"
+          autoplay="true"
+        >
+          <template #customPaging="props">
+            <a>
+              <!--                //有bug的函数-->
+              <img
+                v-if="props.i==0"
+                style="width:40px;height:30px;"
+                src="@/assets/img/1.jpg"
+              >
+
+              <img
+                v-if="props.i==1"
+                style="width:40px;height:30px;"
+                src="@/assets/img/2.jpg"
+              >
+
+              <img
+                v-if="props.i==2"
+                style="width:40px;height:30px;"
+                src="@/assets/img/3.jpg"
+              >
+
+              <img
+                v-if="props.i==3"
+                style="width:40px;height:30px;"
+                src="@/assets/img/4.jpg"
+              >
+            </a>
+          </template>
+          <!--            <div v-for="item in 4" :key="item">-->
+          <!--              <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
+          <!--            </div>-->
+          <div>
+            <img
+              style="width:400px;height:300px;"
+              src="@/assets/img/1.jpg"
+            >
+          </div>
+          <div>
+            <img
+              style="width:400px;height:300px;"
+              src="@/assets/img/2.jpg"
+            >
+          </div>
+          <div>
+            <img
+              style="width:400px;height:300px;"
+              src="@/assets/img/3.jpg"
+            >
+          </div>
+          <div>
+            <img
+              style="width:400px;height:300px;"
+              src="@/assets/img/4.jpg"
+            >
+          </div>
+        </a-carousel>
+        <!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->
+        <!--          <template #customPaging="props">-->
+        <!--            <a>-->
+        <!--              <img :src="getImgUrl(props.i)" />-->
+        <!--            </a>-->
+        <!--          </template>-->
+        <!--          <div v-for="item in 4" :key="item">-->
+        <!--            <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
+        <!--          </div>-->
+        <!--        </a-carousel>-->
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -49,7 +95,7 @@ export default defineComponent({
       collapsed: true,
     };
   },
-  methods:{
+  methods: {
   },
   setup() {
     const getImgUrl = i => {
