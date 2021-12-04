@@ -81,49 +81,13 @@ const routes = [
         component: () => import('../views/RestaurantList')
       },
       {
-        path: 'restaurant1',
-        name: 'restaurant1',
+        path: 'restaurant',
+        name: 'restaurant',
         meta: {
           keepAlive: true,
           requireAuth: true
         },
-        component: () => import('../views/Restaurant1')
-      },
-      {
-        path: 'restaurant2',
-        name: 'restaurant2',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/Restaurant2')
-      },
-      {
-        path: 'restaurant3',
-        name: 'restaurant3',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/Restaurant3')
-      },
-      {
-        path: 'restaurant4',
-        name: 'restaurant4',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/Restaurant4')
-      },
-      {
-        path: 'restaurant5',
-        name: 'restaurant5',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/Restaurant5')
+        component: () => import('../views/Restaurant')
       },
       {
         path: 'discussion',

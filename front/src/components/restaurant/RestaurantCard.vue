@@ -33,11 +33,23 @@
         </div>
       </div>
 
-      <div style="margin:20px">
+      <div
+        class="image"
+        style="margin:20px;position:relative;"
+      >
+
         <img
           :src="thisRestaurant.storeUrl"
           style="width:300px;height:300px;border-radius:10px;margin-right:20px;"
         />
+        <div class="obstacle">
+          <div class="text">
+            <span style="font-size:40px;">点击进入
+              <RightCircleOutlined />
+            </span>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -45,10 +57,12 @@
 </template>
 
 <script>
+import { RightCircleOutlined } from '@ant-design/icons-vue';
 import FoodCard from '@/components/restaurant/FoodCard'
 export default {
   components: {
-    FoodCard
+    FoodCard,
+    RightCircleOutlined,
   },
   props: ['restaurant'],
   data() {
@@ -96,5 +110,30 @@ export default {
     border-radius: 10px;
     width: 100%;
   }
+}
+.image .obstacle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 300px;
+  background: rgb(255, 255, 255, 0);
+}
+.image .obstacle:hover {
+  background: rgb(255, 255, 255, 0.8);
+}
+.image .text {
+  position: absolute;
+  left: 47px;
+  top: 120px;
+  color: #fff;
+  font-weight: bold;
+}
+.image:hover .text {
+  color: rgb(122, 122, 122);
+}
+
+.image:hover {
+  cursor: pointer;
 }
 </style>
