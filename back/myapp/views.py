@@ -52,12 +52,17 @@ def register(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getOrders(user):
-    orders = Order.objects.filter(order_user_id=user.user_id)
+def getOrders(user, is_delivery):
+    if is_delivery:
+        orders = Order.objects.filter(delivery_user_id=user.user_id)
+    else:
+        orders = Order.objects.filter(order_user_id=user.user_id)
     orders_json = []
     for order in orders:
-        order_json = {"orderCompleted": order.order_completed,
+        order_json = {"orderDate": order.order_date,
+                      "orderCompleted": order.order_completed,
                       "deliveryUserName": order.delivery_user.user_name,
+                      "deliveryUserTel": order.delivery_user.user_tel,
                       "deliveryUserIcon": order.delivery_user.user_icon_url,
                       }
         foods_json = []
@@ -74,6 +79,7 @@ def getOrders(user):
                 "foodNum": food_num
             }
             foods_json.append(food_json)
+            order_json["storeName"] = food.store.store_name
         order_json["food"] = foods_json
         order_json['totalPrice'] = count
         orders_json.append(order_json)
