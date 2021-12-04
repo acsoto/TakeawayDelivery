@@ -86,6 +86,22 @@ def getOrders(user, is_delivery):
     return orders_json
 
 
+def setOrders(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        user = User.objects.get(user_id=user_id)
+        food_list =data_json.get('foodList')
+        stars = getStars(user)
+        order = Order(order_completed=0,order_user_id=user_id)
+        return JsonResponse({'success': True,
+                             'message': '查询成功',
+                             'userName': user.user_name,
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
 def getStars(user):
     stars = Star.objects.filter(user_id=user.user_id)
     stars_json = []

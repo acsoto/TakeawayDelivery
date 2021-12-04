@@ -18,13 +18,20 @@
         v-for="food in store.food"
         :key="food"
       >
-        <food-buy :food="food" @getTotal="getTotal" />
+        <food-buy
+          :food="food"
+          @getTotal="getTotal"
+        />
       </div>
       <div
         v-if="total>0"
         class="total"
+        style="margin: 0 16px;height:80vh;overflow:auto;"
       >
-        {{total}}
+        <div>总计：{{total}}元</div>
+        <div>
+          <a-button @click="setOrder">下单</a-button>
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
@@ -72,11 +79,25 @@ export default {
     },
     getTotal() {
       var total = 0;
-      for (var i=0;i<this.store.food.length;i++  ) {
-       if(this.store.food[i].foodNum) total += this.store.food[i].foodNum * this.store.food[i].foodPrice;
+      for (var i = 0; i < this.store.food.length; i++) {
+        if (this.store.food[i].foodNum) total += this.store.food[i].foodNum * this.store.food[i].foodPrice;
         console.log(total)
       }
       this.total = total;
+    },
+    async setOrder() {
+      try {
+        const { data: res } = await this.$http.post("api/setOrders/", { userID: this.$route.query.storeID,foodList:this.store.food });
+        console.log(res)
+        if (res.success == false) {
+          this.$message.error(res.message);
+        }
+        else {
+          this.store = res;
+        }
+      } catch (error) {
+        this.$message.error("网络异常");
+      }
     }
   },
   watch: {
