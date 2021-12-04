@@ -7,11 +7,16 @@
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>我的订单</a-breadcrumb-item>
       </a-breadcrumb>
-      <div
-        v-for="order in orders"
-        :key="order"
-      >
-        <order-card :order="order" />
+      <div v-if="orders.length==0">
+        <a-empty />
+      </div>
+      <div v-else>
+        <div
+          v-for="order in orders"
+          :key="order"
+        >
+          <order-card :order="order" />
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">

@@ -90,7 +90,9 @@
           </router-link>
         </a-menu-item>
         <a-menu-item key="17">
-          全部订单
+           <router-link to="orders">
+            全部订单
+          </router-link>
         </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub5">

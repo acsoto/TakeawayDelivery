@@ -1,60 +1,64 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0" >
+    <a-layout-header style="background: #fff; padding: 0">
     </a-layout-header>
-    <a-layout-content style="margin: 0 16px">
+    <a-layout-content style="margin: 0 16px;margin: 0 16px;height:80vh;overflow:auto;">
       <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>订单查询</a-breadcrumb-item>
-        <a-breadcrumb-item>全部订单</a-breadcrumb-item>
+        <a-breadcrumb-item>个人中心</a-breadcrumb-item>
+        <a-breadcrumb-item>我的配单</a-breadcrumb-item>
       </a-breadcrumb>
-      <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-        <!--        TODO-->
-        <template>
-          <a-list item-layout="horizontal" :data-source="data">
-            <template #renderItem="{ item }">
-              <a-list-item>
-                <a-list-item-meta
-                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                >
-                  <template #title>
-                    <a href="https://www.antdv.com/">{{ item.title }}</a>
-                  </template>
-                  <template #avatar>
-                    <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  </template>
-                </a-list-item-meta>
-              </a-list-item>
-            </template>
-          </a-list>
-        </template>
+      <div v-if="orders.length==0">
+        <a-empty />
+      </div>
+      <div v-else>
+        <div
+          v-for="order in orders"
+          :key="order"
+        >
+          <order-card :order="order" />
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
       <!--        Ant Design ©2018 Created by Ant UED-->
-      ©For the King of Alxa
+      ©2021 Powered by zzh company
     </a-layout-footer>
   </div>
 </template>
 <script>
-import { defineComponent } from 'vue';
-const data = [{
-  title: 'Ant Design Title 1',
-}, {
-  title: 'Ant Design Title 2',
-}, {
-  title: 'Ant Design Title 3',
-}, {
-  title: 'Ant Design Title 4',
-}];
-export default defineComponent({
-  setup() {
+import OrderCard from '@/components/ordernow/OrderCard'
+export default {
+  data() {
     return {
-      data,
+      collapsed: true,
+      orders: [],
+      userID: this.$store.state.userID,
     };
   },
-
-});
+  components: {
+    OrderCard,
+  },
+  created() {
+    this.getData();
+  },
+  methods: {
+    async getData() {
+      try {
+        const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });
+        if (res.success == false) {
+          this.$message.error(res.message);
+        }
+        else {
+          this.orders = res.userDeliveryOrders;
+        }
+      } catch (error) {
+        this.$message.error("网络异常");
+      }
+    },
+  },
+};
 </script>
+
 <style>
 #components-layout-demo-side .logo {
   height: 32px;
@@ -67,5 +71,13 @@ export default defineComponent({
   opacity: 0.75;
   line-height: 200px;
   margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
 }
 </style>

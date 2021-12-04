@@ -7,15 +7,19 @@
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
       </a-breadcrumb>
-
-      <div
-        v-for="food in stars"
-        :key="food"
-      >
-        <food-card
-          :food="food"
-          @getData="getData"
-        />
+      <div v-if="stars.length==0">
+        <a-empty />
+      </div>
+      <div v-else>
+        <div
+          v-for="food in stars"
+          :key="food"
+        >
+          <food-card
+            :food="food"
+            @getData="getData"
+          />
+        </div>
       </div>
 
     </a-layout-content>

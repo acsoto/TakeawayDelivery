@@ -108,6 +108,15 @@ const routes = [
         component: () => import('../views/OrderNow')
       },
       {
+        path: 'orders',
+        name: 'orders',
+        meta: {
+          keepAlive: true,
+          reqsuireAuth: true
+        },
+        component: () => import('../views/Orders')
+      },
+      {
         path: 'developmentteam',
         name: 'developmentteam',
         meta: {

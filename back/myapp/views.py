@@ -5,7 +5,6 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-
 # Create your views here.
 
 def login(request):
@@ -56,25 +55,29 @@ def register(request):
 
 def getOrders(user, is_delivery):
     if is_delivery:
-        orders = Order.objects.filter(delivery_user_id=user.user_id)
+        orders = Order.objects.filter(delivery_user_id=user.user_id).order_by('-order_date')
     else:
         orders = Order.objects.filter(order_user_id=user.user_id).order_by('-order_date')
     orders_json = []
     for order in orders:
+        order_json = {}
         if order.delivery_user:
-            order_json = {"orderDate": order.order_date,
-                          "orderCompleted": order.order_completed,
-                          "deliveryUserNickName": order.delivery_user.user_nickname,
-                          "deliveryUserTel": order.delivery_user.user_tel,
-                          "deliveryUserIcon": order.delivery_user.user_icon_url,
-                          }
+            order_json["deliveryUserNickName"] = order.delivery_user.user_nickname
+            order_json["deliveryUserTel"] = order.delivery_user.user_tel
+            order_json["deliveryUserIcon"] = order.delivery_user.user_icon_url
         else:
-            order_json = {"orderDate": order.order_date,
-                          "orderCompleted": order.order_completed,
-                          "deliveryUserNickName": "",
-                          "deliveryUserTel": "",
-                          "deliveryUserIcon": "",
-                          }
+            order_json["orderUserNickName"] = ""
+            order_json["orderUserTel"] = ""
+            order_json["orderUserIcon"] = ""
+
+        if order.order_user:
+            order_json["orderUserNickName"] = order.order_user.user_nickname
+            order_json["orderUserTel"] = order.order_user.user_tel
+            order_json["orderUserIcon"] = order.order_user.user_icon_url
+        else:
+            order_json["orderUserNickName"] = ""
+            order_json["orderUserTel"] = ""
+            order_json["orderUserIcon"] = ""
         foods_json = []
         order_foods = OrderFood.objects.filter(order_id=order.order_id)
         count = 0
@@ -91,10 +94,92 @@ def getOrders(user, is_delivery):
             }
             foods_json.append(food_json)
             order_json["storeName"] = food.store.store_name
+            order_json["storeID"]=food.store.store_id
+        order_json["orderID"] = order.order_id
+        order_json["orderDate"] = order.order_date
+        order_json["orderCompleted"] = order.order_completed
         order_json["food"] = foods_json
         order_json['totalPrice'] = count
         orders_json.append(order_json)
     return orders_json
+
+
+def getAllOrders(request):
+    if request.method == 'POST':
+        orders = Order.objects.filter(order_completed=0).order_by('-order_date')
+        orders_json = []
+        for order in orders:
+            order_json = {}
+            if order.delivery_user:
+                order_json["deliveryUserNickName"] = order.delivery_user.user_nickname
+                order_json["deliveryUserTel"] = order.delivery_user.user_tel
+                order_json["deliveryUserIcon"] = order.delivery_user.user_icon_url
+            else:
+                order_json["orderUserNickName"] = ""
+                order_json["orderUserTel"] = ""
+                order_json["orderUserIcon"] = ""
+
+            if order.order_user:
+                order_json["orderUserNickName"] = order.order_user.user_nickname
+                order_json["orderUserTel"] = order.order_user.user_tel
+                order_json["orderUserIcon"] = order.order_user.user_icon_url
+            else:
+                order_json["orderUserNickName"] = ""
+                order_json["orderUserTel"] = ""
+                order_json["orderUserIcon"] = ""
+            foods_json = []
+            order_foods = OrderFood.objects.filter(order_id=order.order_id)
+            count = 0
+            for order_food in order_foods:
+                food = order_food.food
+                food_num = order_food.food_num
+                count += food.food_price * food_num
+                food_json = {
+                    "foodID": food.food_id,
+                    "foodName": food.food_name,
+                    "foodPrice": food.food_price,
+                    "foodUrl": food.food_url,
+                    "foodNum": food_num
+                }
+                foods_json.append(food_json)
+                order_json["storeName"] = food.store.store_name
+                order_json["storeID"] = food.store.store_id
+            order_json["orderID"] = order.order_id
+            order_json["orderDate"] = order.order_date
+            order_json["orderCompleted"] = order.order_completed
+            order_json["food"] = foods_json
+            order_json['totalPrice'] = count
+            orders_json.append(order_json)
+        return JsonResponse({'success': True,
+                             'message': '获取成功',
+                             'orders':orders_json,
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def finishOrder(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        order_id = data_json.get('orderID')
+        Order.objects.filter(order_id=order_id).update(order_completed=2)
+        return JsonResponse({'success': True,
+                             'message': '配送完成',
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def takeOrder(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        order_id = data_json.get('orderID')
+        Order.objects.filter(order_id=order_id).update(order_completed=1)
+        return JsonResponse({'success': True,
+                             'message': '接下订单',
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
 
 
 def setOrders(request):

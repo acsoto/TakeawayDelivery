@@ -13,12 +13,8 @@
         </div>
       </div>
       <div style="text-align:center;">
-        <a-button
-          type="primary"
-          @click="handleUnstar"
-        >
-          取消收藏
-        </a-button>
+        <div style="font-size:30px;">x{{thisFood.foodNum}}</div>
+        <div>{{thisFood.foodNum*thisFood.foodPrice}}元</div>
       </div>
     </div>
   </div>
@@ -36,22 +32,7 @@ export default {
   },
   created() {
   },
-  methods: {
-    async handleUnstar() {
-      try {
-        const { data: res } = await this.$http.post("api/unstar/", { userID: this.$store.state.userID, foodID: this.thisFood.foodID });
-        if (res.success == false) {
-          this.$message.error(res.message);
-        }
-        else {
-          this.$message.success(res.message);
-          this.$emit('getData')
-        }
-      } catch (error) {
-        this.$message.error("网络异常");
-      }
-    },
-  },
+  methods: {},
   watch: {
     food() {
       this.thisFood = this.food;

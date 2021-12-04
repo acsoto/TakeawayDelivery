@@ -5,7 +5,7 @@
       <div style="margin:10px;display:flex;justify-content:space-between;align-items: center;">
         <img
           alt="example"
-          :src="thisOrder.deliveryUserIcon"
+          :src="thisOrder.orderUserIcon"
           v-if="thisOrder.orderCompleted!=0"
           style="width:150px;height:150px;margin:0px;border-radius: 10px;"
         />
@@ -20,7 +20,7 @@
           <div
             class="name"
             v-if="thisOrder.orderCompleted!=0"
-          >配送者:{{thisOrder.deliveryUserNickName}}</div>
+          >收货人:{{thisOrder.orderUserNickName}}</div>
           <div
             class="name"
             v-else
@@ -49,17 +49,25 @@
           <div
             class="value"
             v-if="thisOrder.orderCompleted!=0"
-          >电话：{{thisOrder.deliveryUserTel}}</div>
+          >电话：{{thisOrder.orderUserTel}}</div>
           <div class="value">总价:{{thisOrder.totalPrice}}</div>
         </div>
       </div>
       <div style="text-align:center;">
-        <a-button
-          type="primary"
-          @click="visible=true"
-        >
-          查看详情
-        </a-button>
+        <div>
+          <a-button @click="visible=true">
+            查看详情
+          </a-button>
+        </div>
+        <div style="margin-top:10px;">
+          <a-button
+            v-if="thisOrder.orderCompleted==1"
+            type="primary"
+            @click="finishOrder"
+          >
+            完成订单
+          </a-button>
+        </div>
         <div>{{thisOrder.orderDate}}</div>
       </div>
     </div>
@@ -83,7 +91,7 @@
 
 
 <script>
-import FoodCard from '@/components/order/FoodCard'
+import FoodCard from '@/components/ordernow/FoodCard'
 export default {
 
   props: ['order'],
@@ -99,7 +107,22 @@ export default {
   created() {
     this.thisOrder.foodNum = 0;
   },
-  methods: {},
+  methods: {
+    async finishOrder() {
+      try {
+        const { data: res } = await this.$http.post("api/finishOrder/", { orderID: this.thisOrder.orderID });
+        if (res.success == false) {
+          this.$message.error(res.message);
+        }
+        else {
+          this.$message.success(res.message);
+          this.thisOrder.orderCompleted = 2;
+        }
+      } catch (error) {
+        this.$message.error("网络异常");
+      }
+    },
+  },
   watch: {
     order() {
       this.thisOrder = this.order;
