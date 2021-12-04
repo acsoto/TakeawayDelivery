@@ -18,7 +18,7 @@
             query: {
               storeID: thisOrder.storeID,
             },});"
-            >{{thisOrder.storeName}}</span>
+            >{{thisOrder.storeName}} to {{thisOrder.orderUserAddress}}</span>
             <a-tag v-if="thisOrder.orderCompleted==0">已下单</a-tag>
             <a-tag
               v-if="thisOrder.orderCompleted==1"
@@ -97,7 +97,7 @@ export default {
   methods: {
     async takeOrder() {
       try {
-        const { data: res } = await this.$http.post("api/takeOrder/", { orderID: this.thisOrder.orderID });
+        const { data: res } = await this.$http.post("api/takeOrder/", {userID:this.$store.state.userID, orderID: this.thisOrder.orderID });
         if (res.success == false) {
           this.$message.error(res.message);
         }

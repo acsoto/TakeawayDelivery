@@ -31,7 +31,7 @@
             query: {
               storeID: thisOrder.storeID,
             },});"
-            >{{thisOrder.storeName}}</span>
+            >{{thisOrder.storeName}} to {{thisOrder.orderUserAddress}}</span>
             <a-tag v-if="thisOrder.orderCompleted==0">已下单</a-tag>
             <a-tag
               v-if="thisOrder.orderCompleted==1"

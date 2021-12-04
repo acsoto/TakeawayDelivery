@@ -65,19 +65,22 @@ def getOrders(user, is_delivery):
             order_json["deliveryUserNickName"] = order.delivery_user.user_nickname
             order_json["deliveryUserTel"] = order.delivery_user.user_tel
             order_json["deliveryUserIcon"] = order.delivery_user.user_icon_url
+            order_json["deliveryUserAddress"] = order.delivery_user.user_address
         else:
             order_json["orderUserNickName"] = ""
             order_json["orderUserTel"] = ""
             order_json["orderUserIcon"] = ""
-
+            order_json["deliveryUserAddress"] = ""
         if order.order_user:
             order_json["orderUserNickName"] = order.order_user.user_nickname
             order_json["orderUserTel"] = order.order_user.user_tel
             order_json["orderUserIcon"] = order.order_user.user_icon_url
+            order_json["orderUserAddress"] = order.order_user.user_address
         else:
             order_json["orderUserNickName"] = ""
             order_json["orderUserTel"] = ""
             order_json["orderUserIcon"] = ""
+            order_json["orderUserAddress"] = ""
         foods_json = []
         order_foods = OrderFood.objects.filter(order_id=order.order_id)
         count = 0
@@ -106,7 +109,7 @@ def getOrders(user, is_delivery):
 
 def getAllOrders(request):
     if request.method == 'POST':
-        orders = Order.objects.filter(order_completed=0).order_by('-order_date')
+        orders = Order.objects.filter(order_completed=0).order_by('order_date')
         orders_json = []
         for order in orders:
             order_json = {}
@@ -114,19 +117,22 @@ def getAllOrders(request):
                 order_json["deliveryUserNickName"] = order.delivery_user.user_nickname
                 order_json["deliveryUserTel"] = order.delivery_user.user_tel
                 order_json["deliveryUserIcon"] = order.delivery_user.user_icon_url
+                order_json["deliveryUserAddress"] = order.delivery_user.user_address
             else:
                 order_json["orderUserNickName"] = ""
                 order_json["orderUserTel"] = ""
                 order_json["orderUserIcon"] = ""
-
+                order_json["deliveryUserAddress"] = ""
             if order.order_user:
                 order_json["orderUserNickName"] = order.order_user.user_nickname
                 order_json["orderUserTel"] = order.order_user.user_tel
                 order_json["orderUserIcon"] = order.order_user.user_icon_url
+                order_json["orderUserAddress"] = order.order_user.user_address
             else:
                 order_json["orderUserNickName"] = ""
                 order_json["orderUserTel"] = ""
                 order_json["orderUserIcon"] = ""
+                order_json["orderUserAddress"] = ""
             foods_json = []
             order_foods = OrderFood.objects.filter(order_id=order.order_id)
             count = 0
@@ -174,7 +180,12 @@ def takeOrder(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         order_id = data_json.get('orderID')
-        Order.objects.filter(order_id=order_id).update(order_completed=1)
+        user_id=data_json.get('userID')
+        delivery_user=User.objects.get(user_id=user_id)
+        order=Order.objects.get(order_id=order_id)
+        order.order_completed=1
+        order.delivery_user=delivery_user
+        order.save()
         return JsonResponse({'success': True,
                              'message': '接下订单',
                              })
@@ -187,7 +198,7 @@ def setOrders(request):
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         food_list = data_json.get('foodList')
-        order = Order(order_completed=0,order_user_id=user_id)
+        order = Order(order_completed=0,order_user_id=user_id,order_date=datetime.datetime.now())
         order.save()
 
         for food in food_list:
