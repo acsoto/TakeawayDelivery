@@ -11,7 +11,7 @@
         />
         <img
           alt="example"
-          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ffb9431a4c99691e54952d85ed034faf9a6b7e4f22d45-xy5FHF_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641223060&t=e33fed3c1c2cdfab40bc28d5e0e90ae1"
+          src="https://img0.baidu.com/it/u=3730772664,138405132&fm=26&fmt=auto"
           v-else
           style="width:150px;height:150px;margin:0px;border-radius: 10px;"
         />
@@ -66,7 +66,7 @@
         v-for="food in thisOrder.food"
         :key="food"
       >
-        <food-buy :food="food" />
+        <food-card :food="food" />
       </div>
     </a-modal>
   </div>
@@ -74,12 +74,12 @@
 
 
 <script>
-import FoodBuy from '@/components/order/FoodBuy'
+import FoodCard from '@/components/order/FoodCard'
 export default {
 
   props: ['order'],
   components: {
-    FoodBuy,
+    FoodCard,
   },
   data() {
     return {

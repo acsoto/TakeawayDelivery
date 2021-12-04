@@ -32,5 +32,6 @@ urlpatterns = [
     path('api/getEvaluateFood/', myapp.views.getEvaluateFood),
     path('api/getEvaluateUser/', myapp.views.getEvaluateUser),
     path('api/setOrders/', myapp.views.setOrders),
+    path('api/unstar/', myapp.views.unstar),
     url(r'^', TemplateView.as_view(template_name="index.html")),
 ]

@@ -46,6 +46,7 @@ def register(request):
                 new_user.user_nickname = new_nickname
                 new_user.user_tel = new_tel
                 new_user.user_address = new_address
+                new_user.user_icon_url = "https://img0.baidu.com/it/u=3730772664,138405132&fm=26&fmt=auto"
                 new_user.save()
                 return JsonResponse({'success': True, 'message': '注册成功', 'userID': new_user.user_id})
 
@@ -130,6 +131,21 @@ def getStars(user):
             }
             stars_json.append(food_json)
     return stars_json
+
+
+def unstar(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        food_id = data_json.get('foodID')
+        stars = Star.objects.filter(user_id=user_id)
+        for star in stars:
+            StarFood.objects.filter(star_id=star.star_id,food__food_id=food_id).delete()
+        return JsonResponse({'success': True,
+                             'message': '取消收藏成功',
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
 
 
 def getInformation(request):
@@ -297,7 +313,7 @@ def getEvaluateFood(request):
                 'evaluateText': evaluate.food_evaluate_text,
                 'evaluateScore': evaluate.food_evaluate_score
             })
-        return JsonResponse({'success': True, 'message': '注销成功',
+        return JsonResponse({'success': True, 'message': '获取成功',
                              'foodEvaluate': food_evaluate_json})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
@@ -314,7 +330,7 @@ def getEvaluateUser(request):
                 'evaluateText': evaluate.food_evaluate_text,
                 'evaluateScore': evaluate.food_evaluate_score
             })
-        return JsonResponse({'success': True, 'message': '注销成功',
+        return JsonResponse({'success': True, 'message': '获取成功',
                              'userEvaluate': user_evaluate_json})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
