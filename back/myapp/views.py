@@ -145,6 +145,48 @@ def changePassword(request):
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 
+def getStores(request):
+    if request.method == 'POST':
+
+        stores = Store.objects.filter()
+        store_json = []
+        for store in stores:
+            food_json = []
+            foods = Food.objects.filter(store_id=store.store_id)
+            score = 0
+            count = 0
+            three_foods = Food.objects.filter(store_id=store.store_id)[:3]
+            for food in three_foods:
+                food_json.append({
+                    "foodName": food.food_name,
+                    "foodPrice": food.food_price,
+                    "foodUrl": food.food_url
+                })
+            for food in foods:
+                evaluates = FoodEvaluate.objects.filter(food__food_id=food.food_id)
+                for evaluate in evaluates:
+                    count += 1
+                    score += evaluate.food_evaluate_score
+
+            if(count!=0):
+                score=score/count
+            store_json.append({
+                "storeID":store.store_id,
+                "storeName": store.store_name,
+                "storeAddress": store.store_address,
+                "storeTel": store.store_tel,
+                "storeUrl":store.store_url,
+                "score": score,
+                "count": count,
+                "food":food_json,
+                "foodSize":three_foods.count(),
+            })
+        return JsonResponse({'success': True,
+                             'message': '查询成功',
+                             'store': store_json
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
 
 def getStoreInformation(request):
     if request.method == 'POST':

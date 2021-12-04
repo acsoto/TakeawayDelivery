@@ -77,6 +77,7 @@ class Store(models.Model):
     store_name = models.CharField(max_length=100, blank=True, null=True)
     store_address = models.CharField(max_length=100, blank=True, null=True)
     store_tel = models.CharField(max_length=100, blank=True, null=True)
+    store_url = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False

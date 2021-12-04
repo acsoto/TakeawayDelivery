@@ -74,8 +74,8 @@
           </router-link>
         </a-menu-item>
         <a-menu-item key="11">
-          <router-link to="/home/restaurant4">
-            学四食堂
+          <router-link to="/home/restaurants">
+            所有餐厅
           </router-link>
         </a-menu-item>
         <a-menu-item key="12">

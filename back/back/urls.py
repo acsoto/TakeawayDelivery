@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/getInformation/', myapp.views.getInformation),
     path('api/changeInformation/', myapp.views.changeInformation),
     path('api/changePassword/', myapp.views.changePassword),
+    path('api/getStores/', myapp.views.getStores),
     path('api/getStoreInformation/', myapp.views.getStoreInformation),
     path('api/deleteUser/', myapp.views.deleteUser),
     path('api/getEvaluateFood/', myapp.views.getEvaluateFood),

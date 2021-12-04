@@ -72,6 +72,15 @@ const routes = [
         component: () => import('../views/UserStar')
       },
       {
+        path: 'restaurants',
+        name: 'restaurants',
+        meta: {
+          keepAlive: true,
+          requireAuth: true
+        },
+        component: () => import('../views/RestaurantList')
+      },
+      {
         path: 'restaurant1',
         name: 'restaurant1',
         meta: {

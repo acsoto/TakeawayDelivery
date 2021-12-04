@@ -17,11 +17,11 @@
             <div
               v-for="food in data"
               :key="food"
-              style="width:154px;margin:0px;"
+              style="width:150px;margin:0px;"
             >
               <a-card
                 hoverable
-                style="width:154px;height:250px;margin:10px;text-align:center;align:center"
+                style="width:153px;height:250px;margin:10px;text-align:center;align:center"
               >
                 <template
                   #cover
@@ -30,7 +30,7 @@
                   <img
                     alt="example"
                     :src="food.foodUrl"
-                    style="width:154px;height:150px;margin:0px;"
+                    style="width:150px;height:150px;margin:0px;"
                   />
                 </template>
                 <a-card-meta :title="food.foodName">
