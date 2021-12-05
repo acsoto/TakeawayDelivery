@@ -66,7 +66,6 @@ export default {
     async getStoreInfo() {
       try {
         const { data: res } = await this.$http.post("api/getStoreInformation/", { storeID: this.$route.query.storeID });
-        console.log(res)
         if (res.success == false) {
           this.$message.error(res.message);
         }
@@ -87,7 +86,6 @@ export default {
     async setOrder() {
       try {
         const { data: res } = await this.$http.post("api/setOrders/", { userID: this.$store.state.userID, foodList: this.store.food });
-        console.log(res)
         if (res.success == false) {
           this.$message.error(res.message);
         }

@@ -42,7 +42,6 @@ export default {
     async getStoreList() {
       try {
         const { data: res } = await this.$http.post("api/getStores/");
-        //console.log(res)
         if (res.success == false) {
           this.$message.error(res.message);
         }

@@ -131,7 +131,6 @@ export default {
       try {
         this.thisUser.userID=this.$store.state.userID;
         const { data: res } = await this.$http.post("api/changeInformation/", this.thisUser);
-        //console.log(res)
         if (res.success == false) {
           this.$message.error(res.message);
         }

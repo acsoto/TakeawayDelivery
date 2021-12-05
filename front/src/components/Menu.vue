@@ -130,7 +130,6 @@ export default defineComponent({
   },
   methods:{
     handleCollapse(collapsed){
-      console.log(collapsed);
       this.collapsed = !this.collapsed;
     },
   },

@@ -130,12 +130,10 @@ export default {
         this.param.userPassword = this.param.password1;
         try {
           const { data: res } = await this.$http.post("/api/register/", this.param);
-          //console.log(res)
           if (res.success == false) {
             this.$message.error(res.message);
           }
           else {
-            console.log(res)
             this.$store.commit("login", { username: this.param.username, userID: res.userID });
             this.$message.success(res.message);
             this.$router.push({ path: "/home" });

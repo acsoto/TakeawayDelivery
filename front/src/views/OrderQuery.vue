@@ -50,7 +50,6 @@ export default {
         }
         else {
           this.orders = res.userOrders
-          console.log(this.orders)
         }
       } catch (error) {
         this.$message.error("网络异常");

@@ -363,12 +363,17 @@ def get_evaluate_food(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         food_id = data_json.get('foodID')
+        user_id = data_json.get('userID')
+        user = User.objects.get(user_id=user_id)
         food_evaluate_json = []
         food = Food.objects.get(food_id=food_id)
         food_evaluates = FoodEvaluate.objects.filter(food_id=food_id)
         food_count = 0
         food_score = 0
+        has_commented = False
         for evaluate in food_evaluates:
+            if evaluate.post_user.user_id == user_id:
+                has_commented = True
             food_evaluate_json.append({
                 'evaluateText': evaluate.food_evaluate_text,
                 'evaluateScore': evaluate.food_evaluate_score,
@@ -382,6 +387,7 @@ def get_evaluate_food(request):
         if food_count != 0:
             food_score = food_score / food_count
         food_json = {
+            "hasCommented": has_commented,
             "foodID": food.food_id,
             "foodName": food.food_name,
             "foodPrice": food.food_price,
@@ -389,8 +395,17 @@ def get_evaluate_food(request):
             "foodScore": food_score,
             "foodCount": food_count,
         }
+        comment_json = {
+            'evaluateText': "",
+            'evaluateScore': None,
+            'userNickName': user.user_nickname,
+            'userID': user.user_id,
+            'userIconUrl': user.user_icon_url,
+        }
         return JsonResponse({'success': True, 'message': '获取成功',
-                             'foodEvaluate': food_evaluate_json, 'food': food_json})
+                             'foodEvaluate': food_evaluate_json,
+                             'food': food_json,
+                             'comment': comment_json})
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 
