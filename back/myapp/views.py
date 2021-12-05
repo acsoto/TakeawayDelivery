@@ -322,7 +322,7 @@ def get_stores(request):
             count = 0
             three_foods = Food.objects.filter(store_id=store.store_id)[:3]
             for food in three_foods:
-                food_json.append(get_food_json(food, False))
+                food_json.append(get_food_json(food, True))
             for food in foods:
                 evaluates = FoodEvaluate.objects.filter(food__food_id=food.food_id)
                 for evaluate in evaluates:
