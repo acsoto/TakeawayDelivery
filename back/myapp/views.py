@@ -1,5 +1,6 @@
 import datetime
 import json
+from collections import Counter
 
 from django.http import JsonResponse
 
@@ -182,14 +183,40 @@ def get_stars(user):
         star_foods = StarFood.objects.filter(star_id=star.star_id)
         for star_food in star_foods:
             food = star_food.food
-            food_json = {
-                "foodID": food.food_id,
-                "foodName": food.food_name,
-                "foodPrice": food.food_price,
-                "foodUrl": food.food_url
-            }
-            stars_json.append(food_json)
+            stars_json.append(get_food_json(food, True))
     return stars_json
+
+
+def get_food_json(food, with_evaluate):
+    food_json = {
+        "foodID": food.food_id,
+        "foodName": food.food_name,
+        "foodPrice": food.food_price,
+        "foodUrl": food.food_url,
+        "foodStoreName": food.store.store_name,
+        "foodStoreUrl": food.store.store_url,
+    }
+    if with_evaluate:
+        evaluate_list = []
+        evaluates = FoodEvaluate.objects.filter(food_id=food.food_id)
+        for i in evaluates:
+            evaluate_list.append(get_valuate_json(i))
+        food_json["foodEvaluate"] = evaluate_list
+        return json
+    else:
+        return json
+
+
+def get_valuate_json(evaluate):
+    return {
+        "evaluateID": evaluate.food_evaluate_id,
+        "evaluateText": evaluate.food_evaluate_text,
+        "evaluateScore": evaluate.food_evaluate_score,
+        "userNickName": evaluate.post_user.user_nickname,
+        "userID": evaluate.post_user.user_id,
+        "userIconUrl": evaluate.post_user.user_icon_url,
+        "evaluateDate": evaluate.food_evaluate_date.strftime("%Y-%m-%d %H:%M:%S"),
+    }
 
 
 def un_star(request):
@@ -539,7 +566,7 @@ def evaluate_user(request):
         user_id = data_json.get("userID")
         evaluate_text = data_json.get("evaluateText")
         evaluate_score = data_json.get("evaluateScore")
-        print(post_user_id )
+        print(post_user_id)
         user = User.objects.get(user_id=post_user_id)
         user_evaluate = UserEvaluate(post_user=user, user_evaluate_text=evaluate_text,
                                      user_evaluate_score=evaluate_score, user_id=user_id,
@@ -559,6 +586,24 @@ def delete_evaluate_user(request):
         UserEvaluate.objects.get(user_evaluate_id=user_evaluate_id).delete()
         return JsonResponse({"success": True,
                              "message": "删除成功",
+                             })
+    else:
+        JsonResponse({"success": False, "message": "请求异常"})
+
+
+def get_top_food_list(request):
+    if request.method == "POST":
+        order_food = OrderFood.objects.all()
+        foods = []
+        for i in order_food:
+            foods.append(i.food)
+        food_list = []
+        for k, v in Counter(foods).items():
+            food_json = get_food_json(k, True)
+            food_list.append(food_json)
+        return JsonResponse({"success": True,
+                             "message": "查询成功",
+                             "food": food_list,
                              })
     else:
         JsonResponse({"success": False, "message": "请求异常"})
