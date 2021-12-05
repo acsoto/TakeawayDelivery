@@ -200,14 +200,14 @@ def get_food_json(food, with_evaluate):
         evaluate_list = []
         evaluates = FoodEvaluate.objects.filter(food_id=food.food_id)
         for i in evaluates:
-            evaluate_list.append(get_valuate_json(i))
+            evaluate_list.append(get_food_evaluate_json(i))
         food_json["foodEvaluate"] = evaluate_list
-        return json
+        return food_json
     else:
-        return json
+        return food_json
 
 
-def get_valuate_json(evaluate):
+def get_food_evaluate_json(evaluate):
     return {
         "evaluateID": evaluate.food_evaluate_id,
         "evaluateText": evaluate.food_evaluate_text,
@@ -597,15 +597,8 @@ def get_top_food_list(request):
         order_foods = OrderFood.objects.values('food_id').annotate(sum=Sum('food_num')).order_by('-sum')
         for order_food in order_foods:
             food = Food.objects.get(food_id=order_food.get('food_id'))
-            food_json = {
-                "foodID": food.food_id,
-                "sum": order_food.get('sum'),
-                "foodName": food.food_name,
-                "foodPrice": food.food_price,
-                "foodUrl": food.food_url,
-                "foodStoreName": food.store.store_name,
-                "foodStoreUrl": food.store.store_url,
-            }
+            food_json = get_food_json(food, True)
+            food_json["sum"] = order_food.get('sum')
             food_list.append(food_json)
         return JsonResponse({"success": True,
                              "message": "查询成功",
