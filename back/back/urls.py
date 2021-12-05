@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 from django.views.generic import TemplateView
 import myapp.views
 
@@ -23,18 +23,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login/', myapp.views.login),
     path('api/register/', myapp.views.register),
-    path('api/getInformation/', myapp.views.getInformation),
-    path('api/changeInformation/', myapp.views.changeInformation),
-    path('api/changePassword/', myapp.views.changePassword),
-    path('api/getStores/', myapp.views.getStores),
-    path('api/getStoreInformation/', myapp.views.getStoreInformation),
-    path('api/deleteUser/', myapp.views.deleteUser),
-    path('api/getEvaluateFood/', myapp.views.getEvaluateFood),
-    path('api/getEvaluateUser/', myapp.views.getEvaluateUser),
-    path('api/setOrders/', myapp.views.setOrders),
-    path('api/unstar/', myapp.views.unstar),
-    path('api/finishOrder/', myapp.views.finishOrder),
-    path('api/takeOrder/', myapp.views.takeOrder),
-    path('api/getAllOrders/', myapp.views.getAllOrders),
+    path('api/getInformation/', myapp.views.get_information),
+    path('api/changeInformation/', myapp.views.change_information),
+    path('api/changePassword/', myapp.views.change_password),
+    path('api/getStores/', myapp.views.get_stores),
+    path('api/getStoreInformation/', myapp.views.get_store_information),
+    path('api/deleteUser/', myapp.views.delete_user),
+    path('api/getEvaluateFood/', myapp.views.get_evaluate_food),
+    path('api/getEvaluateUser/', myapp.views.get_evaluate_user),
+    path('api/setOrders/', myapp.views.set_orders),
+    path('api/unstar/', myapp.views.un_star),
+    path('api/finishOrder/', myapp.views.finish_order),
+    path('api/takeOrder/', myapp.views.take_order),
+    path('api/getAllOrders/', myapp.views.get_all_orders),
     url(r'^', TemplateView.as_view(template_name="index.html")),
 ]

@@ -1,9 +1,9 @@
-import json
-from django.http import JsonResponse, FileResponse, StreamingHttpResponse, HttpResponse
-from myapp.models import *
 import datetime
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
+import json
+
+from django.http import JsonResponse
+
+from myapp.models import *
 
 
 # Create your views here.
@@ -54,11 +54,7 @@ def register(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getOrders(user, is_delivery):
-    if is_delivery:
-        orders = Order.objects.filter(delivery_user_id=user.user_id).order_by('-order_date')
-    else:
-        orders = Order.objects.filter(order_user_id=user.user_id).order_by('-order_date')
+def fill_order_json(orders):
     orders_json = []
     for order in orders:
         order_json = {}
@@ -108,55 +104,18 @@ def getOrders(user, is_delivery):
     return orders_json
 
 
-def getAllOrders(request):
+def get_orders(user, is_delivery):
+    if is_delivery:
+        orders = Order.objects.filter(delivery_user_id=user.user_id).order_by('-order_date')
+    else:
+        orders = Order.objects.filter(order_user_id=user.user_id).order_by('-order_date')
+    return fill_order_json(orders)
+
+
+def get_all_orders(request):
     if request.method == 'POST':
         orders = Order.objects.filter(order_completed=0).order_by('order_date')
-        orders_json = []
-        for order in orders:
-            order_json = {}
-            if order.delivery_user:
-                order_json["deliveryUserNickName"] = order.delivery_user.user_nickname
-                order_json["deliveryUserTel"] = order.delivery_user.user_tel
-                order_json["deliveryUserIcon"] = order.delivery_user.user_icon_url
-                order_json["deliveryUserAddress"] = order.delivery_user.user_address
-            else:
-                order_json["orderUserNickName"] = ""
-                order_json["orderUserTel"] = ""
-                order_json["orderUserIcon"] = ""
-                order_json["deliveryUserAddress"] = ""
-            if order.order_user:
-                order_json["orderUserNickName"] = order.order_user.user_nickname
-                order_json["orderUserTel"] = order.order_user.user_tel
-                order_json["orderUserIcon"] = order.order_user.user_icon_url
-                order_json["orderUserAddress"] = order.order_user.user_address
-            else:
-                order_json["orderUserNickName"] = ""
-                order_json["orderUserTel"] = ""
-                order_json["orderUserIcon"] = ""
-                order_json["orderUserAddress"] = ""
-            foods_json = []
-            order_foods = OrderFood.objects.filter(order_id=order.order_id)
-            count = 0
-            for order_food in order_foods:
-                food = order_food.food
-                food_num = order_food.food_num
-                count += food.food_price * food_num
-                food_json = {
-                    "foodID": food.food_id,
-                    "foodName": food.food_name,
-                    "foodPrice": food.food_price,
-                    "foodUrl": food.food_url,
-                    "foodNum": food_num
-                }
-                foods_json.append(food_json)
-                order_json["storeName"] = food.store.store_name
-                order_json["storeID"] = food.store.store_id
-            order_json["orderID"] = order.order_id
-            order_json["orderDate"] = order.order_date.strftime('%Y-%m-%d %H:%M:%S')
-            order_json["orderCompleted"] = order.order_completed
-            order_json["food"] = foods_json
-            order_json['totalPrice'] = count
-            orders_json.append(order_json)
+        orders_json = fill_order_json(orders)
         return JsonResponse({'success': True,
                              'message': '获取成功',
                              'orders': orders_json,
@@ -165,7 +124,7 @@ def getAllOrders(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def finishOrder(request):
+def finish_order(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         order_id = data_json.get('orderID')
@@ -177,7 +136,7 @@ def finishOrder(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def takeOrder(request):
+def take_order(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         order_id = data_json.get('orderID')
@@ -194,7 +153,7 @@ def takeOrder(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def setOrders(request):
+def set_orders(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
@@ -214,7 +173,7 @@ def setOrders(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getStars(user):
+def get_stars(user):
     stars = Star.objects.filter(user_id=user.user_id)
     stars_json = []
     for star in stars:
@@ -231,7 +190,7 @@ def getStars(user):
     return stars_json
 
 
-def unstar(request):
+def un_star(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
@@ -246,14 +205,14 @@ def unstar(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getInformation(request):
+def get_information(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         user = User.objects.get(user_id=user_id)
-        orders1 = getOrders(user, False)
-        orders2 = getOrders(user, True)
-        stars = getStars(user)
+        orders1 = get_orders(user, False)
+        orders2 = get_orders(user, True)
+        stars = get_stars(user)
         return JsonResponse({'success': True,
                              'message': '查询成功',
                              'userName': user.user_name,
@@ -269,7 +228,7 @@ def getInformation(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def changeInformation(request):
+def change_information(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
@@ -284,7 +243,7 @@ def changeInformation(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def changePassword(request):
+def change_password(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
@@ -298,7 +257,7 @@ def changePassword(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getStores(request):
+def get_stores(request):
     if request.method == 'POST':
 
         stores = Store.objects.filter()
@@ -322,7 +281,7 @@ def getStores(request):
                     count += 1
                     score += evaluate.food_evaluate_score
 
-            if (count != 0):
+            if count != 0:
                 score = score / count
             store_json.append({
                 "storeID": store.store_id,
@@ -343,7 +302,7 @@ def getStores(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getStoreInformation(request):
+def get_store_information(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         store_id = data_json.get('storeID')
@@ -363,7 +322,7 @@ def getStoreInformation(request):
                 food_score += evaluate.food_evaluate_score
                 score += evaluate.food_evaluate_score
 
-            if (food_count != 0):
+            if food_count != 0:
                 food_score = food_score / food_count
             food_json.append({
                 "foodID": food.food_id,
@@ -374,7 +333,7 @@ def getStoreInformation(request):
                 "foodCount": food_count,
             })
 
-        if (count != 0):
+        if count != 0:
             score = score / count
         return JsonResponse({'success': True,
                              'message': '查询成功',
@@ -390,7 +349,7 @@ def getStoreInformation(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def deleteUser(request):
+def delete_user(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
@@ -400,12 +359,11 @@ def deleteUser(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getEvaluateFood(request):
+def get_evaluate_food(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         food_id = data_json.get('foodID')
         food_evaluate_json = []
-        food_json = []
         food = Food.objects.get(food_id=food_id)
         food_evaluates = FoodEvaluate.objects.filter(food_id=food_id)
         food_count = 0
@@ -421,9 +379,9 @@ def getEvaluateFood(request):
             })
             food_count += 1
             food_score += evaluate.food_evaluate_score
-        if (food_count != 0):
+        if food_count != 0:
             food_score = food_score / food_count
-        food_json={
+        food_json = {
             "foodID": food.food_id,
             "foodName": food.food_name,
             "foodPrice": food.food_price,
@@ -437,7 +395,7 @@ def getEvaluateFood(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
-def getEvaluateUser(request):
+def get_evaluate_user(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
@@ -455,11 +413,11 @@ def getEvaluateUser(request):
 
 
 # Android
-def androidGetOrders(request):
+def android_get_orders(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
         user_id = data_json.get('userID')
         user = User.objects.get(user_id=user_id)
-        orders = getOrders(user, False)
+        orders = get_orders(user, False)
         return JsonResponse({'success': True, 'message': '请求成功',
                              'orders': orders})
