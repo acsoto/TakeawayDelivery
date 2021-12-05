@@ -4,6 +4,7 @@ from collections import Counter
 
 from django.http import JsonResponse
 from django.db.models import Sum, Count, Max, Min, Avg
+
 from myapp.models import *
 
 
@@ -630,3 +631,13 @@ def android_get_user_food_evaluate(request):
                                  "evaluate": get_food_evaluate_json(evaluate[0])})
         else:
             return JsonResponse({"success": False, "message": "查询失败"})
+
+
+def android_get_food_evaluate_score(request):
+    if request.method == "POST":
+        data_json = json.loads(request.body)
+        food_id = data_json.get("foodID")
+        average_score = FoodEvaluate.objects.filter(food_id=food_id).aggregate(Avg('food_evaluate_score'))[
+            "food_evaluate_score__avg"]
+        return JsonResponse({"success": True, "message": "请求成功",
+                             "evaluate": average_score})
