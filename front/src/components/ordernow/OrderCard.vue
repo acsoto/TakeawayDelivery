@@ -60,13 +60,17 @@
           </a-button>
         </div>
         <div style="margin-top:10px;">
-          <a-button
+          <a-popconfirm
+            title="您确认订单已经送达了吗？"
+            ok-text="确认"
+            cancel-text="取消"
+            @confirm="finishOrder"
             v-if="thisOrder.orderCompleted==1"
-            type="primary"
-            @click="finishOrder"
           >
-            完成订单
-          </a-button>
+            <a-button type="primary">
+              完成订单
+            </a-button>
+          </a-popconfirm>
         </div>
         <div>{{thisOrder.orderDate}}</div>
       </div>
@@ -76,6 +80,8 @@
       :title="'订单总额'+thisOrder.totalPrice+'元'"
       :visible="visible"
       width="50vw"
+      ok-text="确认"
+      cancel-text="取消"
       @ok="visible=false"
       @cancel="visible=false"
     >

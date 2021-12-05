@@ -26,6 +26,7 @@ class FoodEvaluate(models.Model):
     food_evaluate_score = models.IntegerField(blank=True, null=True)
     food = models.ForeignKey(Food, models.DO_NOTHING, blank=True, null=True)
     post_user = models.ForeignKey('User', models.DO_NOTHING)
+    food_evaluate_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -106,6 +107,7 @@ class UserEvaluate(models.Model):
     user_evaluate_score = models.IntegerField(blank=True, null=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True, related_name='user_evaluate_1')
     post_user = models.ForeignKey('User', models.DO_NOTHING, related_name='user_evaluate_2')
+    user_evaluate_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False

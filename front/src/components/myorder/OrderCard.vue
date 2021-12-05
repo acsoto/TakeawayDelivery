@@ -68,6 +68,8 @@
       :title="'订单总额'+thisOrder.totalPrice+'元'"
       :visible="visible"
       width="50vw"
+      ok-text="确认"
+      cancel-text="取消"
       @ok="visible=false"
       @cancel="visible=false"
     >

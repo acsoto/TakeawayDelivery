@@ -90,6 +90,15 @@ const routes = [
         component: () => import('../views/Restaurant')
       },
       {
+        path: 'food',
+        name: 'food',
+        meta: {
+          keepAlive: true,
+          requireAuth: true
+        },
+        component: () => import('../views/Food')
+      },
+      {
         path: 'discussion',
         name: 'discussion',
         meta: {

@@ -2,6 +2,10 @@
   <a-card
     hoverable
     style="width:154px;height:250px;margin:10px;text-align:center;align:center;border-radius: 10px;"
+    @click="$router.push({ path: '/home/food',
+            query: {
+              foodID: food.foodID,
+            },});"
   >
     <template
       #cover
@@ -32,11 +36,10 @@ export default {
   },
   methods: {},
   watch: {
-    
+
   },
 }
 </script>
 
 <style scoped>
-
 </style>

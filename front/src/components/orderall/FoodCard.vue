@@ -1,7 +1,11 @@
  <template>
   <div class="background">
     <div style="margin:10px;display:flex;justify-content:space-between;align-items: center;">
-      <div style="margin:10px;display:flex;justify-content:space-between;align-items: center;">
+      <div style="margin:10px;display:flex;justify-content:space-between;align-items: center;cursor: pointer;"
+        @click="$router.push({ path: '/home/food',
+            query: {
+              foodID: thisFood.foodID,
+            },});">
         <img
           alt="example"
           :src="thisFood.foodUrl"

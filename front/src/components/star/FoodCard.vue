@@ -13,12 +13,16 @@
         </div>
       </div>
       <div style="text-align:center;">
-        <a-button
-          type="primary"
-          @click="handleUnstar"
+        <a-popconfirm
+          title="您确认要取消收藏吗？"
+          ok-text="确认"
+          cancel-text="取消"
+          @confirm="handleUnstar"
         >
-          取消收藏
-        </a-button>
+          <a-button type="primary">
+            取消收藏
+          </a-button>
+        </a-popconfirm>
       </div>
     </div>
   </div>
@@ -38,6 +42,7 @@ export default {
   },
   methods: {
     async handleUnstar() {
+
       try {
         const { data: res } = await this.$http.post("api/unstar/", { userID: this.$store.state.userID, foodID: this.thisFood.foodID });
         if (res.success == false) {
