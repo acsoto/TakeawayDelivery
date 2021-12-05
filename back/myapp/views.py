@@ -617,3 +617,16 @@ def android_get_orders(request):
         orders = get_orders(user, False)
         return JsonResponse({"success": True, "message": "请求成功",
                              "orders": orders})
+
+
+def android_get_user_food_evaluate(request):
+    if request.method == "POST":
+        data_json = json.loads(request.body)
+        user_id = data_json.get("userID")
+        food_id = data_json.get("foodID")
+        evaluate = FoodEvaluate.objects.filter(post_user_id=user_id, food_id=food_id)
+        if len(evaluate) > 0:
+            return JsonResponse({"success": True, "message": "请求成功",
+                                 "evaluate": get_food_evaluate_json(evaluate[0])})
+        else:
+            return JsonResponse({"success": False, "message": "查询失败"})
