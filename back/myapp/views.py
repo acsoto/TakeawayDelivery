@@ -3,7 +3,7 @@ import json
 from collections import Counter
 
 from django.http import JsonResponse
-
+from django.db.models import Sum, Count, Max, Min, Avg
 from myapp.models import *
 
 
@@ -593,13 +593,19 @@ def delete_evaluate_user(request):
 
 def get_top_food_list(request):
     if request.method == "POST":
-        order_food = OrderFood.objects.all()
-        foods = []
-        for i in order_food:
-            foods.append(i.food)
         food_list = []
-        for k, v in Counter(foods).items():
-            food_json = get_food_json(k, True)
+        order_foods = OrderFood.objects.values('food_id').annotate(sum=Sum('food_num')).order_by('-sum')
+        for order_food in order_foods:
+            food = Food.objects.get(food_id=order_food.get('food_id'))
+            food_json = {
+                "foodID": food.food_id,
+                "sum": order_food.get('sum'),
+                "foodName": food.food_name,
+                "foodPrice": food.food_price,
+                "foodUrl": food.food_url,
+                "foodStoreName": food.store.store_name,
+                "foodStoreUrl": food.store.store_url,
+            }
             food_list.append(food_json)
         return JsonResponse({"success": True,
                              "message": "查询成功",
