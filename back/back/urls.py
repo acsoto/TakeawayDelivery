@@ -33,6 +33,8 @@ urlpatterns = [
     path('api/evaluateFood/', myapp.views.evaluate_food),
     path('api/deleteEvaluateFood/', myapp.views.delete_evaluate_food),
     path('api/getEvaluateUser/', myapp.views.get_evaluate_user),
+    path('api/evaluateUser/', myapp.views.evaluate_user),
+    path('api/deleteEvaluateUser/', myapp.views.delete_evaluate_user),
     path('api/setOrders/', myapp.views.set_orders),
     path('api/unStar/', myapp.views.un_star),
     path('api/setStar/', myapp.views.set_star),

@@ -35,7 +35,6 @@
 </template>
 <script>
 import dayjs from 'dayjs';
-import { defineComponent } from 'vue';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 export default {
@@ -48,7 +47,7 @@ export default {
   },
   methods: {
     handleDelete() {
-
+      this.$emit('handleDelete', this.thisComment);
     },
   },
   watch: {
@@ -60,5 +59,4 @@ export default {
 </script>
 
 <style>
-
 </style>

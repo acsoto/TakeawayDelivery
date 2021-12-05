@@ -10,15 +10,15 @@
             所有餐厅
           </router-link>
         </a-breadcrumb-item>
-        <a-breadcrumb-item>{{food.foodName}}</a-breadcrumb-item>
+        <a-breadcrumb-item>{{user.userName}}</a-breadcrumb-item>
       </a-breadcrumb>
 
-      <food-info :food="food" />
+      <user-info :user="user" />
 
       <div class="background">
-        <div v-if="foodEvaluates.length > 0">
+        <div v-if="userEvaluates.length > 0">
           <div
-            v-for="evaluate in foodEvaluates"
+            v-for="evaluate in userEvaluates"
             :key="evaluate"
           >
             <user-comment
@@ -31,7 +31,7 @@
           <a-empty description="暂无评论" />
         </div>
       </div>
-      <div v-if="!food.hasCommented">
+      <div v-if="!user.hasCommented&&!user.commentMyself">
         <my-comment
           :comment="comment"
           @handleEvaluate="handleEvaluate"
@@ -46,19 +46,19 @@
 </template>
 
 <script>
-import FoodInfo from '@/components/comment/FoodInfo'
+import UserInfo from '@/components/comment/UserInfo'
 import UserComment from '@/components/comment/UserComment'
 import MyComment from '@/components/comment/MyComment'
 export default {
   components: {
     UserComment,
-    FoodInfo,
+    UserInfo,
     MyComment,
   },
   data() {
     return {
-      food: {},
-      foodEvaluates: {},
+      user: {},
+      userEvaluates: {},
       total: 0,
       comment: {}
     };
@@ -68,19 +68,19 @@ export default {
 
   },
   created() {
-    this.getFoodInfo();
+    this.getUserInfo();
   },
   methods: {
-    async getFoodInfo() {
+    async getUserInfo() {
       try {
-        const { data: res } = await this.$http.post("api/getEvaluateFood/", { userID: this.$store.state.userID, foodID: this.$route.query.foodID });
+        const { data: res } = await this.$http.post("api/getEvaluateUser/", { postUserID: this.$store.state.userID, userID: this.$route.query.userID });
         if (res.success == false) {
           this.$message.error(res.message);
         }
         else {
           console.log(res)
-          this.food = res.food;
-          this.foodEvaluates = res.foodEvaluate;
+          this.user = res.user;
+          this.userEvaluates = res.userEvaluate;
           this.comment = res.comment;
         }
       } catch (error) {
@@ -89,13 +89,13 @@ export default {
     },
     async handleDelete(comment) {
       try {
-        const { data: res } = await this.$http.post("api/deleteEvaluateFood/", comment);
+        const { data: res } = await this.$http.post("api/deleteEvaluateUser/", comment);
         if (res.success == false) {
           this.$message.error(res.message);
         }
         else {
           this.$message.success(res.message);
-          this.getFoodInfo();
+          this.getUserInfo();
         }
       } catch (error) {
         this.$message.error("网络异常");
@@ -103,13 +103,13 @@ export default {
     },
     async handleEvaluate(comment) {
       try {
-        const { data: res } = await this.$http.post("api/evaluateFood/", comment);
+        const { data: res } = await this.$http.post("api/evaluateUser/", comment);
         if (res.success == false) {
           this.$message.error(res.message);
         }
         else {
           this.$message.success(res.message);
-          this.getFoodInfo();
+          this.getUserInfo();
         }
       } catch (error) {
         this.$message.error("网络异常");

@@ -9,36 +9,36 @@ from myapp.models import *
 # Create your views here.
 
 def login(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        username = data_json.get('userName')
-        password = data_json.get('userPassword')
+        username = data_json.get("userName")
+        password = data_json.get("userPassword")
         user = User.objects.filter(user_name=username)
         if len(user) == 0:
-            return JsonResponse({'success': False, 'message': '用户不存在'})
+            return JsonResponse({"success": False, "message": "用户不存在"})
         if len(user) > 0:
             if (user[0]).user_password == password:
-                return JsonResponse({'success': True, 'message': '登录成功', 'userID': user[0].user_id})
+                return JsonResponse({"success": True, "message": "登录成功", "userID": user[0].user_id})
             else:
-                return JsonResponse({'success': False, 'message': '密码错误', 'userID': user[0].user_id})
+                return JsonResponse({"success": False, "message": "密码错误", "userID": user[0].user_id})
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        new_name = data_json.get('userName')
-        new_pwd = data_json.get('userPassword')
-        new_nickname = data_json.get('userNickname')
-        new_tel = data_json.get('userTel')
-        new_address = data_json.get('userAddress')
+        new_name = data_json.get("userName")
+        new_pwd = data_json.get("userPassword")
+        new_nickname = data_json.get("userNickname")
+        new_tel = data_json.get("userTel")
+        new_address = data_json.get("userAddress")
         if new_name is None:
-            return JsonResponse({'success': False, 'message': '未输入'})
+            return JsonResponse({"success": False, "message": "未输入"})
         else:
             space = User.objects.filter(user_name=new_name)
             if len(space) > 0:
-                return JsonResponse({'success': False, 'message': '用户名已存在'})
+                return JsonResponse({"success": False, "message": "用户名已存在"})
             else:
                 new_user = User()
                 new_user.user_name = new_name
@@ -48,10 +48,10 @@ def register(request):
                 new_user.user_address = new_address
                 new_user.user_icon_url = "https://img0.baidu.com/it/u=3730772664,138405132&fm=26&fmt=auto"
                 new_user.save()
-                return JsonResponse({'success': True, 'message': '注册成功', 'userID': new_user.user_id})
+                return JsonResponse({"success": True, "message": "注册成功", "userID": new_user.user_id})
 
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def fill_order_json(orders):
@@ -63,11 +63,13 @@ def fill_order_json(orders):
             order_json["deliveryUserTel"] = order.delivery_user.user_tel
             order_json["deliveryUserIcon"] = order.delivery_user.user_icon_url
             order_json["deliveryUserAddress"] = order.delivery_user.user_address
+            order_json["deliveryUserID"] = order.delivery_user.user_id
         else:
             order_json["orderUserNickName"] = ""
             order_json["orderUserTel"] = ""
             order_json["orderUserIcon"] = ""
             order_json["deliveryUserAddress"] = ""
+            order_json["deliveryUserID"] = ""
         if order.order_user:
             order_json["orderUserNickName"] = order.order_user.user_nickname
             order_json["orderUserTel"] = order.order_user.user_tel
@@ -96,81 +98,81 @@ def fill_order_json(orders):
             order_json["storeName"] = food.store.store_name
             order_json["storeID"] = food.store.store_id
         order_json["orderID"] = order.order_id
-        order_json["orderDate"] = order.order_date.strftime('%Y-%m-%d %H:%M:%S')
+        order_json["orderDate"] = order.order_date.strftime("%Y-%m-%d %H:%M:%S")
         order_json["orderCompleted"] = order.order_completed
         order_json["food"] = foods_json
-        order_json['totalPrice'] = count
+        order_json["totalPrice"] = count
         orders_json.append(order_json)
     return orders_json
 
 
 def get_orders(user, is_delivery):
     if is_delivery:
-        orders = Order.objects.filter(delivery_user_id=user.user_id).order_by('-order_date')
+        orders = Order.objects.filter(delivery_user_id=user.user_id).order_by("-order_date")
     else:
-        orders = Order.objects.filter(order_user_id=user.user_id).order_by('-order_date')
+        orders = Order.objects.filter(order_user_id=user.user_id).order_by("-order_date")
     return fill_order_json(orders)
 
 
 def get_all_orders(request):
-    if request.method == 'POST':
-        orders = Order.objects.filter(order_completed=0).order_by('order_date')
+    if request.method == "POST":
+        orders = Order.objects.filter(order_completed=0).order_by("order_date")
         orders_json = fill_order_json(orders)
-        return JsonResponse({'success': True,
-                             'message': '获取成功',
-                             'orders': orders_json,
+        return JsonResponse({"success": True,
+                             "message": "获取成功",
+                             "orders": orders_json,
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def finish_order(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        order_id = data_json.get('orderID')
+        order_id = data_json.get("orderID")
         Order.objects.filter(order_id=order_id).update(order_completed=2)
-        return JsonResponse({'success': True,
-                             'message': '配送完成',
+        return JsonResponse({"success": True,
+                             "message": "配送完成",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def take_order(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        order_id = data_json.get('orderID')
-        user_id = data_json.get('userID')
+        order_id = data_json.get("orderID")
+        user_id = data_json.get("userID")
         delivery_user = User.objects.get(user_id=user_id)
         order = Order.objects.get(order_id=order_id)
         order.order_completed = 1
         order.delivery_user = delivery_user
         order.save()
-        return JsonResponse({'success': True,
-                             'message': '接下订单',
+        return JsonResponse({"success": True,
+                             "message": "接下订单",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def set_orders(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
-        food_list = data_json.get('foodList')
+        user_id = data_json.get("userID")
+        food_list = data_json.get("foodList")
         order = Order(order_completed=0, order_user_id=user_id, order_date=datetime.datetime.now())
         order.save()
 
         for food in food_list:
-            if food.get('foodNum') and food.get('foodNum') > 0:
-                food_order = OrderFood(food_id=food.get('foodID'), order_id=order.order_id,
-                                       food_num=food.get('foodNum'))
+            if food.get("foodNum") and food.get("foodNum") > 0:
+                food_order = OrderFood(food_id=food.get("foodID"), order_id=order.order_id,
+                                       food_num=food.get("foodNum"))
                 food_order.save()
-        return JsonResponse({'success': True,
-                             'message': '下单成功',
+        return JsonResponse({"success": True,
+                             "message": "下单成功",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def get_stars(user):
@@ -191,25 +193,25 @@ def get_stars(user):
 
 
 def un_star(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
-        food_id = data_json.get('foodID')
+        user_id = data_json.get("userID")
+        food_id = data_json.get("foodID")
         stars = Star.objects.filter(user_id=user_id)
         for star in stars:
             StarFood.objects.filter(star_id=star.star_id, food__food_id=food_id).delete()
-        return JsonResponse({'success': True,
-                             'message': '取消收藏成功',
+        return JsonResponse({"success": True,
+                             "message": "取消收藏成功",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def set_star(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
-        food_id = data_json.get('foodID')
+        user_id = data_json.get("userID")
+        food_id = data_json.get("foodID")
         stars = Star.objects.filter(user_id=user_id)
         if len(stars) == 0:
             star = Star(user_id=user_id)
@@ -221,67 +223,67 @@ def set_star(request):
             for star in stars:
                 star_food = StarFood(star_id=star.star_id, food_id=food_id)
                 star_food.save()
-        return JsonResponse({'success': True,
-                             'message': '收藏成功',
+        return JsonResponse({"success": True,
+                             "message": "收藏成功",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def get_information(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
+        user_id = data_json.get("userID")
         user = User.objects.get(user_id=user_id)
         orders1 = get_orders(user, False)
         orders2 = get_orders(user, True)
         stars = get_stars(user)
-        return JsonResponse({'success': True,
-                             'message': '查询成功',
-                             'userName': user.user_name,
-                             'userNickName': user.user_nickname,
-                             'userAddress': user.user_address,
-                             'userTel': user.user_tel,
-                             'userOrders': orders1,
-                             'userDeliveryOrders': orders2,
-                             'userStars': stars,
-                             'userIconUrl': user.user_icon_url,
+        return JsonResponse({"success": True,
+                             "message": "查询成功",
+                             "userName": user.user_name,
+                             "userNickName": user.user_nickname,
+                             "userAddress": user.user_address,
+                             "userTel": user.user_tel,
+                             "userOrders": orders1,
+                             "userDeliveryOrders": orders2,
+                             "userStars": stars,
+                             "userIconUrl": user.user_icon_url,
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def change_information(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
+        user_id = data_json.get("userID")
         user = User.objects.get(user_id=user_id)
-        user.user_nickname = data_json.get('userNickName')
-        user.user_tel = data_json.get('userTel')
-        user.user_address = data_json.get('userAddress')
-        user.user_icon_url = data_json.get('userIconUrl')
+        user.user_nickname = data_json.get("userNickName")
+        user.user_tel = data_json.get("userTel")
+        user.user_address = data_json.get("userAddress")
+        user.user_icon_url = data_json.get("userIconUrl")
         user.save()
-        return JsonResponse({'success': True, 'message': '修改成功'})
+        return JsonResponse({"success": True, "message": "修改成功"})
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def change_password(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
+        user_id = data_json.get("userID")
         user = User.objects.get(user_id=user_id)
-        if user.user_password != data_json.get('userOldPassword'):
-            return JsonResponse({'success': False, 'message': '原密码错误'})
-        user.user_password = data_json.get('userPassword')
+        if user.user_password != data_json.get("userOldPassword"):
+            return JsonResponse({"success": False, "message": "原密码错误"})
+        user.user_password = data_json.get("userPassword")
         user.save()
-        return JsonResponse({'success': True, 'message': '修改成功'})
+        return JsonResponse({"success": True, "message": "修改成功"})
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def get_stores(request):
-    if request.method == 'POST':
+    if request.method == "POST":
 
         stores = Store.objects.filter()
         store_json = []
@@ -317,18 +319,18 @@ def get_stores(request):
                 "food": food_json,
                 "foodSize": three_foods.count(),
             })
-        return JsonResponse({'success': True,
-                             'message': '查询成功',
-                             'store': store_json
+        return JsonResponse({"success": True,
+                             "message": "查询成功",
+                             "store": store_json
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def get_store_information(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        store_id = data_json.get('storeID')
+        store_id = data_json.get("storeID")
         store = Store.objects.get(store_id=store_id)
         food_json = []
         score = 0
@@ -358,39 +360,39 @@ def get_store_information(request):
 
         if count != 0:
             score = score / count
-        return JsonResponse({'success': True,
-                             'message': '查询成功',
-                             'storeName': store.store_name,
-                             'storeAddress': store.store_address,
-                             'storeTel': store.store_tel,
+        return JsonResponse({"success": True,
+                             "message": "查询成功",
+                             "storeName": store.store_name,
+                             "storeAddress": store.store_address,
+                             "storeTel": store.store_tel,
                              "storeUrl": store.store_url,
-                             'food': food_json,
+                             "food": food_json,
                              "score": score,
                              "count": count,
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def delete_user(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
+        user_id = data_json.get("userID")
         User.objects.get(user_id=user_id).delete()
-        return JsonResponse({'success': True, 'message': '注销成功'})
+        return JsonResponse({"success": True, "message": "注销成功"})
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def get_evaluate_food(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        food_id = data_json.get('foodID')
-        user_id = data_json.get('userID')
+        food_id = data_json.get("foodID")
+        user_id = data_json.get("userID")
         user = User.objects.get(user_id=user_id)
         food_evaluate_json = []
         food = Food.objects.get(food_id=food_id)
-        food_evaluates = FoodEvaluate.objects.filter(food_id=food_id)
+        food_evaluates = FoodEvaluate.objects.filter(food_id=food_id).order_by("-food_evaluate_date")
         stars = Star.objects.filter(user_id=user_id)
         has_stared = False
         if len(stars) > 0:
@@ -404,13 +406,13 @@ def get_evaluate_food(request):
             if evaluate.post_user.user_id == user_id:
                 has_commented = True
             food_evaluate_json.append({
-                'evaluateID': evaluate.food_evaluate_id,
-                'evaluateText': evaluate.food_evaluate_text,
-                'evaluateScore': evaluate.food_evaluate_score,
-                'userNickName': evaluate.post_user.user_nickname,
-                'userID': evaluate.post_user.user_id,
-                'userIconUrl': evaluate.post_user.user_icon_url,
-                'evaluateDate': evaluate.food_evaluate_date.strftime('%Y-%m-%d %H:%M:%S'),
+                "evaluateID": evaluate.food_evaluate_id,
+                "evaluateText": evaluate.food_evaluate_text,
+                "evaluateScore": evaluate.food_evaluate_score,
+                "userNickName": evaluate.post_user.user_nickname,
+                "userID": evaluate.post_user.user_id,
+                "userIconUrl": evaluate.post_user.user_icon_url,
+                "evaluateDate": evaluate.food_evaluate_date.strftime("%Y-%m-%d %H:%M:%S"),
             })
             food_count += 1
             food_score += evaluate.food_evaluate_score
@@ -427,75 +429,147 @@ def get_evaluate_food(request):
             "foodCount": food_count,
         }
         comment_json = {
-            'evaluateText': "",
-            'evaluateScore': None,
-            'userNickName': user.user_nickname,
-            'userID': user.user_id,
-            'userIconUrl': user.user_icon_url,
-            'foodID': food.food_id,
+            "evaluateText": "",
+            "evaluateScore": None,
+            "userNickName": user.user_nickname,
+            "postUserID": user.user_id,
+            "userIconUrl": user.user_icon_url,
+            "foodID": food.food_id,
         }
-        return JsonResponse({'success': True, 'message': '获取成功',
-                             'foodEvaluate': food_evaluate_json,
-                             'food': food_json,
-                             'comment': comment_json})
+        return JsonResponse({"success": True, "message": "获取成功",
+                             "foodEvaluate": food_evaluate_json,
+                             "food": food_json,
+                             "comment": comment_json})
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def evaluate_food(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
-        food_id = data_json.get('foodID')
-        evaluate_text = data_json.get('evaluateText')
-        evaluate_score = data_json.get('evaluateScore')
+        user_id = data_json.get("postUserID")
+        food_id = data_json.get("foodID")
+        evaluate_text = data_json.get("evaluateText")
+        evaluate_score = data_json.get("evaluateScore")
         user = User.objects.get(user_id=user_id)
         food_evaluate = FoodEvaluate(post_user=user, food_evaluate_text=evaluate_text,
                                      food_evaluate_score=evaluate_score, food_id=food_id,
                                      food_evaluate_date=datetime.datetime.now())
         food_evaluate.save()
-        return JsonResponse({'success': True,
-                             'message': '评论成功',
+        return JsonResponse({"success": True,
+                             "message": "评论成功",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def delete_evaluate_food(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        food_evaluate_id = data_json.get('foodEvaluateID')
+        food_evaluate_id = data_json.get("evaluateID")
         FoodEvaluate.objects.get(food_evaluate_id=food_evaluate_id).delete()
-        return JsonResponse({'success': True,
-                             'message': '删除成功',
+        return JsonResponse({"success": True,
+                             "message": "删除成功",
                              })
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 def get_evaluate_user(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
+        user_id = data_json.get("userID")
+        post_user_id = data_json.get("postUserID")
+        post_user = User.objects.get(user_id=post_user_id)
         user_evaluate_json = []
-        user_evaluates = UserEvaluate.objects.filter(user_id=user_id)
+        user = User.objects.get(user_id=user_id)
+        user_evaluates = UserEvaluate.objects.filter(user_id=user_id).order_by("-user_evaluate_date")
+        user_count = 0
+        user_score = 0
+        has_commented = False
+        comment_myself = post_user.user_id == user.user_id
         for evaluate in user_evaluates:
+            if evaluate.post_user.user_id == post_user_id:
+                has_commented = True
             user_evaluate_json.append({
-                'evaluateText': evaluate.food_evaluate_text,
-                'evaluateScore': evaluate.food_evaluate_score
+                "evaluateID": evaluate.user_evaluate_id,
+                "evaluateText": evaluate.user_evaluate_text,
+                "evaluateScore": evaluate.user_evaluate_score,
+                "userNickName": evaluate.post_user.user_nickname,
+                "userID": evaluate.post_user.user_id,
+                "userIconUrl": evaluate.post_user.user_icon_url,
+                "evaluateDate": evaluate.user_evaluate_date.strftime("%Y-%m-%d %H:%M:%S"),
             })
-        return JsonResponse({'success': True, 'message': '获取成功',
-                             'userEvaluate': user_evaluate_json})
+            user_count += 1
+            user_score += evaluate.user_evaluate_score
+        if user_count != 0:
+            user_score = user_score / user_count
+        user_json = {
+            "commentMyself": comment_myself,
+            "hasCommented": has_commented,
+            "userID": user.user_id,
+            "userName": user.user_name,
+            "userNickName": user.user_nickname,
+            "userAddress": user.user_address,
+            "userTel": user.user_tel,
+            "userIconUrl": user.user_icon_url,
+            "userScore": user_score,
+            "userCount": user_count,
+        }
+        comment_json = {
+            "evaluateText": "",
+            "evaluateScore": None,
+            "userNickName": post_user.user_nickname,
+            "postUserID": post_user.user_id,
+            "userIconUrl": post_user.user_icon_url,
+            "userID": user.user_id,
+        }
+        return JsonResponse({"success": True, "message": "获取成功",
+                             "userEvaluate": user_evaluate_json,
+                             "user": user_json,
+                             "comment": comment_json})
     else:
-        JsonResponse({'success': False, 'message': '请求异常'})
+        JsonResponse({"success": False, "message": "请求异常"})
+
+
+def evaluate_user(request):
+    if request.method == "POST":
+        data_json = json.loads(request.body)
+        post_user_id = data_json.get("postUserID")
+        user_id = data_json.get("userID")
+        evaluate_text = data_json.get("evaluateText")
+        evaluate_score = data_json.get("evaluateScore")
+        print(post_user_id )
+        user = User.objects.get(user_id=post_user_id)
+        user_evaluate = UserEvaluate(post_user=user, user_evaluate_text=evaluate_text,
+                                     user_evaluate_score=evaluate_score, user_id=user_id,
+                                     user_evaluate_date=datetime.datetime.now())
+        user_evaluate.save()
+        return JsonResponse({"success": True,
+                             "message": "评论成功",
+                             })
+    else:
+        JsonResponse({"success": False, "message": "请求异常"})
+
+
+def delete_evaluate_user(request):
+    if request.method == "POST":
+        data_json = json.loads(request.body)
+        user_evaluate_id = data_json.get("evaluateID")
+        UserEvaluate.objects.get(user_evaluate_id=user_evaluate_id).delete()
+        return JsonResponse({"success": True,
+                             "message": "删除成功",
+                             })
+    else:
+        JsonResponse({"success": False, "message": "请求异常"})
 
 
 # Android
 def android_get_orders(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data_json = json.loads(request.body)
-        user_id = data_json.get('userID')
+        user_id = data_json.get("userID")
         user = User.objects.get(user_id=user_id)
         orders = get_orders(user, False)
-        return JsonResponse({'success': True, 'message': '请求成功',
-                             'orders': orders})
+        return JsonResponse({"success": True, "message": "请求成功",
+                             "orders": orders})

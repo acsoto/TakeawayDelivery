@@ -4,14 +4,14 @@
       <div>
         <div style="margin:20px;">
           <div>
-            <span class="name">{{thisRestaurant.storeName}}</span> <br />
-            <strong class="value">{{thisRestaurant.storeAddress}}</strong><br />
-            <strong class="value">{{thisRestaurant.storeTel}}</strong><br />
+            <span class="name">{{thisUser.userNickName}}</span> <br />
+            <strong class="value">{{thisUser.userAddress}}</strong><br />
+            <strong class="value">{{thisUser.userTel}}</strong><br />
             <strong class="value">
               <a-rate
-                v-model:value="thisRestaurant.score"
+                v-model:value="thisUser.userScore"
                 disabled
-              />（{{thisRestaurant.count}}个评价）
+              />（{{thisUser.userCount}}个评价）
             </strong><br />
           </div>
         </div>
@@ -21,7 +21,7 @@
         style="margin:20px;"
       >
         <img
-          :src="thisRestaurant.storeUrl"
+          :src="thisUser.userIconUrl"
           style="width:200px;height:200px;border-radius:10px;margin-right:20px;"
         />
       </div>
@@ -34,10 +34,10 @@
 export default {
   components: {
   },
-  props: ['restaurant'],
+  props: ['user'],
   data() {
     return {
-      thisRestaurant: this.restaurant,
+      thisUser: this.user,
     };
   },
   created() {
@@ -45,8 +45,8 @@ export default {
   },
   methods: {},
   watch: {
-    restaurant() {
-      this.thisRestaurant = this.restaurant;
+    user() {
+      this.thisUser = this.user;
     }
   },
 }

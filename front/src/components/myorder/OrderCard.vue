@@ -7,7 +7,11 @@
           alt="example"
           :src="thisOrder.deliveryUserIcon"
           v-if="thisOrder.orderCompleted!=0"
-          style="width:150px;height:150px;margin:0px;border-radius: 10px;"
+          style="width:150px;height:150px;margin:0px;border-radius: 10px;cursor: pointer;"
+          @click="$router.push({ path: '/home/user',
+            query: {
+              userID: thisOrder.deliveryUserID,
+            },});"
         />
         <img
           alt="example"
@@ -20,6 +24,11 @@
           <div
             class="name"
             v-if="thisOrder.orderCompleted!=0"
+            style="cursor: pointer;"
+            @click="$router.push({ path: '/home/user',
+            query: {
+              userID: thisOrder.deliveryUserID,
+            },});"
           >配送者:{{thisOrder.deliveryUserNickName}}</div>
           <div
             class="name"
