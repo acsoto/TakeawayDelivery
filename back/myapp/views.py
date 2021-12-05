@@ -205,6 +205,29 @@ def un_star(request):
         JsonResponse({'success': False, 'message': '请求异常'})
 
 
+def set_star(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        food_id = data_json.get('foodID')
+        stars = Star.objects.filter(user_id=user_id)
+        if len(stars) == 0:
+            star = Star(user_id=user_id)
+            star.save()
+
+            star_food = StarFood(star_id=star.star_id, food_id=food_id)
+            star_food.save()
+        else:
+            for star in stars:
+                star_food = StarFood(star_id=star.star_id, food_id=food_id)
+                star_food.save()
+        return JsonResponse({'success': True,
+                             'message': '收藏成功',
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
 def get_information(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -368,6 +391,12 @@ def get_evaluate_food(request):
         food_evaluate_json = []
         food = Food.objects.get(food_id=food_id)
         food_evaluates = FoodEvaluate.objects.filter(food_id=food_id)
+        stars = Star.objects.filter(user_id=user_id)
+        has_stared = False
+        if len(stars) > 0:
+            for star in stars:
+                if len(StarFood.objects.filter(food_id=food_id, star_id=star.star_id)) > 0:
+                    has_stared = True
         food_count = 0
         food_score = 0
         has_commented = False
@@ -375,18 +404,20 @@ def get_evaluate_food(request):
             if evaluate.post_user.user_id == user_id:
                 has_commented = True
             food_evaluate_json.append({
+                'evaluateID': evaluate.food_evaluate_id,
                 'evaluateText': evaluate.food_evaluate_text,
                 'evaluateScore': evaluate.food_evaluate_score,
                 'userNickName': evaluate.post_user.user_nickname,
                 'userID': evaluate.post_user.user_id,
                 'userIconUrl': evaluate.post_user.user_icon_url,
-                'evaluateDate': evaluate.food_evaluate_date,
+                'evaluateDate': evaluate.food_evaluate_date.strftime('%Y-%m-%d %H:%M:%S'),
             })
             food_count += 1
             food_score += evaluate.food_evaluate_score
         if food_count != 0:
             food_score = food_score / food_count
         food_json = {
+            "hasStared": has_stared,
             "hasCommented": has_commented,
             "foodID": food.food_id,
             "foodName": food.food_name,
@@ -401,11 +432,43 @@ def get_evaluate_food(request):
             'userNickName': user.user_nickname,
             'userID': user.user_id,
             'userIconUrl': user.user_icon_url,
+            'foodID': food.food_id,
         }
         return JsonResponse({'success': True, 'message': '获取成功',
                              'foodEvaluate': food_evaluate_json,
                              'food': food_json,
                              'comment': comment_json})
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def evaluate_food(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        user_id = data_json.get('userID')
+        food_id = data_json.get('foodID')
+        evaluate_text = data_json.get('evaluateText')
+        evaluate_score = data_json.get('evaluateScore')
+        user = User.objects.get(user_id=user_id)
+        food_evaluate = FoodEvaluate(post_user=user, food_evaluate_text=evaluate_text,
+                                     food_evaluate_score=evaluate_score, food_id=food_id,
+                                     food_evaluate_date=datetime.datetime.now())
+        food_evaluate.save()
+        return JsonResponse({'success': True,
+                             'message': '评论成功',
+                             })
+    else:
+        JsonResponse({'success': False, 'message': '请求异常'})
+
+
+def delete_evaluate_food(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        food_evaluate_id = data_json.get('foodEvaluateID')
+        FoodEvaluate.objects.get(food_evaluate_id=food_evaluate_id).delete()
+        return JsonResponse({'success': True,
+                             'message': '删除成功',
+                             })
     else:
         JsonResponse({'success': False, 'message': '请求异常'})
 

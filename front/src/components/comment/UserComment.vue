@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div>
     <a-comment
       :author="thisComment.userNickName"
       :avatar="thisComment.userIconUrl"
@@ -24,7 +24,7 @@
         <div>
           <a-rate
             style="margin-right:10px;font-size:15px;"
-            :default-value=" thisComment.evaluateScore"
+            v-model:value=" thisComment.evaluateScore"
             disabled
           />
           <span>{{ thisComment.evaluateDate }}</span>
@@ -51,29 +51,14 @@ export default {
 
     },
   },
+  watch: {
+    comment() {
+      this.thisComment = this.comment;
+    }
+  },
 };
 </script>
 
 <style>
-@media screen and (min-width: 1201px) {
-  .background {
-    margin: 20px auto;
-    background: rgb(255, 255, 255, 0.9);
-    box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 80%;
-  }
-}
 
-@media screen and (max-width: 1200px) {
-  .background {
-    margin: 20px auto;
-    background: rgb(255, 255, 255, 0.9);
-    box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
-  }
-}
 </style>

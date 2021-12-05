@@ -50,7 +50,7 @@ export default {
     async handleUnstar() {
 
       try {
-        const { data: res } = await this.$http.post("api/unstar/", { userID: this.$store.state.userID, foodID: this.thisFood.foodID });
+        const { data: res } = await this.$http.post("api/unStar/", { userID: this.$store.state.userID, foodID: this.thisFood.foodID });
         if (res.success == false) {
           this.$message.error(res.message);
         }

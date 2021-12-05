@@ -8,7 +8,7 @@
         <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
       </a-breadcrumb>
       <div v-if="stars.length==0">
-        <a-empty />
+        <a-empty description="暂无收藏食物"/>
       </div>
       <div v-else>
         <div

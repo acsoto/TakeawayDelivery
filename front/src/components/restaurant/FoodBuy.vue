@@ -17,7 +17,7 @@
           <div class="name">{{thisFood.foodName}}</div>
           <div class="value">{{thisFood.foodPrice}}</div>
           <a-rate
-            :default-value="thisFood.foodScore"
+            v-model:value="thisFood.foodScore"
             disabled
           /><span class="value">（{{thisFood.foodCount}}个评价）</span>
         </div>

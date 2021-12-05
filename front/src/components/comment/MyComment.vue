@@ -11,21 +11,25 @@
           cancel-text="取消"
           @confirm="handleEvaluate"
         >
-          <a-button
-          type="primary"
-        >
-          发布评论
-        </a-button>
+          <a-button type="primary">
+            发布评论
+          </a-button>
         </a-popconfirm>
       </template>
       <template #content>
-        <a-textarea v-model:value="thisComment.evaluateText " placeholder="请输入您的评价" :rows="4" :cols="160" allow-clear />
+        <a-textarea
+          v-model:value="thisComment.evaluateText "
+          placeholder="请输入您的评价"
+          :rows="4"
+          :cols="160"
+          allow-clear
+        />
       </template>
       <template #datetime>
-        <div>您的评分：
+        <div style="margin-top:-4px;">您的评分：
           <a-rate
             style="margin-right:10px;"
-            :default-value=" thisComment.evaluateScore"
+            v-model:value="thisComment.evaluateScore"
           />
         </div>
       </template>
@@ -34,7 +38,6 @@
 </template>
 <script>
 import dayjs from 'dayjs';
-import { defineComponent } from 'vue';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 export default {
@@ -46,9 +49,16 @@ export default {
     };
   },
   methods: {
-    handleDelete() {
-
+    handleEvaluate() {
+      if (!this.thisComment.evaluateScore) return this.$message.error("请选择分数");
+      if (this.thisComment.evaluateText.trim().length == 0) this.thisComment.evaluateText = "该用户未留下评价";
+      this.$emit('handleEvaluate', this.thisComment);
     },
+  },
+  watch: {
+    comment() {
+      this.thisComment = this.comment;
+    }
   },
 };
 </script>

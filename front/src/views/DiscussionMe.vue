@@ -31,7 +31,6 @@
                   <div>
                     <a-rate
                       style="margin-right:10px;font-size:15px;"
-                      :default-value="3"
                       disabled
                     />
                     <a-tooltip :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">
@@ -71,7 +70,6 @@
                   <div>
                     <a-rate
                       style="margin-right:10px;font-size:15px;"
-                      :default-value="3"
                       disabled
                     />
                     <a-tooltip :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">

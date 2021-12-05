@@ -9,7 +9,7 @@
             <strong class="value">{{thisRestaurant.storeTel}}</strong><br />
             <strong class="value">
               <a-rate
-                :default-value="thisRestaurant.score"
+                v-model:value="thisRestaurant.score"
                 disabled
               />（{{thisRestaurant.count}}个评价）
             </strong><br />
