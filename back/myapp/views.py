@@ -639,5 +639,7 @@ def android_get_food_evaluate_score(request):
         food_id = data_json.get("foodID")
         average_score = FoodEvaluate.objects.filter(food_id=food_id).aggregate(Avg('food_evaluate_score'))[
             "food_evaluate_score__avg"]
+        if average_score is None:
+            average_score = 0
         return JsonResponse({"success": True, "message": "请求成功",
                              "evaluate": average_score})
