@@ -58,7 +58,7 @@
           </router-link>
         </a-menu-item>
       </a-sub-menu>
-      <a-sub-menu key="sub3">
+      <!-- <a-sub-menu key="sub3">
         <template v-slot:title><a-icon type="user" />
           <CommentOutlined />
           <span v-if="collapsed">讨论区</span>
@@ -78,7 +78,7 @@
             我发布的
           </router-link>
         </a-menu-item>
-      </a-sub-menu>
+      </a-sub-menu> -->
       <a-sub-menu key="sub4">
         <template v-slot:title><a-icon type="team" />
           <CarOutlined />
@@ -136,7 +136,7 @@ export default defineComponent({
   components: {
     UserOutlined,
     ShoppingCartOutlined,
-    CommentOutlined,
+    // CommentOutlined,
     CarOutlined,
     CoffeeOutlined,
     SettingOutlined,

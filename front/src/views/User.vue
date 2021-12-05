@@ -6,8 +6,8 @@
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>商铺</a-breadcrumb-item>
         <a-breadcrumb-item>
-          <router-link to="/home/restaurants">
-            所有餐厅
+          <router-link to="/home/orderquery">
+            我的订单
           </router-link>
         </a-breadcrumb-item>
         <a-breadcrumb-item>{{user.userName}}</a-breadcrumb-item>
