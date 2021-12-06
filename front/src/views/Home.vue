@@ -4,10 +4,10 @@
       id="components-layout-demo-side"
       style="min-height: 100vh;overflow:auto;"
     >
+      <my-menu />
       <a-layout>
         <!-- <a-layout-header style="background: #fff; padding: 0">
         </a-layout-header> -->
-        <my-menu />
         <a-layout-content style="margin: 0 16px;height:100vh;overflow:auto;">
           <router-view v-slot="{ Component }">
             <transition
