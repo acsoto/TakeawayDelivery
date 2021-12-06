@@ -22,6 +22,7 @@ export default {
     MyStore,
   },
   created() {
+    this.$store.commit('pushPath', { name: '所有餐厅', to: 'home/restaurants' })
     this.getStoreList();
   },
   methods: {
@@ -33,7 +34,6 @@ export default {
         }
         else {
           this.stores = res.store;
-          this.$store.commit('pushPath', { name: '所有餐厅', to: 'home/restaurants' })
         }
       } catch (error) {
         this.$message.error("网络异常");

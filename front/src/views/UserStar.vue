@@ -30,6 +30,7 @@ export default {
     FoodCard,
   },
   created() {
+    this.$store.commit('pushPath', { name: '我的最爱', to: '/home/userstar' })
     this.getData();
   },
   methods: {
@@ -41,7 +42,6 @@ export default {
         }
         else {
           this.stars = res.userStars
-          this.$store.commit('pushPath', { name: '我的最爱', to: '/home/userstar' })
         }
       } catch (error) {
         this.$message.error("网络异常");

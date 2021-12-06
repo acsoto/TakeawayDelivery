@@ -27,6 +27,7 @@ export default {
     OrderCard,
   },
   created() {
+    this.$store.commit('pushPath', { name: '我接的单', to: '/home/ordernow' })
     this.getData();
   },
   methods: {
@@ -38,7 +39,6 @@ export default {
         }
         else {
           this.orders = res.userDeliveryOrders;
-          this.$store.commit('pushPath', { name: '我接的单', to: '/home/ordernow' })
         }
       } catch (error) {
         this.$message.error("网络异常");

@@ -11,11 +11,14 @@
             v-for="item in path"
             :key="item"
           >
-            <a-breadcrumb-item @click="handleClickBread(item)">
+            <a-breadcrumb-item>
               <span v-if="item.isFather">
                 {{item.name}}
               </span>
-              <span v-else>
+              <span
+                v-else
+                @click="handleClickBread(item)"
+              >
                 <router-link :to="item.to">
                   {{item.name}}
                 </router-link>

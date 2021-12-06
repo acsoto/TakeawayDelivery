@@ -74,6 +74,7 @@ export default defineComponent({
   //   };
   // },
   created() {
+    this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
     this.getUserInfo();
   },
   methods: {
@@ -88,7 +89,6 @@ export default defineComponent({
         }
         else {
           this.user = res
-          this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
         }
       } catch (error) {
         this.$message.error("网络异常");
