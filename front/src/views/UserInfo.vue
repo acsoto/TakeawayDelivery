@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
+    <!-- <a-layout-header style="background: #fff; padding: 0">
       <PlusCircleTwoTone
         style="font-size: xxx-large"
         @click="increase"
@@ -22,8 +22,8 @@
           class="head-example"
         />
       </a-badge>
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
+    </a-layout-header> -->
+    <a-layout-content style="margin: 0 16px;height:90vh;overflow:auto;">
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>个人中心</a-breadcrumb-item>
         <a-breadcrumb-item>个人信息</a-breadcrumb-item>
@@ -50,10 +50,6 @@
         </a-row>
       </div>
     </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©For the King of Alxa
-    </a-layout-footer>
   </div>
 </template>
 <script>
@@ -72,39 +68,39 @@ export default defineComponent({
     };
   },
   components: {
-    ShoppingTwoTone,
-    PlusCircleTwoTone,
-    MinusCircleTwoTone,
+    // ShoppingTwoTone,
+    // PlusCircleTwoTone,
+    // MinusCircleTwoTone,
     MyAvatar,
     MyInfo,
   },
-  setup() {
-    const count = ref(0);
+  // setup() {
+  //   const count = ref(0);
 
-    const decline = () => {
-      if (count.value >= 1) {
-        count.value--;
-      }
-    };
+  //   const decline = () => {
+  //     if (count.value >= 1) {
+  //       count.value--;
+  //     }
+  //   };
 
-    const increase = () => {
-      count.value++;
-    };
+  //   const increase = () => {
+  //     count.value++;
+  //   };
 
-    return {
-      count,
-      show: ref(true),
-      decline,
-      increase,
-    };
-  },
+  //   return {
+  //     count,
+  //     show: ref(true),
+  //     decline,
+  //     increase,
+  //   };
+  // },
   created() {
     this.getUserInfo();
   },
   methods: {
-    testOnclick() {
-      window.alert("You Clicked Me!!!");
-    },
+    // testOnclick() {
+    //   window.alert("You Clicked Me!!!");
+    // },
     async getUserInfo() {
       try {
         const { data: res } = await this.$http.post("api/getInformation/", { userID: this.userID });

@@ -1,32 +1,23 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>个人中心</a-breadcrumb-item>
-        <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
-      </a-breadcrumb>
-      <div v-if="stars.length==0">
-        <a-empty description="暂无收藏食物"/>
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>个人中心</a-breadcrumb-item>
+      <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
+    </a-breadcrumb>
+    <div v-if="stars.length==0">
+      <a-empty description="暂无收藏食物" />
+    </div>
+    <div v-else>
+      <div
+        v-for="food in stars"
+        :key="food"
+      >
+        <food-card
+          :food="food"
+          @getData="getData"
+        />
       </div>
-      <div v-else>
-        <div
-          v-for="food in stars"
-          :key="food"
-        >
-          <food-card
-            :food="food"
-            @getData="getData"
-          />
-        </div>
-      </div>
-
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©2021 Powered by zzh company
-    </a-layout-footer>
+    </div>
   </div>
 </template>
 <script>

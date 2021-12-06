@@ -1,28 +1,20 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px;margin: 0 16px;height:80vh;overflow:auto;">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>个人中心</a-breadcrumb-item>
-        <a-breadcrumb-item>我的订单</a-breadcrumb-item>
-      </a-breadcrumb>
-      <div v-if="orders.length==0">
-        <a-empty description="暂无订单"/>
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>个人中心</a-breadcrumb-item>
+      <a-breadcrumb-item>我的订单</a-breadcrumb-item>
+    </a-breadcrumb>
+    <div v-if="orders.length==0">
+      <a-empty description="暂无订单" />
+    </div>
+    <div v-else>
+      <div
+        v-for="order in orders"
+        :key="order"
+      >
+        <order-card :order="order" />
       </div>
-      <div v-else>
-        <div
-          v-for="order in orders"
-          :key="order"
-        >
-          <order-card :order="order" />
-        </div>
-      </div>
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©2021 Powered by zzh company
-    </a-layout-footer>
+    </div>
   </div>
 </template>
 <script>

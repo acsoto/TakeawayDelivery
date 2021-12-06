@@ -1,37 +1,30 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0" >
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>讨论区</a-breadcrumb-item>
-        <a-breadcrumb-item>菜品贴</a-breadcrumb-item>
-      </a-breadcrumb>
-      <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-        <template>
-          <a-list item-layout="horizontal" :data-source="data">
-            <template #renderItem="{ item }">
-              <a-list-item>
-                <a-list-item-meta
-                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                >
-                  <template #title>
-                    <a href="https://www.antdv.com/">{{ item.title }}</a>
-                  </template>
-                  <template #avatar>
-                    <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  </template>
-                </a-list-item-meta>
-              </a-list-item>
-            </template>
-          </a-list>
-        </template>
-      </div>
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©2021 Powered by zzh company
-    </a-layout-footer>
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>讨论区</a-breadcrumb-item>
+      <a-breadcrumb-item>菜品贴</a-breadcrumb-item>
+    </a-breadcrumb>
+    <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
+      <template>
+        <a-list
+          item-layout="horizontal"
+          :data-source="data"
+        >
+          <template #renderItem="{ item }">
+            <a-list-item>
+              <a-list-item-meta description="Ant Design, a design language for background applications, is refined by Ant UED Team">
+                <template #title>
+                  <a href="https://www.antdv.com/">{{ item.title }}</a>
+                </template>
+                <template #avatar>
+                  <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                </template>
+              </a-list-item-meta>
+            </a-list-item>
+          </template>
+        </a-list>
+      </template>
+    </div>
   </div>
 </template>
 

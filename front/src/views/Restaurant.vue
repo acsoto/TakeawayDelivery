@@ -1,43 +1,35 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>商铺</a-breadcrumb-item>
-        <a-breadcrumb-item>
-          <router-link to="/home/restaurants">
-            所有餐厅
-          </router-link>
-        </a-breadcrumb-item>
-        <a-breadcrumb-item>{{store.storeName}}</a-breadcrumb-item>
-      </a-breadcrumb>
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>商铺</a-breadcrumb-item>
+      <a-breadcrumb-item>
+        <router-link to="/home/restaurants">
+          所有餐厅
+        </router-link>
+      </a-breadcrumb-item>
+      <a-breadcrumb-item>{{store.storeName}}</a-breadcrumb-item>
+    </a-breadcrumb>
 
-      <restaurant-info :restaurant="store" />
-      <div
-        v-for="food in store.food"
-        :key="food"
-      >
-        <food-buy
-          :food="food"
-          @getTotal="getTotal"
-        />
-      </div>
-      <div
-        v-if="total>0"
-        class="total"
-        style="display:flex;justify-content:space-between;align-items: center;"
-      >
-        <div>总计：{{total}}元</div>
+    <restaurant-info :restaurant="store" />
+    <div
+      v-for="food in store.food"
+      :key="food"
+    >
+      <food-buy
+        :food="food"
+        @getTotal="getTotal"
+      />
+    </div>
+    <div
+      v-if="total>0"
+      class="total"
+      style="display:flex;justify-content:space-between;align-items: center;"
+    >
+      <div>总计：{{total}}元</div>
 
-        <a-button @click="setOrder">下单</a-button>
+      <a-button @click="setOrder">下单</a-button>
 
-      </div>
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©For the King of Alxa
-    </a-layout-footer>
+    </div>
   </div>
 </template>
 

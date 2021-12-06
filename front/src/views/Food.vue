@@ -1,47 +1,39 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>商铺</a-breadcrumb-item>
-        <a-breadcrumb-item>
-          <router-link to="/home/restaurants">
-            所有餐厅
-          </router-link>
-        </a-breadcrumb-item>
-        <a-breadcrumb-item>{{food.foodName}}</a-breadcrumb-item>
-      </a-breadcrumb>
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>商铺</a-breadcrumb-item>
+      <a-breadcrumb-item>
+        <router-link to="/home/restaurants">
+          所有餐厅
+        </router-link>
+      </a-breadcrumb-item>
+      <a-breadcrumb-item>{{food.foodName}}</a-breadcrumb-item>
+    </a-breadcrumb>
 
-      <food-info :food="food" />
+    <food-info :food="food" />
 
-      <div class="background">
-        <div v-if="foodEvaluates.length > 0">
-          <div
-            v-for="evaluate in foodEvaluates"
-            :key="evaluate"
-          >
-            <user-comment
-              :comment="evaluate"
-              @handleDelete="handleDelete"
-            />
-          </div>
-        </div>
-        <div v-else>
-          <a-empty description="暂无评论" />
+    <div class="background">
+      <div v-if="foodEvaluates.length > 0">
+        <div
+          v-for="evaluate in foodEvaluates"
+          :key="evaluate"
+        >
+          <user-comment
+            :comment="evaluate"
+            @handleDelete="handleDelete"
+          />
         </div>
       </div>
-      <div v-if="!food.hasCommented">
-        <my-comment
-          :comment="comment"
-          @handleEvaluate="handleEvaluate"
-        />
+      <div v-else>
+        <a-empty description="暂无评论" />
       </div>
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©For the King of Alxa
-    </a-layout-footer>
+    </div>
+    <div v-if="!food.hasCommented">
+      <my-comment
+        :comment="comment"
+        @handleEvaluate="handleEvaluate"
+      />
+    </div>
   </div>
 </template>
 

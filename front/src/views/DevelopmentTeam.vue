@@ -1,8 +1,5 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px">
       <a-breadcrumb style="margin: 16px 0">
         <a-breadcrumb-item>系统设置</a-breadcrumb-item>
         <a-breadcrumb-item>开发团队</a-breadcrumb-item>
@@ -80,10 +77,6 @@
         <!--          </div>-->
         <!--        </a-carousel>-->
       </div>
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      ©For the King of Alxa
-    </a-layout-footer>
   </div>
 </template>
 <script>

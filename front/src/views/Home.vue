@@ -4,16 +4,24 @@
       id="components-layout-demo-side"
       style="min-height: 100vh;overflow:auto;"
     >
-      <my-menu />
       <a-layout>
-        <router-view v-slot="{ Component }">
-          <transition
-            name="move"
-            mode="out-in"
-          >
-            <component :is="Component" />
-          </transition>
-        </router-view>
+        <!-- <a-layout-header style="background: #fff; padding: 0">
+        </a-layout-header> -->
+        <my-menu />
+        <a-layout-content style="margin: 0 16px;height:90vh;overflow:auto;">
+          <router-view v-slot="{ Component }">
+            <transition
+              name="move"
+              mode="out-in"
+            >
+              <component :is="Component" />
+            </transition>
+          </router-view>
+        </a-layout-content>
+        <a-layout-footer style="text-align: center">
+          <!--        Ant Design ©2018 Created by Ant UED-->
+          ©For the King of Alxa
+        </a-layout-footer>
       </a-layout>
     </a-layout>
   </div>

@@ -1,26 +1,17 @@
 <template>
   <div>
-    <a-layout-header style="background: #fff; padding: 0">
-    </a-layout-header>
-    <a-layout-content style="margin: 0 16px;height:80vh;overflow:auto;">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>商铺</a-breadcrumb-item>
-        <a-breadcrumb-item>所有餐厅</a-breadcrumb-item>
-      </a-breadcrumb>
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>商铺</a-breadcrumb-item>
+      <a-breadcrumb-item>所有餐厅</a-breadcrumb-item>
+    </a-breadcrumb>
 
-      <div
-        v-for="store in stores"
-        :key="store"
-        style="margin:0px"
-      >
-        <my-store :restaurant="store" />
-      </div>
-
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      <!--        Ant Design ©2018 Created by Ant UED-->
-      ©For the King of Alxa
-    </a-layout-footer>
+    <div
+      v-for="store in stores"
+      :key="store"
+      style="margin:0px"
+    >
+      <my-store :restaurant="store" />
+    </div>
   </div>
 </template>
 <script>
