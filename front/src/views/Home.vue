@@ -8,7 +8,7 @@
         <!-- <a-layout-header style="background: #fff; padding: 0">
         </a-layout-header> -->
         <my-menu />
-        <a-layout-content style="margin: 0 16px;height:90vh;overflow:auto;">
+        <a-layout-content style="margin: 0 16px;height:100vh;overflow:auto;">
           <router-view v-slot="{ Component }">
             <transition
               name="move"
@@ -17,11 +17,10 @@
               <component :is="Component" />
             </transition>
           </router-view>
+          <div style="text-align: center;margin-top:10px;margin-bottom:20px;">
+            ©For the King of Alxa
+          </div>
         </a-layout-content>
-        <a-layout-footer style="text-align: center">
-          <!--        Ant Design ©2018 Created by Ant UED-->
-          ©For the King of Alxa
-        </a-layout-footer>
       </a-layout>
     </a-layout>
   </div>
