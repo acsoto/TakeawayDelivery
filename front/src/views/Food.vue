@@ -70,7 +70,6 @@ export default {
           this.$message.error(res.message);
         }
         else {
-          console.log(res)
           this.food = res.food;
           this.foodEvaluates = res.foodEvaluate;
           this.comment = res.comment;
@@ -120,7 +119,9 @@ export default {
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
+    padding: 20px;
     width: 80%;
+    overflow: auto;
   }
 }
 
@@ -130,7 +131,9 @@ export default {
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
-    width: 100%;
+    padding: 20px;
+    width: 99%;
+    overflow: auto;
   }
 }
 </style>

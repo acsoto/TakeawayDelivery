@@ -59,6 +59,8 @@ export default {
   },
   created() {
     this.getUserInfo();
+    console.log(window.location.pathname + window.location.search)
+
   },
   methods: {
     async getUserInfo() {
@@ -68,10 +70,10 @@ export default {
           this.$message.error(res.message);
         }
         else {
-          console.log(res)
           this.user = res.user;
           this.userEvaluates = res.userEvaluate;
           this.comment = res.comment;
+          console.log(this.user.userNickName)
         }
       } catch (error) {
         this.$message.error("网络异常");
@@ -118,17 +120,20 @@ export default {
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
+    padding: 20px;
     width: 80%;
+    overflow: auto;
   }
 }
-
 @media screen and (max-width: 1200px) {
   .background {
     margin: 20px auto;
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
-    width: 100%;
+    padding: 20px;
+    width: 99%;
+    overflow: auto;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width:50%;min-width:400px;margin:20px;">
     <div style="text-align: right">
       <a-tooltip
         v-if="!editMode"
@@ -127,9 +127,9 @@ export default {
       this.editMode = false;
     },
     async handleConfirm() {
-      
+
       try {
-        this.thisUser.userID=this.$store.state.userID;
+        this.thisUser.userID = this.$store.state.userID;
         const { data: res } = await this.$http.post("api/changeInformation/", this.thisUser);
         if (res.success == false) {
           this.$message.error(res.message);
