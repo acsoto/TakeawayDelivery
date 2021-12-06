@@ -2,9 +2,11 @@ import datetime
 import json
 from collections import Counter
 
+import torch
 from django.http import JsonResponse
 from django.db.models import Sum, Count, Max, Min, Avg
 
+from myapp.forecast import Net, predict
 from myapp.models import *
 
 
@@ -649,8 +651,10 @@ def forecast_arrival_time(order, store_id):
     deep_learning_list.append(int(time.strftime('%H')))
     deep_learning_list.append(store_id)
     deep_learning_list.append(forecast_arrival_time_get_address_number(order.order_user.user_address))
-    print(deep_learning_list)
-    return 3
+    net_clone = Net()
+    net_clone.load_state_dict(torch.load("myapp/model_parameter.pkl"))
+    arrival_time = predict(net_clone, deep_learning_list)
+    return arrival_time
 
 
 def forecast_arrival_time_get_address_number(address):
