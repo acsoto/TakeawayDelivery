@@ -31,27 +31,27 @@
           <UserOutlined />
           <span v-if="collapsed">个人中心</span>
         </template>
-        <a-menu-item key="1">
-          <router-link
-            to="userinfo"
-            @click="handleClickMenu('个人中心')"
-          >
+        <a-menu-item
+          key="1"
+          @click="handleClickMenu('个人中心')"
+        >
+          <router-link to="userinfo">
             个人信息
           </router-link>
         </a-menu-item>
-        <a-menu-item key="2">
-          <router-link
-            to="orderquery"
-            @click="handleClickMenu('个人中心')"
-          >
+        <a-menu-item
+          key="2"
+          @click="handleClickMenu('个人中心')"
+        >
+          <router-link to="orderquery">
             我的订单
           </router-link>
         </a-menu-item>
-        <a-menu-item key="3">
-          <router-link
-            to="userstar"
-            @click="handleClickMenu('个人中心')"
-          >
+        <a-menu-item
+          key="3"
+          @click="handleClickMenu('个人中心')"
+        >
+          <router-link to="userstar">
             我的最爱
           </router-link>
         </a-menu-item>
@@ -73,11 +73,11 @@
           <ShoppingCartOutlined />
           <span v-if="collapsed">商铺</span>
         </template>
-        <a-menu-item key="11">
-          <router-link
-            to="restaurants"
-            @click="handleClickMenu('商铺')"
-          >
+        <a-menu-item
+          key="11"
+          @click="handleClickMenu('商铺')"
+        >
+          <router-link to="restaurants">
             所有餐厅
           </router-link>
         </a-menu-item>

@@ -27,14 +27,16 @@
         <!-- <a-layout-header style="background: #fff; padding: 0">
         </a-layout-header> -->
         <a-layout-content style="margin: 0 16px;height:100vh;overflow:auto;">
-          <router-view v-slot="{ Component }">
-            <transition
-              name="move"
-              mode="out-in"
-            >
-              <component :is="Component" />
-            </transition>
-          </router-view>
+          <keep-alive>
+            <router-view v-slot="{ Component }">
+              <transition
+                name="move"
+                mode="out-in"
+              >
+                <component :is="Component" />
+              </transition>
+            </router-view>
+          </keep-alive>
           <div style="text-align: center;margin-top:10px;margin-bottom:20px;">
             ©For the King of Alxa
           </div>
