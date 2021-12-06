@@ -9,6 +9,7 @@ import torch
 import matplotlib.pyplot as plt
 import math
 
+
 class Net(nn.Module):
 
     def __init__(self):
@@ -39,19 +40,21 @@ class Net(nn.Module):
     def predict(self, x):
         return self.forward(x)
 
-def predict(model,dl):
+
+def predict(model, dl):
     model.eval()
     with torch.no_grad():
-        result = torch.cat([model.forward(t[0]) for t in dl])
-    return(result.data)
-
+        result = model(torch.FloatTensor(dl))
+    return result.item()
 
 
 def getTag(weekday, hour, storeId, receiveAddress):
-    tagTime = 0.5*weekday/7.0
-    tagTime = tagTime + 0.4*(0.0000004*math.pow(hour, 6) - 0.0003*math.pow(hour, 5) + 0.0099*math.pow(hour, 4) - 0.1428*math.pow(hour, 3) + 0.9121*math.pow(hour, 2) - 1.7723*hour + 1.4367)/5
-    tagTime = tagTime + 0.1*(receiveAddress+storeId)/16.0
-    tagTime = tagTime*60.0 + random.randint(-5, 5)
+    tagTime = 0.5 * weekday / 7.0
+    tagTime = tagTime + 0.4 * (0.0000004 * math.pow(hour, 6) - 0.0003 * math.pow(hour, 5) + 0.0099 * math.pow(hour,
+                                                                                                              4) - 0.1428 * math.pow(
+        hour, 3) + 0.9121 * math.pow(hour, 2) - 1.7723 * hour + 1.4367) / 5
+    tagTime = tagTime + 0.1 * (receiveAddress + storeId) / 16.0
+    tagTime = tagTime * 60.0 + random.randint(-5, 5)
     if tagTime <= 5:
         tagTime = 5
     if tagTime > 60:
@@ -81,7 +84,6 @@ def train_model():
     # print(cnt)
     # print(tagData)
 
-
     trainData = torch.FloatTensor(trainData)
     tagData = torch.FloatTensor(tagData)
     model = Net()
@@ -91,20 +93,20 @@ def train_model():
     branch = 5
     losses = []
     for epoch in range(epochs):
-        for index in range(int(trainData.shape[0]/branch)):
+        for index in range(int(trainData.shape[0] / branch)):
             model.optimizer.zero_grad()
-            prediction = model(trainData[index*branch:(index+1)*branch])
-            loss = model.loss_func(prediction, tagData[index*branch:(index+1)*branch])
+            prediction = model(trainData[index * branch:(index + 1) * branch])
+            loss = model.loss_func(prediction, tagData[index * branch:(index + 1) * branch])
             print("--------" + str(epoch))
             print("pre:" + str(prediction))
-            print("tag:" + str(tagData[index*branch:(index+1)*branch]))
+            print("tag:" + str(tagData[index * branch:(index + 1) * branch]))
             print(loss)
 
             loss.backward()
             model.optimizer.step()
         losses.append(loss)
 
-    epochsImage = range(1, epochs+1)
+    epochsImage = range(1, epochs + 1)
     print(losses)
     plt.plot(epochsImage, losses, "bo--")
     plt.title('Training')
@@ -114,8 +116,6 @@ def train_model():
     ## plt.show()
     plt.savefig("./test.png")
     torch.save(model.state_dict(), "./model_parameter.pkl")
-
-
 
 
 def print_hi(name):
