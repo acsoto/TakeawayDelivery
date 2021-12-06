@@ -167,29 +167,7 @@ export default defineComponent({
 }
 ::-webkit-scrollbar {
   /*滚动条整体样式*/
-
-  width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
-
-  height: 1px;
-}
-
-::-webkit-scrollbar-thumb {
-  /*滚动条里面小方块*/
-
-  border-radius: 10px;
-
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-
-  background: rgb(0, 12, 23);
-}
-
-::-webkit-scrollbar-track {
-  /*滚动条里面轨道*/
-
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-
-  border-radius: 10px;
-
-  background: rgb(1, 21, 40);
+  width: 0px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0px; /*没想到吧，滚动条直接被我进行了一个横竖都调成0的动作，虽然可以用但是页面上完全看不到，名存实亡的概念！*/
 }
 </style>

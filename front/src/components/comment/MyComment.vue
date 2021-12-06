@@ -51,7 +51,6 @@ export default {
   methods: {
     handleEvaluate() {
       if (!this.thisComment.evaluateScore) return this.$message.error("请选择分数");
-      if (this.thisComment.evaluateText.trim().length == 0) this.thisComment.evaluateText = "该用户未留下评价";
       this.$emit('handleEvaluate', this.thisComment);
     },
   },
@@ -72,6 +71,7 @@ export default {
     border-radius: 10px;
     padding: 20px;
     width: 80%;
+    overflow: auto;
   }
 }
 
@@ -82,7 +82,8 @@ export default {
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
     padding: 20px;
-    width: 100%;
+    width: 99%;
+    overflow: auto;
   }
 }
 </style>

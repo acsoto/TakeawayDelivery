@@ -101,8 +101,9 @@ export default {
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
-padding: 20px;
+    padding: 20px;
     width: 80%;
+    overflow: auto;
   }
 }
 
@@ -112,8 +113,9 @@ padding: 20px;
     background: rgb(255, 255, 255, 0.9);
     box-shadow: 1px 1px 7px #adadad, -1px -1px 7px #ffffff;
     border-radius: 10px;
-padding: 20px;
-    width: 100%;
+    padding: 20px;
+    width: 99%;
+    overflow: auto;
   }
 }
 .image .obstacle {

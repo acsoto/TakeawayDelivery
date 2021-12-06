@@ -1,32 +1,24 @@
 <template>
   <div class="avatar">
-    <a-avatar
-      style="color: #f56a00; backgroundColor: #fde3cf"
-      :size="size"
-      v-if="iconParam.userIconUrl==''"
-    >
-      {{$store.state.username}}
-    </a-avatar>
-    <a-avatar
-      :size="size"
-      :src="iconParam.userIconUrl"
+
+    <img
+      v-if="iconParam.userIconUrl==undefined"
+      style="width:200px; height:200px; border-radius:50%; "
+      src="https://img0.baidu.com/it/u=3730772664,138405132&fm=26&fmt=auto"
+    />
+    <img
       v-else
-      alt="无法加载"
+      style="width:200px; height:200px; border-radius:50%; "
+      :src="iconParam.userIconUrl"
     />
     <div class="button">
-      <a-button
-        style="width:100%"
-        @click="iconVisible=true;tempUserIconUrl=iconParam.userIconUrl;"
-      >
+      <a-button @click="iconVisible=true;tempUserIconUrl=iconParam.userIconUrl;">
         上传头像
       </a-button>
     </div>
 
     <div class="button">
-      <a-button
-        style="width:100%"
-        @click="passwordVisible=true"
-      >
+      <a-button @click="passwordVisible=true">
         修改密码
       </a-button>
     </div>
@@ -94,7 +86,7 @@ export default {
         userNickName: this.user.userNickName,
         userTel: this.user.userTel,
         userAddress: this.user.userAddress,
-        userIconUrl: this.user.userIconUrl,
+        userIconUrl: undefined,
       },
     };
   },
@@ -143,9 +135,11 @@ export default {
 
 <style scoped>
 .avatar {
-  width: 200px;
+  width: 50%;
+  min-width: 200px;
   margin: 0 auto;
   margin-top: 50px;
+  text-align: center;
 }
 .button {
   margin: 20px 0px 20px 0px;
