@@ -9,128 +9,36 @@
     <div class="logo" />
     <a-menu
       theme="dark"
-      :default-selected-keys="['1']"
       mode="inline"
     >
-      <!--      <a-menu-item>-->
-      <!--        <a-card hoverable style="width: 240px">-->
-      <!--          <template #cover>-->
-      <!--            <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />-->
-      <!--          </template>-->
-      <!--          <a-card-meta title="Europe Street beat">-->
-      <!--            <template #description>www.instagram.com</template>-->
-      <!--          </a-card-meta>-->
-      <!--        </a-card>-->
-      <!--        <a-avatar :size="{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }"-->
-      <!--                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"-->
-      <!--                  >-->
-      <!--        </a-avatar>-->
-      <!--      </a-menu-item>-->
-      <a-sub-menu key="sub1">
-        <template v-slot:title>
-          <UserOutlined />
-          <span v-if="collapsed">个人中心</span>
+      <template
+        v-for="item in items"
+        :key="item"
+      >
+        <template v-if="item.subs">
+          <a-sub-menu :key="item">
+            <template #title>
+              <UserOutlined v-if="item.icon=='UserOutlined'" />
+              <ShoppingCartOutlined v-if="item.icon=='ShoppingCartOutlined'" />
+              <CommentOutlined v-if="item.icon=='CommentOutlined'" />
+              <CarOutlined v-if="item.icon=='CarOutlined'" />
+              <CoffeeOutlined v-if="item.icon=='CoffeeOutlined'" />
+              <SettingOutlined v-if="item.icon=='SettingOutlined'" />
+              <span v-if="collapsed">{{ item.title }}</span>
+            </template>
+            <template
+              v-for="subItem in item.subs"
+              :key="subItem"
+            >
+              <a-menu-item :index="subItem.index">
+                <router-link :to="subItem.to">{{ subItem.title }}</router-link>
+              </a-menu-item>
+            </template>
+          </a-sub-menu>
         </template>
-        <a-menu-item key="1">
-          <router-link to="/home/userinfo">
-            个人信息
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <router-link to="/home/orderquery">
-            我的订单
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <router-link to="/home/userstar">
-            我的最爱
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="6">
-          用户注销
-        </a-menu-item>
-        <a-menu-item
-          key="7"
-          @click="$store.commit('logout')"
-        >
-          <router-link to="/login">
-            用户登出
-          </router-link>
-        </a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub2">
-        <template v-slot:title>
-          <a-icon type="desktop" />
-          <ShoppingCartOutlined />
-          <span v-if="collapsed">商铺</span>
-        </template>
-        <a-menu-item key="11">
-          <router-link to="/home/restaurants">
-            所有餐厅
-          </router-link>
-        </a-menu-item>
-      </a-sub-menu>
-      <!-- <a-sub-menu key="sub3">
-        <template v-slot:title>
-          <a-icon type="user" />
-          <CommentOutlined />
-          <span v-if="collapsed">讨论区</span>
-        </template>
-        <a-menu-item key="13">
-          <router-link to="/home/discussion">
-            菜品贴
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="14">
-          <router-link to="/home/discussionme">
-            与我有关的
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="15">
-          <router-link to="mydiscussion">
-            我发布的
-          </router-link>
-        </a-menu-item>
-      </a-sub-menu> -->
-      <a-sub-menu key="sub4">
-        <template v-slot:title>
-          <a-icon type="team" />
-          <CarOutlined />
-          <span v-if="collapsed">订单查询</span>
-        </template>
-        <a-menu-item key="16">
-          <router-link to="ordernow">
-            我接的单
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="17">
-          <router-link to="orders">
-            全部订单
-          </router-link>
-        </a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub5">
-        <template v-slot:title>
-          <a-icon type="team" />
-          <SettingOutlined />
-          <span v-if="collapsed">系统设置</span>
-        </template>
-        <a-menu-item key="18">
-          <router-link to="developmentteam">
-            开发团队
-          </router-link>
-        </a-menu-item>
-      </a-sub-menu>
-      <a-menu-item key="19">
-        <CoffeeOutlined />
-        <span>暂未想好写什么的一栏</span>
-      </a-menu-item>
+      </template>
     </a-menu>
   </a-layout-sider>
-  <!--    <a-layout-header style="background: #fff; padding: 0">-->
-  <!--      <i class="el-icon-back" @click="() => (collapsed = !collapsed)" />-->
-  <!--    </a-layout-header>-->
-
 </template>
 
 <script>
@@ -141,6 +49,67 @@ export default defineComponent({
   data() {
     return {
       collapsed: true,
+      items: [
+        {
+          icon: "UserOutlined",
+          title: "个人中心",
+          subs: [
+            {
+              to: "/home/userinfo",
+              title: "个人信息"
+            },
+            {
+              to: "/home/orderquery",
+              title: "我的订单"
+            },
+            {
+              to: "/home/userstar",
+              title: "我的最爱"
+            },
+            {
+              to: "/login",
+              title: "用户注销"
+            },
+            {
+              to: "/login",
+              title: "用户登出"
+            },
+          ]
+        },
+        {
+          icon: "ShoppingCartOutlined",
+          title: "商铺",
+          subs: [
+            {
+              to: "/home/restaurants",
+              title: "所有餐厅"
+            },]
+
+        },
+        {
+          icon: "CarOutlined",
+          title: "订单查询",
+          subs: [
+            {
+              to: "/home/ordernow",
+              title: "我接的单"
+            },
+            {
+              to: "/home/orders",
+              title: "全部订单"
+            },
+          ]
+        },
+        {
+          icon: "SettingOutlined",
+          title: "系统设置",
+          subs: [
+            {
+              to: "/home/developmentteam",
+              title: "开发团队"
+            },]
+        },
+      ]
     };
   },
   methods: {
@@ -151,7 +120,7 @@ export default defineComponent({
   components: {
     UserOutlined,
     ShoppingCartOutlined,
-    // CommentOutlined,
+    CommentOutlined,
     CarOutlined,
     CoffeeOutlined,
     SettingOutlined,
