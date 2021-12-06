@@ -197,6 +197,7 @@ def get_food_json(food, with_evaluate):
         "foodUrl": food.food_url,
         "foodStoreName": food.store.store_name,
         "foodStoreUrl": food.store.store_url,
+        "foodType": food.food_type,
     }
     if with_evaluate:
         evaluate_list = []
