@@ -1,14 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>商铺</a-breadcrumb-item>
-      <a-breadcrumb-item>
-        <router-link to="/home/restaurants">
-          所有餐厅
-        </router-link>
-      </a-breadcrumb-item>
-      <a-breadcrumb-item>{{food.foodName}}</a-breadcrumb-item>
-    </a-breadcrumb>
 
     <food-info :food="food" />
 
@@ -73,6 +64,7 @@ export default {
           this.food = res.food;
           this.foodEvaluates = res.foodEvaluate;
           this.comment = res.comment;
+          this.$store.commit('pushPath', { name: res.food.foodName, to: window.location.pathname + window.location.search })
         }
       } catch (error) {
         this.$message.error("网络异常");

@@ -1,9 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>讨论区</a-breadcrumb-item>
-      <a-breadcrumb-item>与我有关的</a-breadcrumb-item>
-    </a-breadcrumb>
     <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
       <a-comment
         :author="item.author"

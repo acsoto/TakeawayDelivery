@@ -1,82 +1,78 @@
 <template>
   <div>
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>系统设置</a-breadcrumb-item>
-        <a-breadcrumb-item>开发团队</a-breadcrumb-item>
-      </a-breadcrumb>
-      <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
-        <a-carousel
-          arrows
-          dots-class="slick-dots slick-thumb"
-          autoplay="true"
-        >
-          <template #customPaging="props">
-            <a>
-              <!--                //有bug的函数-->
-              <img
-                v-if="props.i==0"
-                style="width:40px;height:30px;"
-                src="@/assets/img/1.jpg"
-              >
-
-              <img
-                v-if="props.i==1"
-                style="width:40px;height:30px;"
-                src="@/assets/img/2.jpg"
-              >
-
-              <img
-                v-if="props.i==2"
-                style="width:40px;height:30px;"
-                src="@/assets/img/3.jpg"
-              >
-
-              <img
-                v-if="props.i==3"
-                style="width:40px;height:30px;"
-                src="@/assets/img/4.jpg"
-              >
-            </a>
-          </template>
-          <!--            <div v-for="item in 4" :key="item">-->
-          <!--              <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
-          <!--            </div>-->
-          <div>
+    <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
+      <a-carousel
+        arrows
+        dots-class="slick-dots slick-thumb"
+        autoplay="true"
+      >
+        <template #customPaging="props">
+          <a>
+            <!--                //有bug的函数-->
             <img
-              style="width:400px;height:300px;"
+              v-if="props.i==0"
+              style="width:40px;height:30px;"
               src="@/assets/img/1.jpg"
             >
-          </div>
-          <div>
+
             <img
-              style="width:400px;height:300px;"
+              v-if="props.i==1"
+              style="width:40px;height:30px;"
               src="@/assets/img/2.jpg"
             >
-          </div>
-          <div>
+
             <img
-              style="width:400px;height:300px;"
+              v-if="props.i==2"
+              style="width:40px;height:30px;"
               src="@/assets/img/3.jpg"
             >
-          </div>
-          <div>
+
             <img
-              style="width:400px;height:300px;"
+              v-if="props.i==3"
+              style="width:40px;height:30px;"
               src="@/assets/img/4.jpg"
             >
-          </div>
-        </a-carousel>
-        <!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->
-        <!--          <template #customPaging="props">-->
-        <!--            <a>-->
-        <!--              <img :src="getImgUrl(props.i)" />-->
-        <!--            </a>-->
-        <!--          </template>-->
-        <!--          <div v-for="item in 4" :key="item">-->
-        <!--            <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
-        <!--          </div>-->
-        <!--        </a-carousel>-->
-      </div>
+          </a>
+        </template>
+        <!--            <div v-for="item in 4" :key="item">-->
+        <!--              <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
+        <!--            </div>-->
+        <div>
+          <img
+            style="width:400px;height:300px;"
+            src="@/assets/img/1.jpg"
+          >
+        </div>
+        <div>
+          <img
+            style="width:400px;height:300px;"
+            src="@/assets/img/2.jpg"
+          >
+        </div>
+        <div>
+          <img
+            style="width:400px;height:300px;"
+            src="@/assets/img/3.jpg"
+          >
+        </div>
+        <div>
+          <img
+            style="width:400px;height:300px;"
+            src="@/assets/img/4.jpg"
+          >
+        </div>
+      </a-carousel>
+      <!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->
+      <!--          <template #customPaging="props">-->
+      <!--            <a>-->
+      <!--              <img :src="getImgUrl(props.i)" />-->
+      <!--            </a>-->
+      <!--          </template>-->
+      <!--          <div v-for="item in 4" :key="item">-->
+      <!--            <img :src="baseUrl + 'abstract0' + item + '.jpg'"/>-->
+      <!--          </div>-->
+      <!--        </a-carousel>-->
+    </div>
   </div>
 </template>
 <script>
@@ -87,6 +83,9 @@ export default defineComponent({
     return {
       collapsed: true,
     };
+  },
+  created() {
+    this.$store.commit('pushPath', { name: '开发团队', to: 'developmentteam' })
   },
   methods: {
   },

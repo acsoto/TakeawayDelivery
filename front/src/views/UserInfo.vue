@@ -23,10 +23,6 @@
         />
       </a-badge>
     </a-layout-header> -->
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>个人中心</a-breadcrumb-item>
-      <a-breadcrumb-item>个人信息</a-breadcrumb-item>
-    </a-breadcrumb>
     <div class="background">
       <div style="display:flex;justify-content:space-between;align-items: center;overflow:auto;padding:50px;">
         <my-avatar :user="user" />
@@ -92,7 +88,7 @@ export default defineComponent({
         }
         else {
           this.user = res
-          this.$forceUpdate()
+          this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
         }
       } catch (error) {
         this.$message.error("网络异常");

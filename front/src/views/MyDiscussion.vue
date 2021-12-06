@@ -1,9 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>一级目录</a-breadcrumb-item>
-      <a-breadcrumb-item>二级目录</a-breadcrumb-item>
-    </a-breadcrumb>
     <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
       <a-list
         v-if="comments.length"

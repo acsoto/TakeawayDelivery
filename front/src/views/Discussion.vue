@@ -1,9 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>讨论区</a-breadcrumb-item>
-      <a-breadcrumb-item>菜品贴</a-breadcrumb-item>
-    </a-breadcrumb>
     <div :style="{ padding: '24px', background: '#fff', minHeight: '550px' }">
       <template>
         <a-list

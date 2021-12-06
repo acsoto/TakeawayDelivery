@@ -1,9 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>个人中心</a-breadcrumb-item>
-      <a-breadcrumb-item>全部订单</a-breadcrumb-item>
-    </a-breadcrumb>
     <div v-if="orders.length==0">
       <a-empty description="暂无订单" />
     </div>
@@ -42,6 +38,7 @@ export default {
         }
         else {
           this.orders = res.orders
+          this.$store.commit('pushPath', { name: '全部订单', to: '/home/orders' })
         }
       } catch (error) {
         this.$message.error("网络异常");

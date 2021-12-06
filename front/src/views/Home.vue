@@ -6,6 +6,24 @@
     >
       <my-menu />
       <a-layout>
+        <a-breadcrumb style="margin: 16px 16px">
+          <template
+            v-for="item in path"
+            :key="item"
+          >
+            <a-breadcrumb-item @click="handleClickBread(item)">
+              <span v-if="item.isFather">
+                {{item.name}}
+              </span>
+              <span v-else>
+                <router-link :to="item.to">
+                  {{item.name}}
+                </router-link>
+              </span>
+            </a-breadcrumb-item>
+          </template>
+
+        </a-breadcrumb>
         <!-- <a-layout-header style="background: #fff; padding: 0">
         </a-layout-header> -->
         <a-layout-content style="margin: 0 16px;height:100vh;overflow:auto;">
@@ -35,61 +53,27 @@ export default {
   data() {
     return {
       collapsed: true,
+      path: this.$store.state.path,
     };
   },
   created() {
 
   },
   methods: {
-    dis() {
-      document.getElementById("table").style.display = 'none';
-      document.getElementById("table1").style.display = 'none';
-      document.getElementById("table2").style.display = 'none';
-      document.getElementById("table3").style.display = 'none';
-    },
-    test() {
-      document.getElementById("table").style.display = 'block';
-      document.getElementById("table1").style.display = 'none';
-      document.getElementById("table2").style.display = 'none';
-      document.getElementById("table3").style.display = 'none';
-
-      // window.location.href="http://localhost:8080/userInfo.html";
-      //alert("test");
-    },
-    test1() {
-      document.getElementById("table").style.display = 'none';
-      document.getElementById("table2").style.display = 'none';
-      document.getElementById("table3").style.display = 'none';
-      document.getElementById("table1").style.display = 'block';
-      // window.location.href="http://localhost:8080/order_now.html";
-      // alert("test1");
-    },
-    test2() {
-      document.getElementById("table").style.display = 'none';
-      document.getElementById("table1").style.display = 'none';
-      document.getElementById("table3").style.display = 'none';
-      document.getElementById("table2").style.display = 'block';
-      // window.location.href="http://localhost:8080/order_history.html";
-      // alert("test2");
-    },
-    test3() {
-      document.getElementById("table").style.display = 'none';
-      document.getElementById("table1").style.display = 'none';
-      document.getElementById("table2").style.display = 'none';
-      document.getElementById("table3").style.display = 'block';
-      // window.location.href="http://localhost:8080/order_now.html";
-      // alert("test3");
-    },
-    test4() {
-      this.$router.push({ path: "/userinfo" });
-    },
-    test5() {
-      this.$router.push({ path: "/logout" });
-    },
-    test6() {
-      this.$router.push({ path: "/login" });
+    handleClickBread(item) {
+      this.$store.commit('deletePath', item)
     },
   },
+  computed: {
+    listenData() {
+      return this.$store.state.path
+    }
+  },
+  watch: {
+    listenData() {
+      this.path = this.$store.state.path
+    }
+  }
 }
 </script>
 

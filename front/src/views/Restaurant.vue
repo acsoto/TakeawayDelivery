@@ -1,15 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>商铺</a-breadcrumb-item>
-      <a-breadcrumb-item>
-        <router-link to="/home/restaurants">
-          所有餐厅
-        </router-link>
-      </a-breadcrumb-item>
-      <a-breadcrumb-item>{{store.storeName}}</a-breadcrumb-item>
-    </a-breadcrumb>
-
     <restaurant-info :restaurant="store" />
     <div
       v-for="food in store.food"
@@ -63,6 +53,7 @@ export default {
         }
         else {
           this.store = res;
+          this.$store.commit('pushPath', { name: res.storeName, to: window.location.pathname + window.location.search })
         }
       } catch (error) {
         this.$message.error("网络异常");

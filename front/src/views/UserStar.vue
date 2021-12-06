@@ -1,9 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>个人中心</a-breadcrumb-item>
-      <a-breadcrumb-item>我的最爱</a-breadcrumb-item>
-    </a-breadcrumb>
     <div v-if="stars.length==0">
       <a-empty description="暂无收藏食物" />
     </div>
@@ -45,6 +41,7 @@ export default {
         }
         else {
           this.stars = res.userStars
+          this.$store.commit('pushPath', { name: '我的最爱', to: '/home/userstar' })
         }
       } catch (error) {
         this.$message.error("网络异常");

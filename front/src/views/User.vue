@@ -1,14 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>商铺</a-breadcrumb-item>
-      <a-breadcrumb-item>
-        <router-link to="/home/orderquery">
-          我的订单
-        </router-link>
-      </a-breadcrumb-item>
-      <a-breadcrumb-item>{{user.userName}}</a-breadcrumb-item>
-    </a-breadcrumb>
     <user-info :user="user" />
     <div class="background">
       <div v-if="userEvaluates.length > 0">
@@ -59,7 +50,7 @@ export default {
   },
   created() {
     this.getUserInfo();
-    console.log(window.location.pathname + window.location.search)
+    console.log()
 
   },
   methods: {
@@ -73,7 +64,7 @@ export default {
           this.user = res.user;
           this.userEvaluates = res.userEvaluate;
           this.comment = res.comment;
-          console.log(this.user.userNickName)
+          this.$store.commit('pushPath', { name: res.user.userNickName, to: window.location.pathname + window.location.search })
         }
       } catch (error) {
         this.$message.error("网络异常");

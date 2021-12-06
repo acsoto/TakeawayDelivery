@@ -1,10 +1,5 @@
 <template>
   <div>
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>商铺</a-breadcrumb-item>
-      <a-breadcrumb-item>所有餐厅</a-breadcrumb-item>
-    </a-breadcrumb>
-
     <div
       v-for="store in stores"
       :key="store"
@@ -38,6 +33,7 @@ export default {
         }
         else {
           this.stores = res.store;
+          this.$store.commit('pushPath', { name: '所有餐厅', to: 'home/restaurants' })
         }
       } catch (error) {
         this.$message.error("网络异常");

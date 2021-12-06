@@ -32,17 +32,26 @@
           <span v-if="collapsed">个人中心</span>
         </template>
         <a-menu-item key="1">
-          <router-link to="/home/userinfo">
+          <router-link
+            to="userinfo"
+            @click="handleClickMenu('个人中心')"
+          >
             个人信息
           </router-link>
         </a-menu-item>
         <a-menu-item key="2">
-          <router-link to="/home/orderquery">
+          <router-link
+            to="orderquery"
+            @click="handleClickMenu('个人中心')"
+          >
             我的订单
           </router-link>
         </a-menu-item>
         <a-menu-item key="3">
-          <router-link to="/home/userstar">
+          <router-link
+            to="userstar"
+            @click="handleClickMenu('个人中心')"
+          >
             我的最爱
           </router-link>
         </a-menu-item>
@@ -65,7 +74,10 @@
           <span v-if="collapsed">商铺</span>
         </template>
         <a-menu-item key="11">
-          <router-link to="/home/restaurants">
+          <router-link
+            to="restaurants"
+            @click="handleClickMenu('商铺')"
+          >
             所有餐厅
           </router-link>
         </a-menu-item>
@@ -98,12 +110,18 @@
           <CarOutlined />
           <span v-if="collapsed">订单查询</span>
         </template>
-        <a-menu-item key="16">
+        <a-menu-item
+          key="16"
+          @click="handleClickMenu('订单查询')"
+        >
           <router-link to="ordernow">
             我接的单
           </router-link>
         </a-menu-item>
-        <a-menu-item key="17">
+        <a-menu-item
+          key="17"
+          @click="handleClickMenu('订单查询')"
+        >
           <router-link to="orders">
             全部订单
           </router-link>
@@ -115,7 +133,10 @@
           <SettingOutlined />
           <span v-if="collapsed">系统设置</span>
         </template>
-        <a-menu-item key="18">
+        <a-menu-item
+          key="18"
+          @click="handleClickMenu('系统设置')"
+        >
           <router-link to="developmentteam">
             开发团队
           </router-link>
@@ -144,8 +165,11 @@ export default defineComponent({
     };
   },
   methods: {
-    handleCollapse(collapsed) {
+    handleCollapse() {
       this.collapsed = !this.collapsed;
+    },
+    handleClickMenu(name) {
+      this.$store.commit('setPath', { name: name })
     },
   },
   components: {
