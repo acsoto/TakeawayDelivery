@@ -156,7 +156,6 @@ export default defineComponent({
     CoffeeOutlined,
     SettingOutlined,
   },
-
 });
 </script>
 
