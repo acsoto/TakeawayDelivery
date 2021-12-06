@@ -104,6 +104,7 @@ def fill_order_json(orders):
         order_json["orderCompleted"] = order.order_completed
         order_json["food"] = foods_json
         order_json["totalPrice"] = count
+        order_json["forecastTime"] = forecast_arrival_time(order, order_json["storeID"])
         orders_json.append(order_json)
     return orders_json
 
@@ -638,3 +639,33 @@ def android_get_food_evaluate_score(request):
             average_score = 0
         return JsonResponse({"success": True, "message": "请求成功",
                              "evaluate": average_score})
+
+
+def forecast_arrival_time(order, store_id):
+    deep_learning_list = []
+    time = order.order_date
+    deep_learning_list.append(time.weekday())
+    deep_learning_list.append(int(time.strftime('%H')))
+    deep_learning_list.append(store_id)
+    deep_learning_list.append(forecast_arrival_time_get_address_number(order.order_user.user_address))
+    print(deep_learning_list)
+    return 3
+
+
+def forecast_arrival_time_get_address_number(address):
+    if address == "学院路-15公寓":
+        return 1
+    if address == "学院路-13公寓":
+        return 2
+    if address == "学院路-大运村":
+        return 3
+    if address == "学院路-3公寓":
+        return 4
+    if address == "学院路-12公寓":
+        return 5
+    if address == "学院路-20公寓":
+        return 6
+    if address == "沙河校区":
+        return 7
+    else:
+        return 8
