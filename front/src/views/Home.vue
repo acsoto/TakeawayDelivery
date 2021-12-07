@@ -62,7 +62,8 @@ export default {
     };
   },
   created() {
-
+    this.$store.commit('initializePath')
+    this.$router.replace('/home/userinfo')
   },
   methods: {
     handleClickBread(item) {

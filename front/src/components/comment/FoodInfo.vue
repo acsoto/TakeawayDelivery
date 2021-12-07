@@ -7,6 +7,14 @@
             <span class="name">{{thisFood.foodName}}</span>
 
             <br />
+            <strong
+              class="value"
+              style="cursor: pointer;"
+              @click="$router.push({ path: '/home/restaurant',
+            query: {
+              storeID: thisFood.storeID,
+            },});"
+            >{{thisFood.storeName}}</strong><br />
             <strong class="value">{{thisFood.foodPrice}}</strong>
             <a-tooltip
               v-if="!thisFood.hasStared"

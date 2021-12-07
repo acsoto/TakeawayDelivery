@@ -454,6 +454,8 @@ def get_evaluate_food(request):
             "foodUrl": food.food_url,
             "foodScore": food_score,
             "foodCount": food_count,
+            "storeName":food.store.store_name,
+            "storeID":food.store.store_id,
         }
         comment_json = {
             "evaluateText": "",

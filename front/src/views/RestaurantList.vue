@@ -22,7 +22,7 @@ export default {
     MyStore,
   },
   created() {
-    this.$store.commit('pushPath', { name: '所有餐厅', to: 'home/restaurants' })
+    this.$store.commit('pushPath', { name: '所有餐厅', to: '/home/restaurants' })
     this.getStoreList();
   },
   methods: {
