@@ -454,8 +454,8 @@ def get_evaluate_food(request):
             "foodUrl": food.food_url,
             "foodScore": food_score,
             "foodCount": food_count,
-            "storeName":food.store.store_name,
-            "storeID":food.store.store_id,
+            "storeName": food.store.store_name,
+            "storeID": food.store.store_id,
         }
         comment_json = {
             "evaluateText": "",
@@ -638,12 +638,15 @@ def android_get_food_evaluate_score(request):
     if request.method == "POST":
         data_json = json.loads(request.body)
         food_id = data_json.get("foodID")
+        food = Food.objects.get(food_id=food_id)
         average_score = FoodEvaluate.objects.filter(food_id=food_id).aggregate(Avg('food_evaluate_score'))[
             "food_evaluate_score__avg"]
         if average_score is None:
             average_score = 0
         return JsonResponse({"success": True, "message": "请求成功",
-                             "evaluate": average_score})
+                             "evaluate": average_score,
+                             "foodInfo": get_food_json(food, True),
+                             })
 
 
 def forecast_arrival_time(order, store_id):
