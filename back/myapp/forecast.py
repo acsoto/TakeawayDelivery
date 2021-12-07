@@ -9,7 +9,6 @@ import torch
 import matplotlib.pyplot as plt
 import math
 
-
 class Net(nn.Module):
 
     def __init__(self):
@@ -22,7 +21,9 @@ class Net(nn.Module):
         self.relu = nn.ReLU()
         self.linear4 = nn.Linear(32, 16)
         self.relu = nn.ReLU()
-        self.linear5 = nn.Linear(16, 1)
+        self.linear5 = nn.Linear(16, 8)
+        self.linear6 = nn.Linear(8, 4)
+        self.linear7 = nn.Linear(4, 1)
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
@@ -34,32 +35,35 @@ class Net(nn.Module):
         x = self.relu(x)
         x = self.linear4(x)
         x = self.relu(x)
-        y = self.linear5(x)
+        x = self.linear5(x)
+        x = self.relu(x)
+        x = self.linear6(x)
+        x = self.relu(x)
+        x = self.linear7(x)
+        y = self.sigmoid(x)
         return y
 
     def predict(self, x):
         return self.forward(x)
 
-
-def predict(model, dl):
+def predict(model,dl):
     model.eval()
     with torch.no_grad():
         result = model(torch.FloatTensor(dl))
-    return result.item()
+    return(result.item()*65.0)
+
 
 
 def getTag(weekday, hour, storeId, receiveAddress):
-    tagTime = 0.5 * weekday / 7.0
-    tagTime = tagTime + 0.4 * (0.0000004 * math.pow(hour, 6) - 0.0003 * math.pow(hour, 5) + 0.0099 * math.pow(hour,
-                                                                                                              4) - 0.1428 * math.pow(
-        hour, 3) + 0.9121 * math.pow(hour, 2) - 1.7723 * hour + 1.4367) / 5
-    tagTime = tagTime + 0.1 * (receiveAddress + storeId) / 16.0
-    tagTime = tagTime * 60.0 + random.randint(-5, 5)
+    tagTime = 0.5*weekday/7.0
+    tagTime = tagTime + 0.4*(-0.0000032968*math.pow(hour, 6) + 0.0001791950*math.pow(hour, 5) - 0.0032*math.pow(hour, 4) + 0.0173*math.pow(hour, 3) + 0.0354*math.pow(hour, 2) - 0.0799*hour + 0.9823)/4
+    tagTime = tagTime + 0.1*(receiveAddress+storeId)/16.0
+    tagTime = tagTime*60.0 + random.randint(-5, 5)
     if tagTime <= 5:
         tagTime = 5
     if tagTime > 60:
         tagTime = 60
-    return tagTime
+    return tagTime/65.0
 
 
 def train_model():
@@ -82,31 +86,35 @@ def train_model():
     #     if tagData[index][0] > 50:
     #         cnt = cnt + 1
     # print(cnt)
-    # print(tagData)
+    print(tagData)
+
 
     trainData = torch.FloatTensor(trainData)
     tagData = torch.FloatTensor(tagData)
     model = Net()
-    model.optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    model.loss_func = torch.nn.L1Loss()
-    epochs = 10
-    branch = 5
+    model.optimizer = torch.optim.Adam(model.parameters(), lr=0.003)
+    model.loss_func = torch.nn.MSELoss()
+    model.eval()
+    epochs = 100
+    branch = 10
     losses = []
     for epoch in range(epochs):
-        for index in range(int(trainData.shape[0] / branch)):
+        for index in range(int(trainData.shape[0]/branch)):
             model.optimizer.zero_grad()
-            prediction = model(trainData[index * branch:(index + 1) * branch])
-            loss = model.loss_func(prediction, tagData[index * branch:(index + 1) * branch])
-            print("--------" + str(epoch))
-            print("pre:" + str(prediction))
-            print("tag:" + str(tagData[index * branch:(index + 1) * branch]))
-            print(loss)
+            prediction = model(trainData[index*branch:(index+1)*branch])
+            loss = model.loss_func(prediction, tagData[index*branch:(index+1)*branch])
+
+            ## print("pre:" + str(prediction))
+            ## print("tag:" + str(tagData[index*branch:(index+1)*branch]))
+
 
             loss.backward()
             model.optimizer.step()
+        print("--------" + str(epoch))
+        print(loss)
         losses.append(loss)
 
-    epochsImage = range(1, epochs + 1)
+    epochsImage = range(1, epochs+1)
     print(losses)
     plt.plot(epochsImage, losses, "bo--")
     plt.title('Training')
@@ -116,6 +124,8 @@ def train_model():
     ## plt.show()
     plt.savefig("./test.png")
     torch.save(model.state_dict(), "./model_parameter.pkl")
+
+
 
 
 def print_hi(name):
