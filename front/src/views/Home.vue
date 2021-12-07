@@ -62,6 +62,7 @@ export default {
     };
   },
   created() {
+    this.$store.commit('setInitializing', true)
     this.$store.commit('initializePath')
     this.$router.replace('/home/userinfo')
   },

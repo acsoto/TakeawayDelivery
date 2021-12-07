@@ -33,7 +33,7 @@
         </template>
         <a-menu-item
           key="1"
-          @click="handleClickMenu('个人中心')"
+          @click="handleClickMenu('个人中心','个人信息')"
         >
           <router-link to="userinfo">
             个人信息
@@ -41,7 +41,7 @@
         </a-menu-item>
         <a-menu-item
           key="2"
-          @click="handleClickMenu('个人中心')"
+          @click="handleClickMenu('个人中心','我的订单')"
         >
           <router-link to="orderquery">
             我的订单
@@ -49,7 +49,7 @@
         </a-menu-item>
         <a-menu-item
           key="3"
-          @click="handleClickMenu('个人中心')"
+          @click="handleClickMenu('个人中心','我的最爱')"
         >
           <router-link to="userstar">
             我的最爱
@@ -75,7 +75,7 @@
         </template>
         <a-menu-item
           key="11"
-          @click="handleClickMenu('商铺')"
+          @click="handleClickMenu('商铺','所有餐厅')"
         >
           <router-link to="restaurants">
             所有餐厅
@@ -112,7 +112,7 @@
         </template>
         <a-menu-item
           key="16"
-          @click="handleClickMenu('订单查询')"
+          @click="handleClickMenu('订单查询','我接的单')"
         >
           <router-link to="ordernow">
             我接的单
@@ -120,7 +120,7 @@
         </a-menu-item>
         <a-menu-item
           key="17"
-          @click="handleClickMenu('订单查询')"
+          @click="handleClickMenu('订单查询','全部订单')"
         >
           <router-link to="orders">
             全部订单
@@ -135,7 +135,7 @@
         </template>
         <a-menu-item
           key="18"
-          @click="handleClickMenu('系统设置')"
+          @click="handleClickMenu('系统设置','开发团队')"
         >
           <router-link to="developmentteam">
             开发团队
@@ -162,14 +162,16 @@ export default defineComponent({
   data() {
     return {
       collapsed: true,
+      lastChild: "个人信息",
     };
   },
   methods: {
     handleCollapse() {
       this.collapsed = !this.collapsed;
     },
-    handleClickMenu(name) {
-      this.$store.commit('setPath', { name: name })
+    handleClickMenu(rootName, childName) {
+      if (this.lastChild != childName) this.$store.commit('setPath', { name: rootName })
+      this.lastChild = childName
     },
   },
   components: {

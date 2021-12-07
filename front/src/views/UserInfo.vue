@@ -78,8 +78,8 @@ export default defineComponent({
   created() {
     this.spinning = true
     this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
+    this.$store.commit('setInitializing', false)
     this.getUserInfo();
-
   },
   methods: {
     // testOnclick() {
