@@ -20,7 +20,7 @@
             >
 
             <input
-              type="userPassword"
+              type="password"
               name="userPassword"
               class="login-param"
               placeholder="密码"

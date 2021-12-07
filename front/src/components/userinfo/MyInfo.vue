@@ -50,6 +50,7 @@
         v-model:value="thisUser.userName"
         class="prop-value"
         readonly
+        disabled
       />
       <div class="prop-name">用户昵称</div>
       <a-input
@@ -61,7 +62,7 @@
         v-else
         v-model:value="thisUser.userNickName"
         class="prop-value"
-        readonly
+        disabled
       />
       <div class="prop-name">电话号码</div>
       <a-input
@@ -73,20 +74,33 @@
         v-else
         v-model:value="thisUser.userTel"
         class="prop-value"
-        readonly
+        disabled
       />
       <div class="prop-name">地址</div>
-      <a-input
+      <a-select
+        :default-value="thisUser.userAddress"
         v-if="editMode"
-        v-model:value="thisUser.userAddress"
+        name="userAddress"
+        style="width:100%"
         class="prop-value"
-      />
-      <a-input
+        v-model="thisUser.userAddress"
+      >
+        <a-select-option value="学院路-15公寓">学院路-15公寓</a-select-option>
+        <a-select-option value="学院路-13公寓">学院路-13公寓</a-select-option>
+        <a-select-option value="学院路-大运村">学院路-大运村</a-select-option>
+        <a-select-option value="学院路-3公寓">学院路-3公寓</a-select-option>
+        <a-select-option value="学院路-12公寓">学院路-12公寓</a-select-option>
+        <a-select-option value="学院路-20公寓">学院路-20公寓</a-select-option>
+        <a-select-option value="沙河校区">沙河校区</a-select-option>
+      </a-select>
+      <a-select
         v-else
-        v-model:value="thisUser.userAddress"
+        :default-value="thisUser.userAddress"
         class="prop-value"
-        readonly
+        style="width:100%"
+        disabled
       />
+
     </div>
   </div>
 </template>
@@ -127,7 +141,8 @@ export default {
       this.editMode = false;
     },
     async handleConfirm() {
-
+      if (this.thisUser.userNickName.trim().length == 0) return this.$message.error("请设置用户昵称");
+      if (this.thisUser.userTel.trim().length == 0) return this.$message.error("请设置电话号码");
       try {
         this.thisUser.userID = this.$store.state.userID;
         const { data: res } = await this.$http.post("api/changeInformation/", this.thisUser);

@@ -8,6 +8,9 @@
       >
         <my-store :restaurant="store" />
       </div>
+      <div v-if="stores.length==0">
+        <a-empty description="暂无食堂" />
+      </div>
     </a-spin>
   </div>
 </template>

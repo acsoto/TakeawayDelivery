@@ -18,13 +18,15 @@
     </div>
 
     <div class="button">
-      <a-button @click="passwordVisible=true">
+      <a-button @click="openPasswordModal">
         修改密码
       </a-button>
     </div>
     <a-modal
       title="上传头像"
       :visible="iconVisible"
+      ok-text="确认"
+      cancel-text="取消"
       @ok="handleIconOk"
       @cancel="iconVisible=false;iconParam.userIconUrl=tempUserIconUrl;"
     >
@@ -38,29 +40,34 @@
     <a-modal
       title="修改密码"
       :visible="passwordVisible"
+      ok-text="确认"
+      cancel-text="取消"
       @ok="handlePasswordOk"
       @cancel="passwordVisible=false"
     >
       <p>请输入密码</p>
       <p>
-        <a-input
+        <a-input-password
           addon-before="原密码"
           v-model:value="passwordParam.userOldPassword"
           class="prop-value"
+          @keyup.enter="handlePasswordOk"
         />
       </p>
       <p>
-        <a-input
+        <a-input-password
           addon-before="新密码"
           v-model:value="password1"
           class="prop-value"
+          @keyup.enter="handlePasswordOk"
         />
       </p>
       <p>
-        <a-input
+        <a-input-password
           addon-before="确认密码"
           v-model:value="password2"
           class="prop-value"
+          @keyup.enter="handlePasswordOk"
         />
       </p>
     </a-modal>
@@ -91,7 +98,14 @@ export default {
     };
   },
   methods: {
+    openPasswordModal() {
+      this.passwordVisible = true
+      this.password1 = ""
+      this.password2 = ""
+      this.passwordParam.userOldPassword = ""
+    },
     async handleIconOk() {
+      if (this.userIconUrl == undefined || this.userIconUrl.trim().length == 0) return this.$message.error("请输入新的头像URL");
       try {
         const { data: res } = await this.$http.post("api/changeInformation/", this.iconParam);
         if (res.success == false) {
@@ -106,8 +120,11 @@ export default {
       }
     },
     async handlePasswordOk() {
+      if (this.password1 != this.password2) return this.$message.error("两次新密码不相等");
+      if (this.passwordParam.userOldPassword.trim().length == 0) return this.$message.error("请输入旧密码");
+      if (this.password1.trim().length == 0) return this.$message.error("请设置新密码");
+      if (this.password1 == this.passwordParam.userOldPassword) return this.$message.warning("密码并未更改");
       try {
-        if (this.password1 != this.password2) return this.$message.error("两次新密码不相等");
         this.passwordParam.userPassword = this.password1
         const { data: res } = await this.$http.post("api/changePassword/", this.passwordParam);
         if (res.success == false) {
