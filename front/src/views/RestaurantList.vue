@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div
-      v-for="store in stores"
-      :key="store"
-      style="margin:0px"
-    >
-      <my-store :restaurant="store" />
-    </div>
+    <a-spin :spinning="spinning">
+      <div
+        v-for="store in stores"
+        :key="store"
+        style="margin:0px"
+      >
+        <my-store :restaurant="store" />
+      </div>
+    </a-spin>
   </div>
 </template>
 <script>
@@ -16,12 +18,14 @@ export default {
     return {
       collapsed: true,
       stores: [],
+      spinning: true,
     };
   },
   components: {
     MyStore,
   },
   created() {
+    this.spinning = true
     this.$store.commit('pushPath', { name: '所有餐厅', to: '/home/restaurants' })
     this.getStoreList();
   },
@@ -37,6 +41,8 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     }
   },

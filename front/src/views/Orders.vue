@@ -1,16 +1,18 @@
 <template>
   <div>
-    <div v-if="orders.length==0">
-      <a-empty description="暂无订单" />
-    </div>
-    <div v-else>
-      <div
-        v-for="order in orders"
-        :key="order"
-      >
-        <order-card :order="order" />
+    <a-spin :spinning="spinning">
+      <div v-if="orders.length==0">
+        <a-empty description="暂无订单" />
       </div>
-    </div>
+      <div v-else>
+        <div
+          v-for="order in orders"
+          :key="order"
+        >
+          <order-card :order="order" />
+        </div>
+      </div>
+    </a-spin>
   </div>
 </template>
 <script>
@@ -21,12 +23,14 @@ export default {
       collapsed: true,
       orders: [],
       userID: this.$store.state.userID,
+      spinning: true,
     };
   },
   components: {
     OrderCard,
   },
   created() {
+    this.spinning = true
     this.$store.commit('pushPath', { name: '全部订单', to: '/home/orders' })
     this.getData();
   },
@@ -42,6 +46,8 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
   },

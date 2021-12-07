@@ -1,30 +1,30 @@
 <template>
   <div>
-
-    <food-info :food="food" />
-
-    <div class="background">
-      <div v-if="foodEvaluates.length > 0">
-        <div
-          v-for="evaluate in foodEvaluates"
-          :key="evaluate"
-        >
-          <user-comment
-            :comment="evaluate"
-            @handleDelete="handleDelete"
-          />
+    <a-spin :spinning="spinning">
+      <food-info :food="food" />
+      <div class="background">
+        <div v-if="foodEvaluates.length > 0">
+          <div
+            v-for="evaluate in foodEvaluates"
+            :key="evaluate"
+          >
+            <user-comment
+              :comment="evaluate"
+              @handleDelete="handleDelete"
+            />
+          </div>
+        </div>
+        <div v-else>
+          <a-empty description="暂无评论" />
         </div>
       </div>
-      <div v-else>
-        <a-empty description="暂无评论" />
+      <div v-if="!food.hasCommented">
+        <my-comment
+          :comment="comment"
+          @handleEvaluate="handleEvaluate"
+        />
       </div>
-    </div>
-    <div v-if="!food.hasCommented">
-      <my-comment
-        :comment="comment"
-        @handleEvaluate="handleEvaluate"
-      />
-    </div>
+    </a-spin>
   </div>
 </template>
 
@@ -43,7 +43,8 @@ export default {
       food: {},
       foodEvaluates: {},
       total: 0,
-      comment: {}
+      comment: {},
+      spinning: true,
     };
   },
   computed: {
@@ -51,6 +52,7 @@ export default {
 
   },
   created() {
+    this.spinning = true
     this.getFoodInfo();
   },
   methods: {
@@ -68,9 +70,12 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
     async handleDelete(comment) {
+      this.spinning = true
       try {
         const { data: res } = await this.$http.post("api/deleteEvaluateFood/", comment);
         if (res.success == false) {
@@ -82,9 +87,12 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
     async handleEvaluate(comment) {
+      this.spinning = true
       try {
         const { data: res } = await this.$http.post("api/evaluateFood/", comment);
         if (res.success == false) {
@@ -96,6 +104,8 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
   },

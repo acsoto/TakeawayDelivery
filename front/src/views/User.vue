@@ -1,28 +1,30 @@
 <template>
   <div>
-    <user-info :user="user" />
-    <div class="background">
-      <div v-if="userEvaluates.length > 0">
-        <div
-          v-for="evaluate in userEvaluates"
-          :key="evaluate"
-        >
-          <user-comment
-            :comment="evaluate"
-            @handleDelete="handleDelete"
-          />
+    <a-spin :spinning="spinning">
+      <user-info :user="user" />
+      <div class="background">
+        <div v-if="userEvaluates.length > 0">
+          <div
+            v-for="evaluate in userEvaluates"
+            :key="evaluate"
+          >
+            <user-comment
+              :comment="evaluate"
+              @handleDelete="handleDelete"
+            />
+          </div>
+        </div>
+        <div v-else>
+          <a-empty description="暂无评论" />
         </div>
       </div>
-      <div v-else>
-        <a-empty description="暂无评论" />
+      <div v-if="!user.hasCommented&&!user.commentMyself">
+        <my-comment
+          :comment="comment"
+          @handleEvaluate="handleEvaluate"
+        />
       </div>
-    </div>
-    <div v-if="!user.hasCommented&&!user.commentMyself">
-      <my-comment
-        :comment="comment"
-        @handleEvaluate="handleEvaluate"
-      />
-    </div>
+    </a-spin>
   </div>
 </template>
 
@@ -41,7 +43,8 @@ export default {
       user: {},
       userEvaluates: {},
       total: 0,
-      comment: {}
+      comment: {},
+      spinning: true,
     };
   },
   computed: {
@@ -49,9 +52,8 @@ export default {
 
   },
   created() {
+    this.spinning = true
     this.getUserInfo();
-    console.log()
-
   },
   methods: {
     async getUserInfo() {
@@ -68,9 +70,12 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
     async handleDelete(comment) {
+      this.spinning = true
       try {
         const { data: res } = await this.$http.post("api/deleteEvaluateUser/", comment);
         if (res.success == false) {
@@ -82,9 +87,12 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
     async handleEvaluate(comment) {
+      this.spinning = true
       try {
         const { data: res } = await this.$http.post("api/evaluateUser/", comment);
         if (res.success == false) {
@@ -96,6 +104,8 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
   },

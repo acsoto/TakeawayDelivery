@@ -1,19 +1,21 @@
 <template>
   <div>
-    <div v-if="stars.length==0">
-      <a-empty description="暂无收藏食物" />
-    </div>
-    <div v-else>
-      <div
-        v-for="food in stars"
-        :key="food"
-      >
-        <food-card
-          :food="food"
-          @getData="getData"
-        />
+    <a-spin :spinning="spinning">
+      <div v-if="stars.length==0">
+        <a-empty description="暂无收藏食物" />
       </div>
-    </div>
+      <div v-else>
+        <div
+          v-for="food in stars"
+          :key="food"
+        >
+          <food-card
+            :food="food"
+            @getData="getData"
+          />
+        </div>
+      </div>
+    </a-spin>
   </div>
 </template>
 <script>
@@ -24,12 +26,14 @@ export default {
       collapsed: true,
       stars: [],
       userID: this.$store.state.userID,
+      spinning: true,
     };
   },
   components: {
     FoodCard,
   },
   created() {
+    this.spinning = true
     this.$store.commit('pushPath', { name: '我的最爱', to: '/home/userstar' })
     this.getData();
   },
@@ -45,6 +49,8 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
 

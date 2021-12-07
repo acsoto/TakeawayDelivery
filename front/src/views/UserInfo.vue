@@ -1,6 +1,7 @@
 <template>
   <div>
-    <!-- <a-layout-header style="background: #fff; padding: 0">
+    <a-spin :spinning="spinning">
+      <!-- <a-layout-header style="background: #fff; padding: 0">
       <PlusCircleTwoTone
         style="font-size: xxx-large"
         @click="increase"
@@ -23,12 +24,13 @@
         />
       </a-badge>
     </a-layout-header> -->
-    <div class="background">
-      <div style="display:flex;justify-content:space-between;align-items: center;overflow:auto;padding:50px;">
-        <my-avatar :user="user" />
-        <my-info :user="user" />
+      <div class="background">
+        <div style="display:flex;justify-content:space-between;align-items: center;overflow:auto;padding:50px;">
+          <my-avatar :user="user" />
+          <my-info :user="user" />
+        </div>
       </div>
-    </div>
+    </a-spin>
   </div>
 </template>
 <script>
@@ -43,7 +45,7 @@ export default defineComponent({
       user: { userOrders: [], userStars: [], userIconUrl: "", },
       columns: [],
       userID: this.$store.state.userID,
-
+      spinning: true,
     };
   },
   components: {
@@ -74,8 +76,10 @@ export default defineComponent({
   //   };
   // },
   created() {
+    this.spinning = true
     this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
     this.getUserInfo();
+
   },
   methods: {
     // testOnclick() {
@@ -92,6 +96,8 @@ export default defineComponent({
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
   },

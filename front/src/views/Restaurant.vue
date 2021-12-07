@@ -1,25 +1,25 @@
 <template>
   <div>
-    <restaurant-info :restaurant="store" />
-    <div
-      v-for="food in store.food"
-      :key="food"
-    >
-      <food-buy
-        :food="food"
-        @getTotal="getTotal"
-      />
-    </div>
-    <div
-      v-if="total>0"
-      class="total"
-      style="display:flex;justify-content:space-between;align-items: center;"
-    >
-      <div>总计：{{total}}元</div>
-
-      <a-button @click="setOrder">下单</a-button>
-
-    </div>
+    <a-spin :spinning="spinning">
+      <restaurant-info :restaurant="store" />
+      <div
+        v-for="food in store.food"
+        :key="food"
+      >
+        <food-buy
+          :food="food"
+          @getTotal="getTotal"
+        />
+      </div>
+      <div
+        v-if="total>0"
+        class="total"
+        style="display:flex;justify-content:space-between;align-items: center;"
+      >
+        <div>总计：{{total}}元</div>
+        <a-button @click="setOrder">下单</a-button>
+      </div>
+    </a-spin>
   </div>
 </template>
 
@@ -35,6 +35,7 @@ export default {
     return {
       store: {},
       total: 0,
+      spinning: true,
     };
   },
   computed: {
@@ -42,6 +43,7 @@ export default {
 
   },
   created() {
+    this.spinning = true
     this.getStoreInfo();
   },
   methods: {
@@ -57,6 +59,8 @@ export default {
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     },
     getTotal() {
@@ -67,6 +71,7 @@ export default {
       this.total = total;
     },
     async setOrder() {
+      this.spinning = true
       try {
         const { data: res } = await this.$http.post("api/setOrders/", { userID: this.$store.state.userID, foodList: this.store.food });
         if (res.success == false) {
@@ -74,10 +79,13 @@ export default {
         }
         else {
           this.$message.success(res.message);
+          this.spining = false
           this.$router.push({ path: "/home/restaurants" });
         }
       } catch (error) {
         this.$message.error("网络异常");
+      } finally {
+        this.spinning = false
       }
     }
   },
