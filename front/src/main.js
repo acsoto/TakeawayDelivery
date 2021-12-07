@@ -1,4 +1,4 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -12,25 +12,20 @@ const app = createApp(App)
 installAxios(app)
 
 app
-    .use(store)
-    .use(router)
-   
-    .use(Antd)
-    .mount('#app');
+  .use(store)
+  .use(router)
+
+  .use(Antd)
+  .mount('#app')
 
 router.beforeEach((to, from, next) => {
-    if(to.matched.some(res => res.meta.requireAuth)){
-        if(store.state.islogin){
-            next();
-        }
-        else{
-            next({path: '/login',
-            query: {redirect: to.fullPath}
-        });
-
-        }
+  if (to.matched.some(res => res.meta.requireAuth)) {
+    if (store.state.islogin) {
+      next()
+    } else {
+      next({ path: '/login' })
     }
-    else{
-        next();
-    }
-});
+  } else {
+    next()
+  }
+})

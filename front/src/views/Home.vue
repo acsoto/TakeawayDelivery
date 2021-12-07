@@ -6,30 +6,32 @@
     >
       <my-menu />
       <a-layout>
-        <a-breadcrumb style="margin: 16px 16px">
-          <template
-            v-for="item in path"
-            :key="item"
-          >
-            <a-breadcrumb-item>
-              <span v-if="item.isFather">
-                {{item.name}}
-              </span>
-              <span
-                v-else
-                @click="handleClickBread(item)"
-              >
-                <router-link :to="item.to">
-                  {{item.name}}
-                </router-link>
-              </span>
-            </a-breadcrumb-item>
-          </template>
-
-        </a-breadcrumb>
         <!-- <a-layout-header style="background: #fff; padding: 0">
         </a-layout-header> -->
         <a-layout-content style="margin: 0 16px;height:100vh;overflow:auto;">
+          <a-breadcrumb style="margin-left:16px;margin-top:16px;">
+            <template
+              v-for="item in path"
+              :key="item"
+            >
+              <a-breadcrumb-item>
+                <span v-if="item.isFather">
+                  {{item.name}}
+                </span>
+                <span
+                  v-else
+                  @click="handleClickBread(item)"
+                >
+                  <router-link
+                    :to="item.to"
+                    replace
+                  >
+                    {{item.name}}
+                  </router-link>
+                </span>
+              </a-breadcrumb-item>
+            </template>
+          </a-breadcrumb>
           <keep-alive>
             <router-view v-slot="{ Component }">
               <transition
@@ -64,7 +66,7 @@ export default {
   created() {
     this.$store.commit('setInitializing', true)
     this.$store.commit('initializePath')
-    this.$router.replace('/home/userinfo')
+    this.$router.push('/home/userinfo')
   },
   methods: {
     handleClickBread(item) {
@@ -80,7 +82,7 @@ export default {
     listenData() {
       this.path = this.$store.state.path
     }
-  }
+  },
 }
 </script>
 

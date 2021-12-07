@@ -35,7 +35,10 @@
           key="1"
           @click="handleClickMenu('个人中心','个人信息')"
         >
-          <router-link to="userinfo">
+          <router-link
+            to="/home/userinfo"
+            replace
+          >
             个人信息
           </router-link>
         </a-menu-item>
@@ -43,7 +46,10 @@
           key="2"
           @click="handleClickMenu('个人中心','我的订单')"
         >
-          <router-link to="orderquery">
+          <router-link
+            to="/home/orderquery"
+            replace
+          >
             我的订单
           </router-link>
         </a-menu-item>
@@ -51,7 +57,10 @@
           key="3"
           @click="handleClickMenu('个人中心','我的最爱')"
         >
-          <router-link to="userstar">
+          <router-link
+            to="/home/userstar"
+            replace
+          >
             我的最爱
           </router-link>
         </a-menu-item>
@@ -77,7 +86,10 @@
           key="11"
           @click="handleClickMenu('商铺','所有餐厅')"
         >
-          <router-link to="restaurants">
+          <router-link
+            to="/home/restaurants"
+            replace
+          >
             所有餐厅
           </router-link>
         </a-menu-item>
@@ -114,7 +126,10 @@
           key="16"
           @click="handleClickMenu('订单查询','我接的单')"
         >
-          <router-link to="ordernow">
+          <router-link
+            to="/home/ordernow"
+            replace
+          >
             我接的单
           </router-link>
         </a-menu-item>
@@ -122,7 +137,10 @@
           key="17"
           @click="handleClickMenu('订单查询','全部订单')"
         >
-          <router-link to="orders">
+          <router-link
+            to="/home/orders"
+            replace
+          >
             全部订单
           </router-link>
         </a-menu-item>
@@ -137,7 +155,10 @@
           key="18"
           @click="handleClickMenu('系统设置','开发团队')"
         >
-          <router-link to="developmentteam">
+          <router-link
+            to="/home/developmentteam"
+            replace
+          >
             开发团队
           </router-link>
         </a-menu-item>
