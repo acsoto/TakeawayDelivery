@@ -51,6 +51,8 @@
             v-if="thisOrder.orderCompleted!=0"
           >电话：{{thisOrder.orderUserTel}}</div>
           <div class="value">总价:{{thisOrder.totalPrice}}</div>
+          <div class="value">预计送达时间:{{thisOrder.forecastTime.toFixed(2)}}分钟</div>
+
         </div>
       </div>
       <div style="text-align:center;">

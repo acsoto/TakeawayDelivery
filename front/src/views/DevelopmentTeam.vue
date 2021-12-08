@@ -42,24 +42,28 @@
             style="width:400px;height:300px;"
             src="@/assets/img/1.jpg"
           >
+          zzk
         </div>
         <div>
           <img
             style="width:400px;height:300px;"
             src="@/assets/img/2.jpg"
           >
+          hxl
         </div>
         <div>
           <img
             style="width:400px;height:300px;"
             src="@/assets/img/3.jpg"
           >
+          zzh
         </div>
         <div>
           <img
             style="width:400px;height:300px;"
             src="@/assets/img/4.jpg"
           >
+          wyx
         </div>
       </a-carousel>
       <!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->
