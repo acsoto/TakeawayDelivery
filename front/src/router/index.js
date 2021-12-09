@@ -15,6 +15,7 @@ const routes = [
         '../views/Login.vue'
       )
   },
+
   {
     path: '/register',
     name: 'Register',
@@ -71,6 +72,16 @@ const routes = [
         },
         component: () => import('../views/UserStar')
       },
+        {
+        path: 'hotfood',
+        name: 'hotfood',
+        meta: {
+          keepAlive: true,
+          requireAuth: true
+        },
+        component: () => import('../views/HotFood')
+      },
+
       {
         path: 'restaurants',
         name: 'restaurants',

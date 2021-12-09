@@ -15,7 +15,7 @@
               storeID: thisFood.storeID,
             },});"
             >{{thisFood.storeName}}</strong><br />
-            <strong class="value">{{thisFood.foodPrice}}</strong>
+            <strong class="value">{{thisFood.foodPrice}}元</strong>
             <a-tooltip
               v-if="!thisFood.hasStared"
               placement="top"

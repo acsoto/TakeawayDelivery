@@ -93,6 +93,17 @@
             所有餐厅
           </router-link>
         </a-menu-item>
+        <a-menu-item
+          key="12"
+          @click="handleClickMenu('商铺','热菜榜单')"
+        >
+          <router-link
+            to="/home/hotfood"
+            replace
+          >
+            热菜榜单
+          </router-link>
+        </a-menu-item>
       </a-sub-menu>
       <!-- <a-sub-menu key="sub3">
         <template v-slot:title>
