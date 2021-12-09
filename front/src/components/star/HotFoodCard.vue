@@ -19,7 +19,7 @@
         </div>
       </div>
       <div style="text-align:center;">
-
+        {{hot_rank}}
 <!--        <a-popconfirm-->
 <!--          title="您确认要取消收藏吗？"-->
 <!--          ok-text="确认"-->
@@ -39,7 +39,7 @@
 <script>
 export default {
 
-  props: ['food'],
+  props: ['food','hot_rank'],
   data() {
     return {
       num: 0,

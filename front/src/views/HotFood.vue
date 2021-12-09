@@ -6,12 +6,13 @@
       </div>
       <div v-else>
         <div
-          v-for="food in hots"
+          v-for="(food,index) in hots"
           :key="food"
         >
           <food-card
             :food="food"
             @getData="getData"
+            :hot_rank="index+1"
           />
         </div>
       </div>
