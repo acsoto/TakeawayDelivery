@@ -21,12 +21,16 @@ def login(request):
     if request.method == "POST":
         data_json = json.loads(request.body)
         username = data_json.get("userName")
-        password = check_password(data_json.get("userPassword"))
+        password = data_json.get("userPassword")
         user = User.objects.filter(user_name=username)
         if len(user) == 0:
             return JsonResponse({"success": False, "message": "用户不存在"})
         if len(user) > 0:
             if (user[0]).user_password == password:
+                (user[0]).user_password = make_password(password)
+                (user[0]).save()
+                return JsonResponse({"success": True, "message": "登录成功，以为您的密码加密", "userID": user[0].user_id})
+            elif (user[0]).user_password == check_password(password):
                 return JsonResponse({"success": True, "message": "登录成功", "userID": user[0].user_id})
             else:
                 return JsonResponse({"success": False, "message": "密码错误", "userID": user[0].user_id})
