@@ -89,6 +89,7 @@ export default defineComponent({
     };
   },
   created() {
+    this.$store.commit('setPath', { name: '系统设置' })
     this.$store.commit('pushPath', { name: '开发团队', to: 'developmentteam' })
   },
   methods: {

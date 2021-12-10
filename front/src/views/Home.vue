@@ -65,10 +65,6 @@ export default {
       path: this.$store.state.path,
     };
   },
-  created() {
-    this.$store.commit('setInitializing', true)
-    this.$router.push('/home/userinfo')
-  },
   methods: {
     handleClickBread(item) {
       this.$store.commit('deletePath', item)

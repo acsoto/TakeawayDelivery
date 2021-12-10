@@ -36,10 +36,7 @@ export default {
     this.getData();
   },
   activated() {
-    if (this.$store.state.change['myOrder']) {
-      this.$store.commit('setChange', { name: 'myOrder', value: false })
-      this.spinning = true
-    }
+    this.spinning = true
     this.$store.commit('setPath', { name: '个人中心' })
     this.$store.commit('pushPath', { name: '我的订单', to: '/home/orderquery' })
     this.getData();

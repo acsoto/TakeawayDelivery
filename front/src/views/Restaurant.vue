@@ -84,7 +84,6 @@ export default {
         else {
           this.$message.success(res.message);
           this.spining = false
-          this.$store.commit('setChange', { name: 'myOrder', value: true })
           this.$router.push({ path: "/home/restaurants" });
         }
       } catch (error) {
