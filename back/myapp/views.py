@@ -1,13 +1,18 @@
 import datetime
+import hashlib
 import json
 from collections import Counter
 
 import torch
+from django.contrib.auth.hashers import make_password, check_password
 from django.http import JsonResponse
 from django.db.models import Sum, Count, Max, Min, Avg
 
 from myapp.forecast import Net, predict
 from myapp.models import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -16,7 +21,7 @@ def login(request):
     if request.method == "POST":
         data_json = json.loads(request.body)
         username = data_json.get("userName")
-        password = data_json.get("userPassword")
+        password = check_password(data_json.get("userPassword"))
         user = User.objects.filter(user_name=username)
         if len(user) == 0:
             return JsonResponse({"success": False, "message": "用户不存在"})
@@ -33,7 +38,7 @@ def register(request):
     if request.method == "POST":
         data_json = json.loads(request.body)
         new_name = data_json.get("userName")
-        new_pwd = data_json.get("userPassword")
+        new_pwd = make_password(data_json.get("userPassword"))
         new_nickname = data_json.get("userNickname")
         new_tel = data_json.get("userTel")
         new_address = data_json.get("userAddress")
