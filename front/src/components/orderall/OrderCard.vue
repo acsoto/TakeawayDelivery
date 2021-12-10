@@ -83,7 +83,7 @@
 
 
 <script>
-import FoodCard from '@/components/orderall/FoodCard'
+import FoodCard from '@/components/FoodCard'
 export default {
 
   props: ['order'],
@@ -109,6 +109,7 @@ export default {
         else {
           this.$message.success(res.message);
           this.thisOrder.orderCompleted = 1;
+          this.$store.commit('setChange', { name: 'orderNow', value: true })
         }
       } catch (error) {
         this.$message.error("网络异常");

@@ -6,7 +6,8 @@ export default createStore({
     username: '',
     islogin: false,
     path: [],
-    initializing: false
+    initializing: false,
+    change: { star: false, orderNow: false, myOrder: false }
   },
   mutations: {
     login(state, user) {
@@ -15,12 +16,12 @@ export default createStore({
       state.userID = user.userID
     },
 
-    setInitializing(state, param) {
-      state.initializing = param
+    setChange(state, param) {
+      state.change[param.name] = param.value
     },
 
-    initializePath(state) {
-      state.path = [{ isFather: true, name: '个人中心', index: 0 }]
+    setInitializing(state, param) {
+      state.initializing = param
     },
 
     setPath(state, param) {

@@ -44,7 +44,11 @@ export default {
   },
   created() {
     this.spinning = true
-    this.getStoreInfo();
+    this.getStoreInfo()
+  },
+  activated() {
+    this.spinning = true
+    this.getStoreInfo()
   },
   methods: {
     async getStoreInfo() {
@@ -80,6 +84,7 @@ export default {
         else {
           this.$message.success(res.message);
           this.spining = false
+          this.$store.commit('setChange', { name: 'myOrder', value: true })
           this.$router.push({ path: "/home/restaurants" });
         }
       } catch (error) {
@@ -90,7 +95,13 @@ export default {
     }
   },
   watch: {
-  },
+    $route(to) {
+      if (to.path == "/home/restaurant") {
+        this.spinning = true
+        this.getStoreInfo()
+      }
+    }
+  }
 }
 </script>
 

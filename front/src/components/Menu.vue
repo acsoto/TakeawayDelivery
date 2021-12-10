@@ -31,10 +31,7 @@
           <UserOutlined />
           <span v-if="collapsed">个人中心</span>
         </template>
-        <a-menu-item
-          key="1"
-          @click="handleClickMenu('个人中心','个人信息')"
-        >
+        <a-menu-item key="1">
           <router-link
             to="/home/userinfo"
             replace
@@ -42,10 +39,7 @@
             个人信息
           </router-link>
         </a-menu-item>
-        <a-menu-item
-          key="2"
-          @click="handleClickMenu('个人中心','我的订单')"
-        >
+        <a-menu-item key="2">
           <router-link
             to="/home/orderquery"
             replace
@@ -53,10 +47,7 @@
             我的订单
           </router-link>
         </a-menu-item>
-        <a-menu-item
-          key="3"
-          @click="handleClickMenu('个人中心','我的最爱')"
-        >
+        <a-menu-item key="3">
           <router-link
             to="/home/userstar"
             replace
@@ -82,10 +73,7 @@
           <ShoppingCartOutlined />
           <span v-if="collapsed">商铺</span>
         </template>
-        <a-menu-item
-          key="11"
-          @click="handleClickMenu('商铺','所有餐厅')"
-        >
+        <a-menu-item key="11">
           <router-link
             to="/home/restaurants"
             replace
@@ -93,10 +81,7 @@
             所有餐厅
           </router-link>
         </a-menu-item>
-        <a-menu-item
-          key="12"
-          @click="handleClickMenu('商铺','热菜榜单')"
-        >
+        <a-menu-item key="12">
           <router-link
             to="/home/hotfood"
             replace
@@ -133,10 +118,7 @@
           <CarOutlined />
           <span v-if="collapsed">订单查询</span>
         </template>
-        <a-menu-item
-          key="16"
-          @click="handleClickMenu('订单查询','我接的单')"
-        >
+        <a-menu-item key="16">
           <router-link
             to="/home/ordernow"
             replace
@@ -144,10 +126,7 @@
             我接的单
           </router-link>
         </a-menu-item>
-        <a-menu-item
-          key="17"
-          @click="handleClickMenu('订单查询','全部订单')"
-        >
+        <a-menu-item key="17">
           <router-link
             to="/home/orders"
             replace
@@ -162,10 +141,7 @@
           <SettingOutlined />
           <span v-if="collapsed">系统设置</span>
         </template>
-        <a-menu-item
-          key="18"
-          @click="handleClickMenu('系统设置','开发团队')"
-        >
+        <a-menu-item key="18">
           <router-link
             to="/home/developmentteam"
             replace
@@ -200,10 +176,6 @@ export default defineComponent({
   methods: {
     handleCollapse() {
       this.collapsed = !this.collapsed;
-    },
-    handleClickMenu(rootName, childName) {
-      if (this.lastChild != childName) this.$store.commit('setPath', { name: rootName })
-      this.lastChild = childName
     },
   },
   components: {

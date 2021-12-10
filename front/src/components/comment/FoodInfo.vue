@@ -92,6 +92,7 @@ export default {
         else {
           this.$message.success(res.message);
           this.thisFood.hasStared = true;
+          this.$store.commit('setChange', { name: 'star', value: true })
         }
       } catch (error) {
         this.$message.error("网络异常");
@@ -106,6 +107,7 @@ export default {
         else {
           this.$message.success(res.message);
           this.thisFood.hasStared = false;
+          this.$store.commit('setChange', { name: 'star', value: true })
         }
       } catch (error) {
         this.$message.error("网络异常");

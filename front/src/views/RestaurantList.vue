@@ -29,6 +29,12 @@ export default {
   },
   created() {
     this.spinning = true
+    this.$store.commit('setPath', { name: '商铺' })
+    this.$store.commit('pushPath', { name: '所有餐厅', to: '/home/restaurants' })
+    this.getStoreList();
+  },
+  activated() {
+    this.$store.commit('setPath', { name: '商铺' })
     this.$store.commit('pushPath', { name: '所有餐厅', to: '/home/restaurants' })
     this.getStoreList();
   },

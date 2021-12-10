@@ -32,16 +32,18 @@
               </a-breadcrumb-item>
             </template>
           </a-breadcrumb>
-          <keep-alive>
-            <router-view v-slot="{ Component }">
-              <transition
-                name="move"
-                mode="out-in"
-              >
+
+          <router-view v-slot="{ Component }">
+            <transition
+              name="move"
+              mode="out-in"
+            >
+              <keep-alive>
                 <component :is="Component" />
-              </transition>
-            </router-view>
-          </keep-alive>
+              </keep-alive>
+            </transition>
+          </router-view>
+
           <div style="text-align: center;margin-top:10px;margin-bottom:20px;">
             ©For the King of Alxa
           </div>
@@ -65,7 +67,6 @@ export default {
   },
   created() {
     this.$store.commit('setInitializing', true)
-    this.$store.commit('initializePath')
     this.$router.push('/home/userinfo')
   },
   methods: {

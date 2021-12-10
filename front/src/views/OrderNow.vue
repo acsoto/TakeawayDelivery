@@ -31,8 +31,18 @@ export default {
   },
   created() {
     this.spinning = true
+    this.$store.commit('setPath', { name: '订单查询' })
     this.$store.commit('pushPath', { name: '我接的单', to: '/home/ordernow' })
     this.getData();
+  },
+  activated() {
+    if (this.$store.state.change['orderNow']) {
+      this.$store.commit('setChange', { name: 'orderNow', value: false })
+      this.spinning = true
+      this.$store.commit('setPath', { name: '订单查询' })
+      this.$store.commit('pushPath', { name: '我接的单', to: '/home/ordernow' })
+      this.getData();
+    }
   },
   methods: {
     async getData() {

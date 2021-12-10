@@ -20,16 +20,16 @@
       </div>
       <div style="text-align:center;">
         {{hot_rank}}
-<!--        <a-popconfirm-->
-<!--          title="您确认要取消收藏吗？"-->
-<!--          ok-text="确认"-->
-<!--          cancel-text="取消"-->
-<!--          @confirm="handleUnstar"-->
-<!--        >-->
-<!--&lt;!&ndash;          <a-button type="primary">&ndash;&gt;-->
-<!--&lt;!&ndash;            详情&ndash;&gt;-->
-<!--&lt;!&ndash;          </a-button>&ndash;&gt;-->
-<!--        </a-popconfirm>-->
+        <!--        <a-popconfirm-->
+        <!--          title="您确认要取消收藏吗？"-->
+        <!--          ok-text="确认"-->
+        <!--          cancel-text="取消"-->
+        <!--          @confirm="handleUnstar"-->
+        <!--        >-->
+        <!--&lt;!&ndash;          <a-button type="primary">&ndash;&gt;-->
+        <!--&lt;!&ndash;            详情&ndash;&gt;-->
+        <!--&lt;!&ndash;          </a-button>&ndash;&gt;-->
+        <!--        </a-popconfirm>-->
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
 <script>
 export default {
 
-  props: ['food','hot_rank'],
+  props: ['food', 'hot_rank'],
   data() {
     return {
       num: 0,

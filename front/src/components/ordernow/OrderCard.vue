@@ -99,7 +99,7 @@
 
 
 <script>
-import FoodCard from '@/components/ordernow/FoodCard'
+import FoodCard from '@/components/FoodCard'
 export default {
 
   props: ['order'],

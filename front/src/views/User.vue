@@ -55,6 +55,10 @@ export default {
     this.spinning = true
     this.getUserInfo();
   },
+  activated() {
+    this.spinning = true
+    this.getUserInfo();
+  },
   methods: {
     async getUserInfo() {
       try {
@@ -110,7 +114,13 @@ export default {
     },
   },
   watch: {
-  },
+    $route(to) {
+      if (to.path == "/home/user") {
+        this.spinning = true
+        this.getUserInfo();
+      }
+    }
+  }
 }
 </script>
 

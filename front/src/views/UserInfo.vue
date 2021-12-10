@@ -77,9 +77,14 @@ export default defineComponent({
   // },
   created() {
     this.spinning = true
+    this.$store.commit('setPath', { name: '个人中心' })
     this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
     this.$store.commit('setInitializing', false)
     this.getUserInfo();
+  },
+  activated() {
+    this.$store.commit('setPath', { name: '个人中心' })
+    this.$store.commit('pushPath', { name: '个人信息', to: '/home/userinfo' })
   },
   methods: {
     // testOnclick() {

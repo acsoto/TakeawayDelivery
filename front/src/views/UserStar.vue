@@ -34,8 +34,18 @@ export default {
   },
   created() {
     this.spinning = true
+    this.$store.commit('setPath', { name: '个人中心' })
     this.$store.commit('pushPath', { name: '我的最爱', to: '/home/userstar' })
     this.getData();
+  },
+  activated() {
+    if (this.$store.state.change['star']) {
+      this.$store.commit('setChange', { name: 'star', value: false })
+      this.spinning = true
+      this.$store.commit('setPath', { name: '个人中心' })
+      this.$store.commit('pushPath', { name: '我的最爱', to: '/home/userstar' })
+      this.getData();
+    }
   },
   methods: {
     async getData() {

@@ -31,6 +31,13 @@ export default {
   },
   created() {
     this.spinning = true
+    this.$store.commit('setPath', { name: '订单查询' })
+    this.$store.commit('pushPath', { name: '全部订单', to: '/home/orders' })
+    this.getData();
+  },
+  activated() {
+    this.spinning = true
+    this.$store.commit('setPath', { name: '订单查询' })
     this.$store.commit('pushPath', { name: '全部订单', to: '/home/orders' })
     this.getData();
   },

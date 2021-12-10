@@ -95,7 +95,7 @@
 
 
 <script>
-import FoodCard from '@/components/myorder/FoodCard'
+import FoodCard from '@/components/FoodCard'
 export default {
 
   props: ['order'],

@@ -55,6 +55,10 @@ export default {
     this.spinning = true
     this.getFoodInfo();
   },
+  activated() {
+    this.spinning = true
+    this.getFoodInfo()
+  },
   methods: {
     async getFoodInfo() {
       try {
@@ -110,7 +114,13 @@ export default {
     },
   },
   watch: {
-  },
+    $route(to) {
+      if (to.path == "/home/food") {
+        this.spinning = true
+        this.getFoodInfo();
+      }
+    }
+  }
 }
 </script>
 
