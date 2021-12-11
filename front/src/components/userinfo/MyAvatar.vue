@@ -105,7 +105,7 @@ export default {
       this.passwordParam.userOldPassword = ""
     },
     async handleIconOk() {
-      if (this.userIconUrl == undefined || this.userIconUrl.trim().length == 0) return this.$message.error("请输入新的头像URL");
+      if (this.iconParam.userIconUrl == undefined || this.iconParam.userIconUrl.trim().length == 0) return this.$message.error("请输入新的头像URL");
       try {
         const { data: res } = await this.$http.post("api/changeInformation/", this.iconParam);
         if (res.success == false) {

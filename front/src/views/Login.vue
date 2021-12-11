@@ -90,6 +90,7 @@ export default {
   display: flex;
   justify-content: center;
   height: 100%;
+  width:100%;
   background-image: url(~@/assets/img/cat.svg);
 }
 
