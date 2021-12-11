@@ -29,7 +29,7 @@ def login(request):
             if (user[0]).user_password == password:
                 (user[0]).user_password = make_password(password)
                 (user[0]).save()
-                return JsonResponse({"success": True, "message": "登录成功，以为您的密码加密", "userID": user[0].user_id})
+                return JsonResponse({"success": True, "message": "登录成功，已为您的密码加密", "userID": user[0].user_id})
             elif check_password(password, (user[0]).user_password):
                 return JsonResponse({"success": True, "message": "登录成功", "userID": user[0].user_id})
             else:
