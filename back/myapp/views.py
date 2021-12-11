@@ -187,7 +187,8 @@ def set_orders(request):
         data_json = json.loads(request.body)
         user_id = data_json.get("userID")
         food_list = data_json.get("foodList")
-        order = Order(order_completed=0, order_user_id=user_id, order_date=datetime.datetime.now())
+        order = Order(order_completed=0, order_user_id=user_id,
+                      order_date=datetime.datetime.now() + datetime.timedelta(hours=8))
         order.save()
 
         for food in food_list:
