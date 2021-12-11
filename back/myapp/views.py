@@ -67,6 +67,19 @@ def register(request):
         JsonResponse({"success": False, "message": "请求异常"})
 
 
+def delete_user(request):
+    if request.method == "POST":
+        data_json = json.loads(request.body)
+        user_id = data_json.get("userID")
+        password = data_json.get("userPassword")
+        user = User.objects.get(user_id=user_id)
+        if check_password(password, user.user_password):
+            user.delete()
+            return JsonResponse({"success": True, "message": "注销成功"})
+        else:
+            return JsonResponse({"success": False, "message": "密码错误"})
+
+
 def fill_order_json(orders):
     orders_json = []
     for order in orders:
@@ -406,16 +419,6 @@ def get_store_information(request):
                              "score": score,
                              "count": count,
                              })
-    else:
-        JsonResponse({"success": False, "message": "请求异常"})
-
-
-def delete_user(request):
-    if request.method == "POST":
-        data_json = json.loads(request.body)
-        user_id = data_json.get("userID")
-        User.objects.get(user_id=user_id).delete()
-        return JsonResponse({"success": True, "message": "注销成功"})
     else:
         JsonResponse({"success": False, "message": "请求异常"})
 
