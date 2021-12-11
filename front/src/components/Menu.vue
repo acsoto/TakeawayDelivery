@@ -55,8 +55,14 @@
             我的最爱
           </router-link>
         </a-menu-item>
-        <a-menu-item key="6">
-          用户注销
+        <a-menu-item
+            key="6"
+            @click="deleteUser"
+        >
+          <router-link to="/login">
+            用户注销
+          </router-link>
+
         </a-menu-item>
         <a-menu-item
           key="7"

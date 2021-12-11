@@ -72,18 +72,21 @@
               <option value="学院路-20公寓">学院路-20公寓</option>
               <option value="沙河校区">沙河校区</option>
             </select>
-            <input
-              class="register-submit"
-              value="注册"
-              readonly
-              @click="checkParam()"
-            >
-            <input
-              class="register-submit"
-              value="返回登陆"
-              readonly
-              @click="back2Welcome()"
-            >
+            <a-button @click="checkParam()" style="width:100%;margin-bottom: 10px" type="primary">注册</a-button>
+<!--            <input-->
+<!--              class="register-submit"-->
+<!--              value="注册"-->
+<!--              readonly-->
+<!--              @click="checkParam()"-->
+<!--            >-->
+            <a-button @click="back2Welcome()" style="width:100%;margin-top: 10px" type="primary">返回登陆</a-button>
+<!--            <input-->
+<!--                -->
+<!--              class="register-submit"-->
+<!--              value="返回登陆"-->
+<!--              readonly-->
+<!--              @click="back2Welcome()"-->
+<!--            >-->
           </form>
         </div>
       </div>
@@ -154,11 +157,11 @@ export default {
 .register-body {
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(to left, #79defd, #ffffff);
+  background-image: url(~@/assets/img/cat.svg);
   height: 100%;
 }
 .register-window {
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255, 0.5);
   width: 600px;
   height: 650px;
   position: relative;
@@ -186,7 +189,6 @@ export default {
   outline: none;
   border: 0;
   padding: 10px;
-  border-bottom: 2px solid rgb(60, 60, 70);
   font: 900 16px bolder;
 }
 .register-submit {
