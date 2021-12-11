@@ -672,7 +672,7 @@ def forecast_arrival_time(order, store_id):
     net_clone = Net()
     net_clone.load_state_dict(torch.load("myapp/model_parameter.pkl"))
     arrival_time = predict(net_clone, deep_learning_list)
-    return arrival_time
+    return round(arrival_time, 2)
 
 
 def forecast_arrival_time_get_address_number(address):
