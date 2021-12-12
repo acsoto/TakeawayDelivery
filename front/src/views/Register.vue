@@ -159,6 +159,8 @@ export default {
   justify-content: center;
   background-image: url(~@/assets/img/cat.svg);
   height: 100%;
+  width:100%;
+
 }
 .register-window {
   background-color: rgb(255, 255, 255, 0.5);
@@ -170,6 +172,7 @@ export default {
   justify-content: center;
   align-items: center;
   top: 20px;
+  margin-top: 40px;
 }
 .register-content {
   width: 350px;
