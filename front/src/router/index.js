@@ -36,16 +36,6 @@ const routes = [
       ),
     children: [
       {
-        path: 'test',
-        name: 'test',
-        meta: {
-          title: '个人中心',
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/test')
-      },
-      {
         path: 'userinfo',
         name: 'userinfo',
         meta: {
@@ -72,7 +62,7 @@ const routes = [
         },
         component: () => import('../views/UserStar')
       },
-        {
+      {
         path: 'hotfood',
         name: 'hotfood',
         meta: {
@@ -119,15 +109,6 @@ const routes = [
         component: () => import('../views/User')
       },
       {
-        path: 'discussion',
-        name: 'discussion',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/Discussion')
-      },
-      {
         path: 'ordernow',
         name: 'ordernow',
         meta: {
@@ -153,33 +134,6 @@ const routes = [
           requireAuth: true
         },
         component: () => import('../views/DevelopmentTeam')
-      },
-      {
-        path: 'template',
-        name: 'template',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/template')
-      },
-      {
-        path: 'discussionme',
-        name: 'discussionme',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/DiscussionMe')
-      },
-      {
-        path: 'mydiscussion',
-        name: 'mydiscussion',
-        meta: {
-          keepAlive: true,
-          requireAuth: true
-        },
-        component: () => import('../views/MyDiscussion')
       }
       // {
       //   path: "",
@@ -190,11 +144,6 @@ const routes = [
       //   component: () => import("")
       // },
     ]
-  },
-  {
-    path: '/zoumadeng',
-    name: 'Zoumadeng',
-    component: () => import('../views/zoumadeng')
   }
   // {
   //   path: "/test",
