@@ -72,21 +72,29 @@
               <option value="学院路-20公寓">学院路-20公寓</option>
               <option value="沙河校区">沙河校区</option>
             </select>
-            <a-button @click="checkParam()" style="width:100%;margin-bottom: 10px" type="primary">注册</a-button>
-<!--            <input-->
-<!--              class="register-submit"-->
-<!--              value="注册"-->
-<!--              readonly-->
-<!--              @click="checkParam()"-->
-<!--            >-->
-            <a-button @click="back2Welcome()" style="width:100%;margin-top: 10px" type="primary">返回登陆</a-button>
-<!--            <input-->
-<!--                -->
-<!--              class="register-submit"-->
-<!--              value="返回登陆"-->
-<!--              readonly-->
-<!--              @click="back2Welcome()"-->
-<!--            >-->
+            <a-button
+              @click="checkParam()"
+              style="width:100%;margin-bottom: 10px"
+              type="primary"
+            >注册</a-button>
+            <!--            <input-->
+            <!--              class="register-submit"-->
+            <!--              value="注册"-->
+            <!--              readonly-->
+            <!--              @click="checkParam()"-->
+            <!--            >-->
+            <a-button
+              @click="back2Welcome()"
+              style="width:100%;margin-top: 10px"
+              type="primary"
+            >返回登陆</a-button>
+            <!--            <input-->
+            <!--                -->
+            <!--              class="register-submit"-->
+            <!--              value="返回登陆"-->
+            <!--              readonly-->
+            <!--              @click="back2Welcome()"-->
+            <!--            >-->
           </form>
         </div>
       </div>
@@ -157,10 +165,10 @@ export default {
 .register-body {
   display: flex;
   justify-content: center;
-  background-image: url(~@/assets/img/cat.svg);
+  background-image: url(../assets/img/Starry.jpg);
   height: 100%;
-  width:100%;
-
+  width: 100%;
+  background-size: 100% 100%;
 }
 .register-window {
   background-color: rgb(255, 255, 255, 0.5);

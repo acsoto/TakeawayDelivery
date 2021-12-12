@@ -18,7 +18,7 @@
           <a-empty description="暂无评论" />
         </div>
       </div>
-      <div v-if="!user.hasCommented&&!user.commentMyself">
+      <div v-if="!user.commentMyself">
         <my-comment
           :comment="comment"
           @handleEvaluate="handleEvaluate"

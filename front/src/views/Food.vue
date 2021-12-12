@@ -18,7 +18,7 @@
           <a-empty description="暂无评论" />
         </div>
       </div>
-      <div v-if="!food.hasCommented">
+      <div>
         <my-comment
           :comment="comment"
           @handleEvaluate="handleEvaluate"

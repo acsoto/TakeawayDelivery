@@ -1,7 +1,7 @@
 <template>
   <div
-      class="login-body"
-      content="width=device-width, initial-scale=1.0"
+    class="login-body"
+    content="width=device-width, initial-scale=1.0"
   >
     <div class="login-window">
       <div class="login-content">
@@ -10,25 +10,29 @@
           <form>
 
             <input
-                type="text"
-                name="userName"
-                class="login-param"
-                placeholder="用户名"
-                required
-                v-model="param.userName"
-                @keyup.enter="submitForm()"
+              type="text"
+              name="userName"
+              class="login-param"
+              placeholder="用户名"
+              required
+              v-model="param.userName"
+              @keyup.enter="submitForm()"
             >
 
             <input
-                type="password"
-                name="userPassword"
-                class="login-param"
-                placeholder="密码"
-                required
-                v-model="param.userPassword"
-                @keyup.enter="submitForm()"
+              type="password"
+              name="userPassword"
+              class="login-param"
+              placeholder="密码"
+              required
+              v-model="param.userPassword"
+              @keyup.enter="submitForm()"
             >
-            <a-button @click="submitForm()" style="width:100%;" type="primary">登录</a-button>
+            <a-button
+              @click="submitForm()"
+              style="width:100%;"
+              type="primary"
+            >登录</a-button>
 
           </form>
         </div>
@@ -66,16 +70,16 @@ export default {
           return this.$message.error(this.paramTitle[i] + "未填写")
       }
       try {
-        const {data: res} = await this.$http.post("api/login/", this.param);
+        const { data: res } = await this.$http.post("api/login/", this.param);
         //console.log(res)
         if (res.success == false) {
           this.$message.error(res.message);
         } else {
-          this.$store.commit("login", {userName: this.param.userName, userID: res.userID});//注意一下，store貌似只能传一个参数，建议传个对象过去。
+          this.$store.commit("login", { userName: this.param.userName, userID: res.userID });//注意一下，store貌似只能传一个参数，建议传个对象过去。
           //获取存入的userID的方式：this.$store.state.userID   (注意是this.$store.state.XXX，千万别落什么东西)
           //console.log(this.$store.state)
           this.$message.success(res.message);
-          this.$router.push({path: "/home"});
+          this.$router.push({ path: "/home" });
         }
       } catch (error) {
         this.$message.error("网络异常");
@@ -90,8 +94,9 @@ export default {
   display: flex;
   justify-content: center;
   height: 100%;
-  width:100%;
-  background-image: url(~@/assets/img/cat.svg);
+  width: 100%;
+  background-image: url(../assets/img/Starry.jpg);
+  background-size: 100% 100%;
 }
 
 .login-window {
