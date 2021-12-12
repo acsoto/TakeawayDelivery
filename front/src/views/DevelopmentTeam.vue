@@ -56,14 +56,14 @@
             style="width:400px;height:300px;"
             src="@/assets/img/3.jpg"
           >
-          zzh
+          wyx
         </div>
         <div>
           <img
             style="width:400px;height:300px;"
             src="@/assets/img/4.jpg"
           >
-          wyx
+          zzh
         </div>
       </a-carousel>
       <!--        <a-carousel arrows dots-class="slick-dots slick-thumb">-->

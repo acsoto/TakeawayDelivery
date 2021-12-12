@@ -155,10 +155,7 @@
             </router-link>
           </a-menu-item>
         </a-sub-menu>
-        <a-menu-item key="19">
-          <CoffeeOutlined/>
-          <span>暂未想好写什么的一栏</span>
-        </a-menu-item>
+
       </a-menu>
 
     </a-layout-sider>
@@ -224,7 +221,7 @@ export default defineComponent({
     ShoppingCartOutlined,
     // CommentOutlined,
     CarOutlined,
-    CoffeeOutlined,
+    // CoffeeOutlined,
     SettingOutlined,
   },
 });
