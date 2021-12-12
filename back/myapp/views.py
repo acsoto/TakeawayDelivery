@@ -328,9 +328,9 @@ def change_password(request):
         data_json = json.loads(request.body)
         user_id = data_json.get("userID")
         user = User.objects.get(user_id=user_id)
-        if user.user_password != data_json.get("userOldPassword"):
+        if check_password(data_json.get("userOldPassword"), user.user_password):
             return JsonResponse({"success": False, "message": "原密码错误"})
-        user.user_password = data_json.get("userPassword")
+        user.user_password = make_password(data_json.get("userPassword"))
         user.save()
         return JsonResponse({"success": True, "message": "修改成功"})
     else:

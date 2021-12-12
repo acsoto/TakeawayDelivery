@@ -1,5 +1,7 @@
 # TakeawayDelivery
 
+前端front依赖安装： yarn install
+
 ## **一．需求分析**
 
 **1.**       **需求描述**
