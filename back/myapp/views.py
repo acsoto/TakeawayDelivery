@@ -128,7 +128,10 @@ def fill_order_json(orders):
         order_json["orderCompleted"] = order.order_completed
         order_json["food"] = foods_json
         order_json["totalPrice"] = count
-        order_json["forecastTime"] = forecast_arrival_time(order, order_json["storeID"])
+        if "storeID" in order_json.keys():
+            order_json["forecastTime"] = forecast_arrival_time(order, order_json["storeID"])
+        else:
+            order_json["forecastTime"] = forecast_arrival_time(order, 1)
         orders_json.append(order_json)
     return orders_json
 
