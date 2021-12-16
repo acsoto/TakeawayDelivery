@@ -100,7 +100,7 @@
 
 ## ER图
 
-![image-20211105151304081](README.assets/image-20211105151304081.png)
+![数据库结构](http://pic.mcatk.com/soto-pictures/2021-12/SRvqwx.png)
 
 ## **数据库逻辑模式设计**
 
