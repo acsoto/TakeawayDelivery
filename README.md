@@ -1,6 +1,6 @@
 # TakeawayDelivery
 
-前端front依赖安装： yarn install
+移动端APP： https://github.com/Qwtdgh/Android
 
 ## **一．需求分析**
 
