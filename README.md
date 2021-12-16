@@ -2,6 +2,8 @@
 
 移动端APP： https://github.com/Qwtdgh/Android
 
+最终答辩PPT： [TakeawayDelivery展示PPT](TakeawayDelivery展示PPT.pdf)
+
 ## **一．需求分析**
 
 **1.**       **需求描述**
